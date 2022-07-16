@@ -31,7 +31,7 @@
 
                         <div class="table-main">
                             <userListNew :header="header" :tableData="tableData"
-                                :no_record_avalible="no_record_avalible" :bulkUserDeleted="bulkDeleted"
+                                :no_record_avalible="no_record_avalible" 
                                 :paginateObj="paginate" :searchkeyword="searchkeyword" :pageCount="pageCount" />
                         </div>
                     </div>
@@ -282,6 +282,7 @@ import ImportCSV from '../../../components/User/import_csv.vue';
 import ImportUserList from '../../../components/User/import_user_list.vue';
 import axios from 'axios';
 
+
 export default {
     layout: 'frontend',
     name: 'UserList',
@@ -304,7 +305,6 @@ export default {
             selectedTab: "user",
             header: [],
             tableData: [],
-            temp_array: [],
             no_record_avalible: "",
             viewDetails: [],
             deletedId: '',
@@ -313,13 +313,14 @@ export default {
             errorToastrHide: true,
             successMessage: "",
             successToastrHide: true,
-            isNext: false,
             paginate: '',
             searchkeyword: '',
             pageCount: '',
             csv_file: '',
             ButtonName: "Import",
-            deletedUserList: []
+            deletedUserList: [],
+            deleteFlag:"",
+            multipleDeleteId:''
         }
     },
     created() {
@@ -347,7 +348,6 @@ export default {
             this.getUserList(value, currentPage);
         },
         setCanMessageSubmit($event) {
-            console.log($event.target.value);
             this.getUserList($event.target.value, 1)
         },
         getUserList(value = "", currentPage = "") {
@@ -355,7 +355,6 @@ export default {
                 .then(async response => {
                     var final = [];
                     this.tableData = [];
-                    //                    console.log(response.data.data.data);
                     response.data.data.data.map(function (value, key) {
                         var title = null;
                         if (value.user_role_relation_ship && value.user_role_relation_ship.role_relation_ship) {
@@ -370,7 +369,6 @@ export default {
                         temp_array.created_at = value.created_at;
                         final.push(temp_array)
                     })
-                    console.log(final);
                     this.tableData = final;
 
                     this.no_record_avalible = response.data.response_msg;
@@ -388,7 +386,7 @@ export default {
             userService.getViewUserDetail(id).then((result) => {
                 this.viewDetails = result.data.data;
             }).catch((err) => {
-                console.error(err);
+               
             });
             this.$refs.addsubcategory.classList.add("slds-fade-in-open");
             this.$refs.addsubcategorybackdrop.classList.add("slds-backdrop_open");
@@ -400,14 +398,37 @@ export default {
         userDelete(id) {
             this.$refs.deleteUserModel.classList.add("slds-fade-in-open");
             this.DeleteId = id;
+            this.deleteFlag  ='single';
         },
         deleteUser() {
-            userService.deleteUser(this.DeleteId).then((result) => {
-                this.getUserList("", 1);
-                this.closeDeleteModel();
-            }).catch((err) => {
-                console.error(err);
-            });
+            console.log(this.deleteFlag)
+            if(this.deleteFlag  =='single'){
+                userService.deleteUser(this.DeleteId).then((result) => {
+                    localStorage.setItem('sucess_msg',result.data.response_msg);
+                    this.successMessage = result.data.response_msg;
+                    this.successToastrShow();
+                    this.getUserList("", 1);
+                    this.closeDeleteModel();
+                    this.bulk_delete_button = true;
+                }).catch((err) => {
+                    this.errorMessage =  err.response.data.response_msg;
+                    this.dangerToasterShow();
+                });
+            }else{
+                userService.bulkUserDelete(this.multipleDeleteId).then((result) => {
+                    localStorage.setItem('sucess_msg',result.data.response_msg);
+                    this.successMessage = result.data.response_msg;
+                    this.getUserList("", 1);
+                    
+                    this.successToastrShow();
+                    this.closeDeleteModel();
+                    this.bulk_delete_button = true;
+                }).catch((err) => {
+                this.errorMessage =  err.response.data.response_msg;
+                    this.dangerToasterShow();
+                });
+            }
+            
         },
         closeDeleteModel() {
             this.$refs.deleteUserModel.classList.remove("slds-fade-in-open");
@@ -422,19 +443,13 @@ export default {
             } else {
                 this.bulk_delete_button = true;
             }
-            this.DeleteId = id;
+            this.multipleDeleteId = id;
         },
 
         BulkDelete() {
-            console.log(this.DeleteId)
-            userService.bulkUserDelete(this.DeleteId).then((result) => {
-                console.log(result);
-                this.getUserList("", 1);
-                this.successMessage = result.data.response_msg;
-                this.successToastrShow();
-            }).catch((err) => {
-                console.error(err);
-            });
+           this.$refs.deleteUserModel.classList.add("slds-fade-in-open");
+            this.deleteFlag  ='multiple';
+            
         },
         successToastrShow() {
             this.successToastrHide = false;
@@ -443,9 +458,7 @@ export default {
 
                 5000);
         },
-        errorClose() {
-            this.errorToastrHide = true;
-        },
+        
         importCSV() {
             this.$refs.importUserModel.classList.add("slds-fade-in-open");
             this.$refs.addimportuserbackdrop.classList.add("slds-fade-in-open");
@@ -461,12 +474,13 @@ export default {
         submitData() {
             document.getElementById("import_csv_error").textContent = "";
             var cnt = 0;
-            console.log(this.csv_file);
+           
             if (!this.csv_file) {
                 document.getElementById("import_csv_error").textContent = "Please select csf file";
                 cnt = 1;
             }
             if (cnt == 0) {
+                
                 let formData = new FormData();
                 formData.append('file', this.csv_file);
                 let API_ENDPOINT = process.env.baseUrl;
@@ -482,6 +496,7 @@ export default {
                 ).then((result) => {
                     this.closeViewImportodel();
                     this.deletedUserList = result.data.data;
+                    console.log(this.deletedUserList)
                     if (result.data.data.length != 0) {
                         this.deletedUserModel();
                     } else {
@@ -501,6 +516,14 @@ export default {
 
             }
         },
+        dangerToasterShow() {
+
+            this.errorToastrHide = false;
+            setTimeout(() => this.errorToastrHide = true, 5000);
+        },
+        errorClose() {
+            this.errorToastrHide = true;
+        },
         deletedUserModel() {
             this.$refs.deletedUserModel.classList.add("slds-fade-in-open");
             this.$refs.import_user_list_drop.classList.add("slds-fade-in-open");
@@ -510,21 +533,26 @@ export default {
             this.$refs.deletedUserModel.classList.remove("slds-fade-in-open");
             this.$refs.import_user_list_drop.classList.remove("slds-fade-in-open");
         },
-        bulkDeleted() {
-
-        },
+        
         reactiveUserModel: function (id) {
             userService.activeUser({ id: id }).then((result) => {
                 this.getUserList("", 1);
                 this.successMessage = result.data.response_msg;
                 this.successToastrShow();
                 document.getElementById(id).remove();
+                var remainingRow = document.getElementsByClassName('all-row-count').length;
+                 
+                if(remainingRow ==0){
+                    this.closeReactiveModel();
+                }
             }).catch((err) => {
-                console.error(err);
+             this.errorMessage = err.response.data.response_msg;
+
+                    this.dangerToasterShow();
             });
         },
         successClose: function () {
-            this.successToastrHide = true
+            this.successToastrHide = true;
         }
     }
 

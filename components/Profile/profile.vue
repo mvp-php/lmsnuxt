@@ -138,9 +138,6 @@ export default {
             var output = document.getElementById('profiles');
             output.src = '/_nuxt/assets/img/svg/avtar1.svg';
         },
-        uploadImage(files){
-
-        }
     }
 
 }

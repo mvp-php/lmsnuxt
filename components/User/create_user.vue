@@ -40,7 +40,7 @@
             <div class="slds-form-element__control custom-grid-control mb-20">
                 <select v-model="theUser.role_id" class="slds-select custom-grid-input" @change="ChangeRole($event)">
                     <option value="">Select Role</option>
-                    <option v-for="roles in rolelist" :value="roles.id" :data-flag="`${roles.flag}`" :data-option="`${roles.is_system_role}`">
+                    <option v-for="roles in rolelist"   :key="roles.id" :value="roles.id" :data-flag="`${roles.flag}`" :data-option="`${roles.is_system_role}`">
                         {{ roles.title }}
                     </option>
 
@@ -146,7 +146,7 @@ export default {
                 if (systemText == 'Student' && systemRole == 1) {
                     this.hides = false;
                     this.hidesins = false;
-                } else if (systemText == 'Instuctor' && systemRole == 1) {
+                } else if (systemText == 'Instructor' && systemRole == 1) {
                     this.hides = true;
                     this.hidesins = false;
                 } else {

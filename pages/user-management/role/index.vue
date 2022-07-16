@@ -188,6 +188,7 @@ export default {
             viewDetails: [],
             bulk_delete_button: true,
             deletedId: "",
+            multipleDeleteId:'',
             errorMessage: "",
             errorToastrHide: true,
             successMessage: "",
@@ -195,6 +196,7 @@ export default {
             paginate: '',
             searchkeyword: '',
             pageCount: '',
+            deleteFlag:''
 
         }
     },
@@ -213,7 +215,6 @@ export default {
     methods: {
         successM() {
             const ISSERVER = typeof window === "undefined";
-
             if (!ISSERVER) {
                 var msh = localStorage.getItem('sucess_msg');
                 if (msh) {
@@ -238,7 +239,23 @@ export default {
 
             roleService.getRoleList(page, value)
                 .then(async response => {
-                    this.tableData =response.data.data.data;
+                    var final = [];
+                    this.tableData = [];
+                  
+                    response.data.data.data.map(function (value, key) {
+                         var temp_array = {};
+                        temp_array.key = '';
+                        temp_array.id = value.id;
+                        temp_array.title = value.title;
+                        temp_array.no_of_user = value.no_of_user;
+                       
+                        temp_array.created_at = value.created_at;
+                         temp_array.is_system_role = value.is_system_role;
+                        final.push(temp_array)
+                    })
+
+                    
+                    this.tableData =final;
                     this.no_record_avalible = response.data.response_msg
                     this.paginate = response.data.data;
                     this.pageCount = response.data.data.data.length;
@@ -266,19 +283,37 @@ export default {
 
             this.$refs.deleteRoleModel.classList.add("slds-fade-in-open");
             this.DeleteId = id;
+            this.deleteFlag='single';
 
         },
         deleteRole() {
-            roleService.deleteRole(this.DeleteId).then((result) => {
+            if(this.deleteFlag  =='single'){
+                roleService.deleteRole(this.DeleteId).then((result) => {
                
-                localStorage.setItem('sucess_msg',result.data.response_msg);
-                this.successMessage = result.data.response_msg;
-                this.successToastrShow();
-                this.getRoleList(1, "");
-                this.closeDeleteModel();
-            }).catch((err) => {
-                console.error(err);
-            });
+                    localStorage.setItem('sucess_msg',result.data.response_msg);
+                    this.successMessage = result.data.response_msg;
+                    this.successToastrShow();
+                    this.getRoleList(1, "");
+                    this.closeDeleteModel();
+                     this.bulk_delete_button = true;
+                }).catch((err) => {
+                    this.errorMessage =  err.response.data.response_msg;
+                    this.dangerToasterShow();
+                });
+            }else{
+                roleService.bulkRoleDelete(this.multipleDeleteId).then((result) => {
+                    this.getRoleList(1, "");
+                    this.successMessage = result.data.response_msg;
+                    this.successToastrShow();
+                  this.bulk_delete_button = true;
+                }).catch((err) => {
+                     this.errorMessage =  err.response.data.response_msg;
+                    this.dangerToasterShow();
+                });
+                
+            }
+              
+            this.closeDeleteModel();
         },
         closeDeleteModel() {
             this.$refs.deleteRoleModel.classList.remove("slds-fade-in-open");
@@ -292,28 +327,28 @@ export default {
             } else {
                 this.bulk_delete_button = true;
             }
-            this.deletedId = id;
+            this.multipleDeleteId = id;
         },
         BulkDelete() {
-            roleService.bulkRoleDelete(this.deletedId).then((result) => {
-                this.getRoleList(1, "");
-                this.successMessage = result.data.response_msg;
-                this.successToastrShow();
-            }).catch((err) => {
-                console.error(err);
-            });
+            this.$refs.deleteRoleModel.classList.add("slds-fade-in-open");
+            this.deleteFlag='multiple'; 
         },
         successToastrShow: function () {
             this.successToastrHide = false;
-            setTimeout(function () {
-                this.successToastrHide = true;
-            }, 3000);
-
         },
-        
+       
         successClose: function () {
             localStorage.removeItem('sucess_msg');
             this.successToastrHide = true
+        },
+
+        dangerToasterShow() {
+
+            this.errorToastrHide = false;
+            setTimeout(() => this.errorToastrHide = true, 5000);
+        },
+        errorClose() {
+            this.errorToastrHide = true;
         }
 
     }

@@ -16,7 +16,7 @@
             </thead>
 
             <tbody>
-<tr aria-selected="false" class="slds-hint-parent" v-for="(item, key) in deletedUserList" :key="item.id"  :id="`${item.id}`">
+<tr aria-selected="false" class="slds-hint-parent all-row-count" v-for="(item, key) in deletedUserList" :key="item.id"  :id="`${item.id}`">
                     <td class="slds-cell_action-mode slds-pl-20" role="gridcell">{{ key + 1 }}</td>
                     <td class="slds-cell_action-mode" role="gridcell">{{ item.first_name }}</td>
                     <td class="slds-cell_action-mode" role="gridcell">{{ item.last_name }}</td>

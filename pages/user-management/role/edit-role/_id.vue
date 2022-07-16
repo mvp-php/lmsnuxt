@@ -12,7 +12,7 @@
                         Edit A Role
                     </div>
                     <form v-on:submit.prevent="submitData">
-                        <EditRole :the-user="user" :selectedPermission="selectedPermission" />
+                        <EditRole :the-user="user"/>
                         <div class="btn-align-end">
                             <ButtonComponent type="submit" class="slds-button slds-button_brand btnmain blue-btn ml-10"
                                 :buttonName="ButtonName" />

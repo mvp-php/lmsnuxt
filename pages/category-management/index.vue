@@ -1,38 +1,43 @@
 <template>
     <span>
-
         <div class="content">
-            <div class="manage-flex-just mb-20">
-                <p class="page-title ">MANAGE CATEGORIES </p>
-                <div class="btn-align-end manage-top-button-serach">
-                    <div class="slds-form-element">
-                        <div class="slds-form-element__control search-inp-control">
-                            <input type="text" id="text-input-id-50" placeholder="Search role here…"
-                                class="slds-input search-inp" v-on:keyup="searchText($event)" />
-                        </div>
-                    </div>
-                    <router-link id="add-category-btn" to="category-management/create-category" class="slds-button slds-button_brand btnmain blue-btn ml-10" >
-                        Add Major Category
-                    </router-link>
-                    <button class="slds-button slds-button_brand btnmain light-blue-btn ml-10" href="javascript:void(0)"
-                        @click="BulkDelete()" v-if="!bulk_delete_button">Delete
-                        Category</button>
-                </div>
-            </div>
-
+            <p class="page-title mb-20">MANAGE CATEGORIES</p>
             <div class="main-card">
                 <div class="tab-main">
-                    <!-- table component -->
-                    <Category :header="header" :tableData="tableData" :no_record_avalible="no_record_avalible"
+                    <div class="btn-align-end">
+                        <div class="slds-form-element">
+                            <div class="slds-form-element__control search-inp-control">
+
+                                <input type="text" id="text-input-id-50" placeHolder="Search category here…"
+                                    class="slds-input search-inp" v-on:keyup="searchText($event)" />
+
+
+                            </div>
+                        </div>
+                        <nuxt-link to="/category-management/create-category"
+                            class="slds-button slds-button_brand btnmain blue-btn ml-10">
+                            Add Major Category</nuxt-link>
+
+                       
+                        <button class="slds-button slds-button_brand btnmain light-blue-btn ml-10"
+                            href="javascript:void(0)" @click="BulkDelete()" v-if="!bulk_delete_button">Delete
+                            User</button>
+                    </div>
+                    <div class="slds-tabs_default cus-tab-default">
+
+             
+
+                        <div class="table-main">
+                           <Category :header="header" :tableData="tableData" :no_record_avalible="no_record_avalible"
                         :paginateObj="paginate" :searchkeyword="searchkeyword" :pageCount="pageCount" />
-                    <!-- table component -->
-
-
+                        </div>
+                    </div>
 
                 </div>
+
             </div>
         </div>
-        <successToastrVue :success-message="successMessage" id="successMsg" class="successMsg" v-if="!hides"
+        <successToastrVue :success-message="successMessage" id="successMsg" class="successMsg" v-if="!successToastrHide"
             ref="successNewMsg" />
 
         <!-- view model -->
@@ -92,7 +97,7 @@
                                     <div class="img-section-manage mb-16px">
                                         <div class="img-tag-thumnails">
                                             <span v-if="viewModelData.image">
-                                                <img v-bind:src="viewModelData.image" alt="Category Image">
+                                                <img :src="viewModelData.image" alt="Category Image">
                                             </span>
                                             <span v-else>
                                                 <img src="../../assets/img/img-manage.png" alt="Image">
@@ -156,53 +161,32 @@
             </section>
             <div class="slds-backdrop" role="presentation" id="delete-modal-backdrop">
             </div>
-        </div>
+        </div>  
         <!-- delete model -->
         <errorToastr :errorMessage="errorMessage" v-if="!error_hide" />
     </span>
 </template>
 <script>
 import Category from '../../components/Category/category.vue';
-import Dropzone from '../../components/element/Dropzone.vue';
-import FormTextBoxField from '../../components/element/formTextBoxField.vue';
-import FormTextareaField from '../../components/element/textArea.vue';
-import FormButton from '../../components/element/formButton.vue';
 import CategoryService from '../../components/Service/CategoryService';
 import successToastrVue from '../../components/element/successToastr.vue';
 import errorToastr from '../../components/element/errorToastr.vue';
 import SubcategoryService from '../../components/Service/SubcategoryService';
 export default {
     layout: 'frontend',
-    name: 'UserForm',
-    props: ['theUser'],
-    categoryName: null,
-    dropzoneImage: null,
-    categoryDescription: null,
+    name: 'category-list',
+
     components: {
         Category,
-        Dropzone,
-        FormTextBoxField,
-        FormTextareaField,
-        FormButton,
         successToastrVue,
         errorToastr
     },
     data() {
         return {
-            user: {},
-            categoryAllData: [],
             successMessage: '',
-
-
-            newCategoryName: null,
-            newCategoryDescription: null,
-            newDropzoneImage: null,
-            subCatImage: null,
             errorMessage: '',
-            hides: true,
             error_hide: true,
             DeleteId: '',
-            selectedCategory: null,
             header: [],
             tableData: [],
             no_record_avalible: "",
@@ -210,37 +194,33 @@ export default {
             searchkeyword: '',
             pageCount: '',
             bulk_delete_button: true,
-            categoryData: {
-                categoryName: '',
-                categoryDescription: '',
-                dropzoneImage: '',
-            },
-            editModelData: {
-                newCategoryName: '',
-                newCategoryDescription: '',
-                newDropzoneImage: '',
-            },
-            viewModelData: {
-                categoryeditName: '',
-                categoryeditDescription: '',
-                dropzoneeditImage: '',
-            },
-            subCategoryData: {
-                majorCategory: '',
-                subCategoryName: '',
-                subCategoryDescription: '',
-                subCatImage: '',
-            },
+            successToastrHide:true,
+            viewModelData:[],
+            categoryData: {},
+            deleteFlag:'',
+            multipleDelete:''
         }
     },
     created() {
         this.header = ["", 'Sr No.', 'Category Name', 'Category Description', 'Created On', 'Add Sub Category', 'Action'];
         this.getAllCatData(1)
+        this.successSMG();
     },
     mounted() {
 
     },
     methods: {
+        successSMG(){
+            const ISSERVER = typeof window === "undefined";
+
+            if (!ISSERVER) {
+                var msh = localStorage.getItem('sucess_msg');
+                if (msh) {
+                    this.successMessage = msh;
+                    this.successToasterShow();
+                }
+            }
+        },
         searchText($event) {
 
             this.getAllCatData(1, $event.target.value,)
@@ -261,10 +241,13 @@ export default {
             document.getElementById("add_category_form").reset();
         },
         successToasterShow() {
-            this.hides = false;
-            setTimeout(() => this.hides = true, 5000);
+            this.successToastrHide = false;
+            setTimeout(() => this.successToastrHide = true, 5000);
         },
-        
+        successClose: function () {
+            localStorage.removeItem('sucess_msg');
+            this.successToastrHide = true
+        },
         errorToastrShow() {
             this.error_hide = false;
             setTimeout(() => this.error_hide = true, 5000);
@@ -279,11 +262,26 @@ export default {
 
             CategoryService.getCategoryList(value, page).then(
                 function (response) {
-                    this.tableData = response.data.data.data;
+                    var final = [];
+                    this.tableData = [];
+                    response.data.data.data.map(function (value, key) {
+                       
+                        var temp_array = {};
+                        temp_array.key = '';
+                        temp_array.id = value.id;
+                        temp_array.title = value.title;
+                        temp_array.description = value.description;
+                        temp_array.created_at = value.created_at;
+                        temp_array.parent_category_id = value.parent_category_id;
+                        final.push(temp_array)
+                    })
+                    this.tableData = final;
+
+                   
                     this.no_record_avalible = response.data.response_msg
                     this.paginate = response.data.data;
 
-                    this.pageCount = page;
+                    this.pageCount =  response.data.data.data.length;
                     this.searchkeyword = value;
                 }.bind(this)
             );
@@ -305,7 +303,7 @@ export default {
             this.$refs.openViewModelNewbackdrop.classList.remove("slds-backdrop_open");
         },
         viewEditPage: function (id) {
-            this.$router.push({ path: "/category-management/edit-category/" + id });
+            this.$router.push({ path: "/category-management/edit/" + id });
         },
         userEdit(id) {
             CategoryService.getEditDetails(id).then((result) => {
@@ -313,14 +311,10 @@ export default {
                 this.$refs.editcategory.classList.add("slds-fade-in-open");
                 this.$refs.editcategorybackdrop.classList.add("slds-backdrop_open");
             }).catch((err) => {
-                this.errorMessage = err.response.data.error_msg;
+                this.errorMessage = err.response.data.response_msg;
                 this.errorToastrShow();
             });
 
-        },
-        closeEditModel() {
-            this.$refs.editcategory.classList.remove("slds-fade-in-open");
-            this.$refs.editcategorybackdrop.classList.remove("slds-backdrop_open");
         },
         
         getPaginatesMain: function (currentPage, value) {
@@ -329,44 +323,48 @@ export default {
         userDelete(id) {
             this.$refs.deleteCategoryModel.classList.add("slds-fade-in-open");
             this.DeleteId = id;
+            this.deleteFlag  ='single';
         },
         closeDeleteModel() {
             this.$refs.deleteCategoryModel.classList.remove("slds-fade-in-open");
         },
         deleteCategory() {
-            CategoryService.deleteCategory(this.DeleteId).then((result) => {
-                this.$router.push({ name: 'category-management' })
-                    this.closeDeleteModel();
-                    this.getAllCatData();
+            if(this.deleteFlag  =='single'){
+                CategoryService.deleteCategory(this.DeleteId).then((result) => {
+                   
+                    localStorage.setItem('sucess_msg',result.data.response_msg);
                     this.successMessage = result.data.response_msg;
-                    this.successToasterShow();
-            }).catch((err) => {
-               this.errorMessage = err.response.data.error_msg;
-                this.errorToastrShow();
-            });
-            event.preventDefault();
+                    this.successToastrShow();
+                   
+                    this.closeDeleteModel();
+                    this.getAllCatData(1, "");
+                       
+                }).catch((err) => {
+                 
+                    this.errorMessage = err.response.data.response_msg;
+                    this.errorToastrShow();
+                });
+            }else{
+                CategoryService.bulkCategoryDelete(this.multipleDelete).then((result) => {
+                     localStorage.setItem('sucess_msg',result.data.response_msg);
+                    this.successMessage = result.data.response_msg;
+                    this.successToastrShow();
+                   
+                    this.closeDeleteModel();
+                    this.getAllCatData(1, "");
+                }).catch((err) => {
+                   this.errorMessage = err.response.data.response_msg;
+                    this.errorToastrShow();
+                });
+            }
+           
 
         },
-        mainOpenMainSubCategory(id) {
-             this.$router.push({ path: "/sub-category/" + id });
-            // CategoryService.getCategoryListNew().then(
-            //     function (response) {
-            //         this.categoryAllData = response.data.data;
-
-            //     }.bind(this)
-
-            // );
-
-            // this.selectedCategory = id;
-
-
-            // this.$refs.addsubcategory.classList.add("slds-fade-in-open");
-            // this.$refs.addsubcategorybackdrop.classList.add("slds-backdrop_open");
-        },
+       
         closeSubCategoryModel() {
             this.$refs.addsubcategory.classList.remove("slds-fade-in-open");
             this.$refs.addsubcategorybackdrop.classList.remove("slds-backdrop_open");
-        },
+        },  
         addSubCategory(e) {
 
             document.getElementById("majorCategoryerror").textContent = "";
@@ -403,25 +401,19 @@ export default {
             } else {
                 this.bulk_delete_button = true;
             }
-            this.deletedId = id;
+            this.multipleDelete = id;
+         
         },
-        mainOpenMainSubCategory:function(id){
-             this.$router.push({ path: 'SubCategory/' + id });
+        
+        BulkDelete() {
+             this.$refs.deleteCategoryModel.classList.add("slds-fade-in-open");
+            this.deleteFlag  ='multiple';
+            
+        },
+       mainOpenMainSubCategory:function(id){
+            this.$router.push({ path: "/sub-category/" + id });
              
         },
-        BulkDelete() {
-            CategoryService.bulkCategoryDelete(this.deletedId).then((result) => {
-                console.log(result);
-                this.getAllCatData(1, "");
-                this.successMessage = result.data.error_msg;
-                this.successToasterShow();
-            }).catch((err) => {
-                console.error(err);
-            });
-        },
-        successClose:function(){
-            this.successToastrHide = true
-        }
 
     }
 }

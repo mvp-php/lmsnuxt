@@ -1,11 +1,9 @@
 <template>
-
-    <span class="slds-roll-table">
-        {{ tableData}}
+    <span class="slds-category-table">
+      
+      <dataTable :header="header" :tableData="tableData" :no_record_avalible="no_record_avalible" :paginateObjs="paginateObj" url="/user-management/role" :searchKeyword="searchkeyword" :pageCount="pageCount" />
     </span>
-
 </template>
-
 <script>
 import dataTable from '../element/dataTable.vue';
 export default {
@@ -29,6 +27,13 @@ export default {
         },
         bulkDeleted: function(keyDelete){
             this.$parent.bulkDeleteds(keyDelete);
+        },
+        getsOpenSubcategoryModel :function(id){
+            console.log(id);
+            this.$parent.mainOpenMainSubCategory(id);
+        },
+        editMethod:function(id){
+            this.$parent.viewEditPage(id);
         }
     }
     

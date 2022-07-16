@@ -43,7 +43,7 @@
             <div class="slds-form-element__control custom-grid-control mb-20">
                 <select v-model="theUser.role_id" class="slds-select custom-grid-input" @change="ChangeRole($event)">
                     <option value="">Select Role</option>
-                    <option v-for="roles in rolelist" :value="roles.id" :data-option="`${roles.is_system_role}`" :data-flag="`${roles.flag}`">
+                    <option v-for="roles in rolelist" :key="roles.id" :value="roles.id" :data-option="`${roles.is_system_role}`" :data-flag="`${roles.flag}`">
                         {{ roles.title }}
                     </option>
 
@@ -61,7 +61,7 @@
                 <div class="slds-form-element__control custom-grid-control mb-20">
                     <select v-model="theUser.entity_id" class="slds-select custom-grid-input" @change="ChangeEntity()">
                         <option value="">Select Membership</option>
-                        <option v-for="plan in paymentPlan" :value="plan.id">
+                        <option v-for="plan in paymentPlan" :key="plan.id" :value="plan.id">
                             {{ plan.title }}
                         </option>
 
@@ -140,20 +140,21 @@ export default {
             minTil:moment().format('YYYY-MM-DD')
         }
     },
-    props: ['theUser', 'roleTitles', 'rolelist', 'paymentPlan', 'userForm', 'systemFlag','user_id'],
+    props: ['theUser', 'rolelist', 'paymentPlan'],
     mounted(){
+       
       setTimeout(() =>
-                this.GetRes(),
+                this.selectedRole(),
 
                 1000);
     },
     methods: {
-        GetRes(){
+        selectedRole(){
            
-            if(this.theUser.user_role_relation_ship.role_relation_ship.flag =='Student' && this.theUser.user_role_relation_ship.role_relation_ship.is_system_role ==1){
+            if( this.theUser.user_role_relation_ship.role_relation_ship.flag =='Student' && this.theUser.user_role_relation_ship.role_relation_ship.is_system_role ==1){
                  this.hides = false;
                     this.hidesins = false;
-            } else if (this.theUser.user_role_relation_ship.role_relation_ship.flag == 'Instuctor' && this.theUser.user_role_relation_ship.role_relation_ship.is_system_role == 1) {
+            } else if (this.theUser.user_role_relation_ship.role_relation_ship.flag == 'Instructor' && this.theUser.user_role_relation_ship.role_relation_ship.is_system_role == 1) {
                     this.hides = true;
                     this.hidesins = false;
                 } else {
@@ -162,6 +163,7 @@ export default {
                 }
         },
         ChangeRole(e) {
+           
             if (e.target.options.selectedIndex > -1) {
                 var systemRole = e.target.options[e.target.options.selectedIndex].dataset.option;
                 var systemText = e.target.options[e.target.options.selectedIndex].dataset.flag;
@@ -170,7 +172,7 @@ export default {
                     this.hides = false;
                     this.hidesins = false;
                     
-                } else if (systemText == 'Instuctor' && systemRole == 1) {
+                } else if (systemText == 'Instructor' && systemRole == 1) {
                     this.hides = true;
                     this.hidesins = false;
                 } else {
@@ -185,11 +187,9 @@ export default {
             }
 
         },
-        getCanges:function(){
-            console.log("Rere");
-        },
+       
         handleInput() {
-            // console.log($event.keyCode); //keyCodes value
+           
             let keyCode = (event.keyCode ? event.keyCode : event.which);
             if (this.theUser.amount) {
                 if ((keyCode < 48 || keyCode > 57) && (keyCode !== 46 || this.theUser
@@ -197,13 +197,12 @@ export default {
                     event.preventDefault();
                 }
 
-                // restrict to 2 decimal places
                 if (this.theUser.amount != null && this.theUser.amount.indexOf(".") > -1 && (this.theUser.amount.split('.')[1].length > 1)) {
                     event.preventDefault();
                 }
                 document.getElementById("amount_error").textContent = "";
             }
-            // only allow number and one dot
+          
 
         },
         checkInput: function () {

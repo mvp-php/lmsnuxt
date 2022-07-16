@@ -24,9 +24,14 @@ export default {
             //hidessucces: true,
         }
     },
+    mounted(){
+        if(this.successMessage){
+           setTimeout(() =>this.successToasterHide(),3000);
+        }
+    },
     methods: {
         successToasterHide() {
-            this.$parent.successClose()
+            this.$parent.successClose();
         }
     }
 }

@@ -12,8 +12,8 @@
                         Edit A User
                     </div>
                     <form v-on:submit.prevent="submitData">
-                        <EditUser :the-user="user"  :roleTitles="roleTitle"  :systemFlag="systemFlag"  :rolelist="allRoleList" :paymentPlan="paymentPlan"
-                            :userForm="userForm" />
+                        <EditUser :the-user="user" :rolelist="allRoleList" :paymentPlan="paymentPlan"
+                           />
                         <div class="btn-align-end">
                             <ButtonComponent type="submit" class="slds-button slds-button_brand btnmain blue-btn ml-10"
                                 :buttonName="ButtonName" />
@@ -61,18 +61,15 @@ export default {
     data() {
         return {
             user: {},
-            ButtonName: "Save User",
+            ButtonName: "Update User",
             errorMessage: "",
             classObj: 'arrow-left',
             hides: true,
-            hidessucces: true,
-            successMessage: "",
             allRoleList: [],
             paymentPlan: [],
             dangerHide: true,
             userForm: [],
-            roleTitle:'',
-            systemFlag:''
+            
         };
     },
     mounted() {
@@ -107,9 +104,6 @@ export default {
         getUserDetails() {
             userService.getUserDetails(this.$route.params.id).then(response => {
                 this.loading = false;
-                this.userForm = response.data.data;
-                this.roleTitle=response.data.data.title;
-                this.systemFlag=response.data.data.is_system_role;
                 
                 this.user = response.data.data[0];
                 this.user.role_id = response.data.data[0].user_role_relation_ship.role_relation_ship.id;
@@ -207,8 +201,7 @@ export default {
             if (cnt == 0) {
                 userService.updateUser(this.user, this.$route.params.id)
                     .then((result) => {
-                        console.log(result)
-
+                       localStorage.setItem('sucess_msg',result.data.response_msg);
                         this.$router.push({ path: '/user-management/user' });
                     }).catch(error => {
 

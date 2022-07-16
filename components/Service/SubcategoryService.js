@@ -13,7 +13,7 @@ class SubcategoryService {
     }
 
     updateCategory(data) {
-        return http.post(`/update-category`, data, { headers: authHeader() });
+        return http.post(`/update-sub-category`, data, { headers: authHeader() });
     }
 
     deleteCategory(id) {

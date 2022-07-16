@@ -18,15 +18,16 @@
         </div>
     </div>
 
-    <div v-for="item in EntitiesList" :key="item">
-    <div class="slds-form-element check-element-main mb-35" v-for="(value, key) in item" :key="value">
+    <div v-for="item in EntitiesList" :key="item.id">
+  
+    <div class="slds-form-element check-element-main mb-35" v-for="(value, key) in item" :key="value.id">
         <label class="slds-form-element__label custom-label" for="textarea-id-01">{{ key }}
             <span class="require-danger">*</span>
         </label>
     
         <div class="check-boxes" >
         
-            <div class="slds-form-element  check-element-inner" v-for="operation in value" :key="operation">
+            <div class="slds-form-element  check-element-inner" v-for="operation in value" :key="operation.id">
                 <div class="slds-form-element__control">
                     <div class="slds-checkbox role-check-main">
                          <input type="checkbox" v-model="theUser.permission" :id="`${operation.id}`"

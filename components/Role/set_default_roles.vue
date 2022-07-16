@@ -6,7 +6,7 @@
         <div class="slds-form-element__control custom-grid-control mb-20">
            <select v-model="theUser.admin" class="slds-select custom-grid-input">
                         <option value="">Select Default Role</option>
-                        <option v-for="plan in role_list" :key="plan.id"  :value="plan.id" :selected="true">
+                        <option v-for="plan in allRoleList" :key="plan.id"  :value="plan.id" :selected="true">
                             {{ plan.title }}
                         </option>
 
@@ -20,7 +20,7 @@
         <div class="slds-form-element__control custom-grid-control mb-20">
            <select v-model="theUser.student" class="slds-select custom-grid-input">
                         <option value="">Select Default Role</option>
-                        <option v-for="plan in role_list" :key="plan.id"  :value="plan.id">
+                        <option v-for="plan in allRoleList" :key="plan.id"  :value="plan.id">
                             {{ plan.title }}
                         </option>
 
@@ -34,7 +34,7 @@
         <div class="slds-form-element__control custom-grid-control mb-20">
             <select v-model="theUser.instructor" class="slds-select custom-grid-input">
                         <option value="">Select Default Role</option>
-                        <option v-for="plan in role_list" :key="plan.id"  :value="plan.id" >
+                        <option v-for="plan in allRoleList" :key="plan.id"  :value="plan.id" >
                             {{ plan.title }}
                         </option>
 
@@ -54,6 +54,7 @@
 
 <script>
 import Labels from '../../components/element/formLabel.vue';
+import RoleDataService from "../../components/Service/RoleDataService";
 
 export default {
   name: 'create-role',
@@ -61,14 +62,50 @@ export default {
    Labels
   },
   
-  props: ['theUser','role_list'],
-  created(){
-    this.getselected();
+  props: ['theUser'],
+  data(){
+    return {
+        allRoleList:[]
+    }
+  },
+  mounted(){
+    this.getRoleList();
   },
   methods: {
-        getselected(){
-            console.log(this.role_list);
-        }
+        getRoleList() {
+
+            RoleDataService.getAllRoleList().then(response => {
+
+                this.allRoleList = response.data.data;
+           
+                var admin = '';
+                var instructors = '';
+                var students='';
+
+               this.allRoleList.map(function(v,k){
+                    console.log(v.flag+'===='+v.id)
+                    if(v.flag =='Admin'){
+                        
+                        admin = v.id;
+                    }
+                    if(v.flag =='Student'){
+                        
+                        students = v.id;
+                    }
+                    if(v.flag =='Instructor'){
+                        
+                        instructors = v.id;
+                    }
+               });
+
+               this.theUser.admin = admin;
+               this.theUser.student = students;
+               this.theUser.instructor = instructors;
+            }).catch(e => {
+             
+            });
+
+        },
   }
 }
 </script>

@@ -33,11 +33,12 @@
 import imageComponent from '../../../components/element/image.vue';
 import SetDefaultRole from '../../../components/Role/set_default_roles.vue';
 
-import RoleDataService from "../../../components/Service/RoleDataService";
+
 
 import ButtonComponent from '../../../components/element/formButton.vue';
 import errorToastr from '../../../components/element/errorToastr.vue';
 
+import RoleDataService from "../../../components/Service/RoleDataService";
 export default {
     layout: 'frontend',
     components: {
@@ -59,61 +60,23 @@ export default {
     data() {
         return {
             user: {
-                admin: '',
-                student: '',
-                instructor: ''
+              
+
             },
             selected: '',
-            ButtonName: "Save Role",
+            ButtonName: "Save Default Role",
             errorMessage: "",
             classObj: 'arrow-left',
-            hides: true,
-            hidessucces: true,
-            successMessage: "",
-
             allRoleList: [],
-
             dangerHide: true,
-            selectedArray: ''
         };
     },
     mounted() {
-        this.getRoleList();
-        this.selected = "Admin";
+       
     },
 
     methods: {
-        getRoleList() {
-
-            RoleDataService.getAllRoleList().then(response => {
-
-                this.allRoleList = response.data.data;
-                response.data.data.map(function (value, key) {
-                    console.log(value.flag);
-                    this.instructor = '';
-                    this.student = '';
-                    this.admin = '';
-                    if (value.is_system_role == 1) {
-                        if (value.flag == 'Instuctor') {
-                            this.instructor = value.id;
-                        }
-                        if (value.flag == 'Student') {
-                            this.student = value.id;
-                        }
-                        if (value.flag == 'Admin') {
-                            this.admin = value.id;
-                        }
-                    }
-
-                    console.log(this.instructor);
-
-                });
-
-            }).catch(e => {
-                console.log(e)
-            });
-
-        },
+        
         submitData(event) {
             document.getElementById("admin_error").textContent = "";
             document.getElementById("student_error").textContent = "";
@@ -140,6 +103,8 @@ export default {
             }
             if (cnt == 0) {
                 RoleDataService.setDefaultRoles(this.user).then(response => {
+                    localStorage.setItem('sucess_msg',response.data.response_msg);
+                    this.$router.push({ path: '/user-management/role' });
                 }).catch(e => {
                     console.log(e)
                 });
