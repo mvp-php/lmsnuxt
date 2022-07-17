@@ -5,8 +5,8 @@
             <div class="main-card">
                 <div class="role-main">
                     <div class="mb-18 back-text">
-                        <ImageComponent :log="require('~/assets/img/svg/arrow-left.svg')" />
-                        <nuxt-link to="/category-managment"><span>BACK </span></nuxt-link>
+                        <ImageComponent :log="require('~/assets/img/svg/arrow-left.svg')" :className="classObj"/>
+                        <nuxt-link :to="`/sub-category/${this.subCategoryData.parent_category_id}`"><span>BACK </span></nuxt-link>
                     </div>
                       <form v-on:submit.prevent="updateSubCategory">
                              <createSubCategory :sub-category-data="subCategoryData" :categoryList="categoryList"/>
@@ -54,7 +54,8 @@ export default {
             successMessage: "",
             successToastrHide: true,
             ButtonName: "Save SubCategory",
-            categoryList:[]
+            categoryList:[],
+            classObj: 'arrow-left',
 
         }
     },

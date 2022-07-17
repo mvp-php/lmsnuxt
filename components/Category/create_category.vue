@@ -62,7 +62,6 @@ export default {
             this.categoryData.newDropzoneImage = response;
         },
         checkInput: function () {
-            console.log(this.categoryData)
             if (this.categoryData.title) {
                 document.getElementById("category_title_error").textContent = "";
             }

@@ -37,7 +37,7 @@
                                 <p class="mb-0 user-modal-title">Upload thumbnail</p>
                             </div>
                             <div class="modal-record-col2">
-                                <Dropzone v-bind:fileUploadSuccessEvent="fileUploadSuccessEvent" modelname="image" />
+                                <Dropzone v-bind:fileUploadSuccessEvent="fileUploadSuccessEvent" modelname="image" :existingImage="`${editModelData.image_name}`"/>
                             </div>
                         </div>
 </span>
@@ -64,7 +64,7 @@ export default {
             this.editModelData.newDropzoneImage = response;
         },
         checkInput: function () {
-            console.log(this.editModelData)
+            
             if (this.editModelData.title) {
                 document.getElementById("category_title_error").textContent = "";
             }

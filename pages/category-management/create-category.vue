@@ -5,9 +5,10 @@
             <div class="main-card">
                 <div class="role-main">
                     <div class="mb-18 back-text">
-                        <imageComponent :log="require('~/assets/img/svg/arrow-left.svg')" />
+                        <imageComponent :log="require('~/assets/img/svg/arrow-left.svg')" :className="classObj" />
                         <nuxt-link to="/category-management"><span>BACK </span></nuxt-link>
                     </div>
+                   
                     <form @submit="addNewCategory" ref="add_category_submit" enctype="multipart/form-data">
                         <createCategory  :category-data="categoryData"></createCategory>
                         <div class="btn-align-end p-0">
@@ -48,7 +49,8 @@ export default {
     data() {
         return {
             categoryData: { },
-            dangerHide:true
+            dangerHide:true,
+            classObj: 'arrow-left',
         }
     },
     methods: {

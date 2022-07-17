@@ -5,12 +5,6 @@
   "NuxtLogo": {
     "description": "Auto imported from components/NuxtLogo.vue"
   },
-  "ConfigAuthHeader": {
-    "description": "Auto imported from components/config/AuthHeader.js"
-  },
-  "ConfigDataService": {
-    "description": "Auto imported from components/config/DataService.js"
-  },
   "Category": {
     "description": "Auto imported from components/Category/category.vue"
   },
@@ -19,6 +13,12 @@
   },
   "CategoryEditCategory": {
     "description": "Auto imported from components/Category/edit_category.vue"
+  },
+  "ConfigAuthHeader": {
+    "description": "Auto imported from components/config/AuthHeader.js"
+  },
+  "ConfigDataService": {
+    "description": "Auto imported from components/config/DataService.js"
   },
   "Dashboard": {
     "description": "Auto imported from components/Dashboard/dashboard.vue"

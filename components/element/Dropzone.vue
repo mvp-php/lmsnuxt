@@ -9,12 +9,14 @@
 <script>
 import Dropzone from 'nuxt-dropzone'
 import 'nuxt-dropzone/dropzone.css'
-import authHeader from '../config/AuthHeader';
 // import DropZoneService from '../Service/DropZoneService';
 export default {
-    props: ['fileUploadSuccessEvent'],
+    props: ['fileUploadSuccessEvent','existingImage'],
     components: {
         Dropzone
+    },
+    mounted(){
+        console.log(this.existingImage,"Vishalpatel")
     },
     data() {
         return {

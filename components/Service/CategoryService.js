@@ -13,11 +13,11 @@ class CategoryService {
     updateCategory(data) {
         return http.post(`/update-category`, data, { headers: authHeader() });
     }
-    deleteCategory(id) {
-        return http.post(`/delete-category`, {id: id,}, { headers: authHeader() });
+    deleteCategory(id,parent_category_id="") {
+        return http.post(`/delete-category`, {id: id,parent_category_id:parent_category_id}, { headers: authHeader() });
     }
-    bulkCategoryDelete(bulkId){
-        return http.post(`/category-bulk-delete/`,{id: bulkId,},{ headers: authHeader() });
+    bulkCategoryDelete(bulkId,parent_category_id=""){
+        return http.post(`/category-bulk-delete/`,{id: bulkId,parent_category_id:parent_category_id},{ headers: authHeader() });
     }
 
     getCategoryListNew(){

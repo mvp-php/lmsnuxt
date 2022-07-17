@@ -31,7 +31,7 @@
             <div class="slds-form-element custom-grid">
                 <Labels labelName="Email" className="slds-form-element__label custom-label" for="text-input-id-46"
                     required="true" />
-            {{ theUser}}
+     
                 <div class="slds-form-element__control custom-grid-control mb-20">
                     <Inputs fieldId="email" placeHolder="Email" class="slds-input custom-grid-input "
                         className="slds-input" v-model.trim="theUser.email" @keypress="validation($event)" />
@@ -46,7 +46,7 @@
 
                 <div class="slds-form-element__control custom-grid-control mb-20">
                     <TextArea fieldId="hio" placeHolder="Bio" class="slds-input custom-grid-input "
-                        className="slds-input" v-model.trim="theUser.Bio" @keypress="validation($event)" />
+                        className="slds-input" v-model.trim="theUser.bio" @keypress="validation($event)" />
 
 
                 </div>
@@ -138,6 +138,17 @@ export default {
             var output = document.getElementById('profiles');
             output.src = '/_nuxt/assets/img/svg/avtar1.svg';
         },
+        validation(){
+            if(this.theUser.first_name){
+                document.getElementById('first_name_error').textContent="";
+            }
+            if(this.theUser.last_name){
+                document.getElementById('last_name_error').textContent="";
+            }
+            if(this.theUser.email){
+                document.getElementById('email_error').textContent="";
+            }
+        }
     }
 
 }

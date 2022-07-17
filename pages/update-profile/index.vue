@@ -60,8 +60,28 @@ export default {
     created() {
        
         this.profilDetail();
+        this.successSMG();
     },
     methods: {
+         successSMG(){
+            const ISSERVER = typeof window === "undefined";
+
+            if (!ISSERVER) {
+                var msh = localStorage.getItem('sucess_msg');
+                if (msh) {
+                    this.successMessage = msh;
+                    this.successToasterShow();
+                }
+            }
+        },
+         successToasterShow() {
+            this.successToastrHide = false;
+            setTimeout(() => this.successToastrHide = true, 5000);
+        },
+        successClose: function () {
+            localStorage.removeItem('sucess_msg');
+            this.successToastrHide = true
+        },
         profilDetail(){
             userService.profile().then(async response => {
 
@@ -103,6 +123,9 @@ export default {
                 }
                 
                 userService.profileUpdate(formData).then(async response => {
+                    localStorage.setItem('sucess_msg',result.data.response_msg);
+                  
+                    this.successToasterShow();
                     if(response.data.email_status ==0){
                         userService.callLogout().then((result) => {
                             

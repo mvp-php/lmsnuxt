@@ -21,7 +21,7 @@
                        
                         <button class="slds-button slds-button_brand btnmain light-blue-btn ml-10"
                             href="javascript:void(0)" @click="BulkDelete()" v-if="!bulk_delete_button">Delete
-                            User</button>
+                           Major Category</button>
                     </div>
                     <div class="slds-tabs_default cus-tab-default">
 
@@ -96,11 +96,13 @@
                                 <div class="group-col2">
                                     <div class="img-section-manage mb-16px">
                                         <div class="img-tag-thumnails">
-                                            <span v-if="viewModelData.image">
-                                                <img :src="viewModelData.image" alt="Category Image">
+                                            <span v-if="viewModelData.image_name">
+                                            
+                                                
                                             </span>
                                             <span v-else>
-                                                <img src="../../assets/img/img-manage.png" alt="Image">
+                                                <ImageComponent :log='require(`~/assets/img/img-manage.png`)'  />
+                                                
                                             </span>
 
                                         </div>
@@ -172,6 +174,7 @@ import CategoryService from '../../components/Service/CategoryService';
 import successToastrVue from '../../components/element/successToastr.vue';
 import errorToastr from '../../components/element/errorToastr.vue';
 import SubcategoryService from '../../components/Service/SubcategoryService';
+import  ImageComponent  from    '../../components/element/image.vue';
 export default {
     layout: 'frontend',
     name: 'category-list',
@@ -179,7 +182,8 @@ export default {
     components: {
         Category,
         successToastrVue,
-        errorToastr
+        errorToastr,
+        ImageComponent
     },
     data() {
         return {
@@ -334,7 +338,7 @@ export default {
                    
                     localStorage.setItem('sucess_msg',result.data.response_msg);
                     this.successMessage = result.data.response_msg;
-                    this.successToastrShow();
+                    this.successToasterShow();
                    
                     this.closeDeleteModel();
                     this.getAllCatData(1, "");
@@ -348,7 +352,7 @@ export default {
                 CategoryService.bulkCategoryDelete(this.multipleDelete).then((result) => {
                      localStorage.setItem('sucess_msg',result.data.response_msg);
                     this.successMessage = result.data.response_msg;
-                    this.successToastrShow();
+                    this.successToasterShow();
                    
                     this.closeDeleteModel();
                     this.getAllCatData(1, "");
@@ -365,36 +369,7 @@ export default {
             this.$refs.addsubcategory.classList.remove("slds-fade-in-open");
             this.$refs.addsubcategorybackdrop.classList.remove("slds-backdrop_open");
         },  
-        addSubCategory(e) {
-
-            document.getElementById("majorCategoryerror").textContent = "";
-            document.getElementById("subcatnameeerror").textContent = "";
-            document.getElementById("subcatedescerror").textContent = "";
-            if (!this.subCategoryData.majorCategory && this.selectedCategory == '') {
-                document.getElementById("majorCategoryerror").textContent = "Please select Major Category";
-                e.preventDefault();
-            }
-            if (!this.subCategoryData.subCategoryName.trim()) {
-                document.getElementById("subcatnameeerror").textContent = "Please enter Category Name";
-                e.preventDefault();
-            }
-            if (!this.subCategoryData.subCategoryDescription) {
-                document.getElementById("subcatedescerror").textContent = "Please enter Description";
-                e.preventDefault();
-            }
-            SubcategoryService.saveSubCategory(this.subCategoryData).then((result) => {
-                // var catId = result.data.data[0].parent_category_id;
-                this.closeSubCategoryModel();
-                this.getAllCatData();
-                this.successMessage = "Successfully Inserted";
-                // this.$router.push({ name: 'subcategory-management/' + this.selectedCategory });
-                this.clearModel()
-            }).catch((err) => {
-                console.log(err)
-            });
-            e.preventDefault();
-
-        },
+        
         bulkDeleteds: function (id) {
             if (id.length != 0) {
                 this.bulk_delete_button = false;

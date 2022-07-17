@@ -3,161 +3,138 @@
     "name": "category-management",
     "path": "/category-management",
     "component": "F:\\\\Xampp\\\\htdocs\\\\lmsnuxt\\\\pages\\\\category-management\\\\index.vue",
-    "chunkName": "pages/category-management/index",
-    "_name": "_2756b628"
+    "chunkName": "pages/category-management/index"
   },
   {
     "name": "dashboard",
     "path": "/dashboard",
     "component": "F:\\\\Xampp\\\\htdocs\\\\lmsnuxt\\\\pages\\\\dashboard\\\\index.vue",
-    "chunkName": "pages/dashboard/index",
-    "_name": "_d7f4aa74"
+    "chunkName": "pages/dashboard/index"
   },
   {
     "name": "forgot-password",
     "path": "/forgot-password",
     "component": "F:\\\\Xampp\\\\htdocs\\\\lmsnuxt\\\\pages\\\\forgot-password\\\\index.vue",
-    "chunkName": "pages/forgot-password/index",
-    "_name": "_a3d1e296"
+    "chunkName": "pages/forgot-password/index"
   },
   {
     "name": "link-successfully",
     "path": "/link-successfully",
     "component": "F:\\\\Xampp\\\\htdocs\\\\lmsnuxt\\\\pages\\\\link-successfully\\\\index.vue",
-    "chunkName": "pages/link-successfully/index",
-    "_name": "_18781100"
+    "chunkName": "pages/link-successfully/index"
   },
   {
     "name": "Login",
     "path": "/Login",
     "component": "F:\\\\Xampp\\\\htdocs\\\\lmsnuxt\\\\pages\\\\Login\\\\index.vue",
-    "chunkName": "pages/Login/index",
-    "_name": "_62bc0a1e"
+    "chunkName": "pages/Login/index"
   },
   {
     "name": "reset-password",
     "path": "/reset-password",
     "component": "F:\\\\Xampp\\\\htdocs\\\\lmsnuxt\\\\pages\\\\reset-password\\\\index.vue",
-    "chunkName": "pages/reset-password/index",
-    "_name": "_4bc45f01"
+    "chunkName": "pages/reset-password/index"
   },
   {
     "name": "reset-success",
     "path": "/reset-success",
     "component": "F:\\\\Xampp\\\\htdocs\\\\lmsnuxt\\\\pages\\\\reset-success\\\\index.vue",
-    "chunkName": "pages/reset-success/index",
-    "_name": "_76cf0b35"
+    "chunkName": "pages/reset-success/index"
   },
   {
     "name": "update-password",
     "path": "/update-password",
     "component": "F:\\\\Xampp\\\\htdocs\\\\lmsnuxt\\\\pages\\\\update-password\\\\index.vue",
-    "chunkName": "pages/update-password/index",
-    "_name": "_a72bd54a"
+    "chunkName": "pages/update-password/index"
   },
   {
     "name": "update-profile",
     "path": "/update-profile",
     "component": "F:\\\\Xampp\\\\htdocs\\\\lmsnuxt\\\\pages\\\\update-profile\\\\index.vue",
-    "chunkName": "pages/update-profile/index",
-    "_name": "_26a71796"
+    "chunkName": "pages/update-profile/index"
   },
   {
     "name": "category-management-create-category",
     "path": "/category-management/create-category",
     "component": "F:\\\\Xampp\\\\htdocs\\\\lmsnuxt\\\\pages\\\\category-management\\\\create-category.vue",
-    "chunkName": "pages/category-management/create-category",
-    "_name": "_4c1a3c05"
+    "chunkName": "pages/category-management/create-category"
   },
   {
     "name": "user-management-role",
     "path": "/user-management/role",
     "component": "F:\\\\Xampp\\\\htdocs\\\\lmsnuxt\\\\pages\\\\user-management\\\\role\\\\index.vue",
-    "chunkName": "pages/user-management/role/index",
-    "_name": "_288a2f3f"
+    "chunkName": "pages/user-management/role/index"
   },
   {
     "name": "user-management-user",
     "path": "/user-management/user",
     "component": "F:\\\\Xampp\\\\htdocs\\\\lmsnuxt\\\\pages\\\\user-management\\\\user\\\\index.vue",
-    "chunkName": "pages/user-management/user/index",
-    "_name": "_c7f8666c"
+    "chunkName": "pages/user-management/user/index"
   },
   {
     "name": "user-management-role-create-role",
     "path": "/user-management/role/create-role",
     "component": "F:\\\\Xampp\\\\htdocs\\\\lmsnuxt\\\\pages\\\\user-management\\\\role\\\\create-role.vue",
-    "chunkName": "pages/user-management/role/create-role",
-    "_name": "_169f9ed4"
+    "chunkName": "pages/user-management/role/create-role"
   },
   {
     "name": "user-management-role-set-default-role",
     "path": "/user-management/role/set-default-role",
     "component": "F:\\\\Xampp\\\\htdocs\\\\lmsnuxt\\\\pages\\\\user-management\\\\role\\\\set-default-role.vue",
-    "chunkName": "pages/user-management/role/set-default-role",
-    "_name": "_3facd7a0"
+    "chunkName": "pages/user-management/role/set-default-role"
   },
   {
     "name": "user-management-user-create-user",
     "path": "/user-management/user/create-user",
     "component": "F:\\\\Xampp\\\\htdocs\\\\lmsnuxt\\\\pages\\\\user-management\\\\user\\\\create-user.vue",
-    "chunkName": "pages/user-management/user/create-user",
-    "_name": "_36b360f4"
+    "chunkName": "pages/user-management/user/create-user"
   },
   {
     "name": "user-management-role-edit-role-id",
     "path": "/user-management/role/edit-role/:id",
     "component": "F:\\\\Xampp\\\\htdocs\\\\lmsnuxt\\\\pages\\\\user-management\\\\role\\\\edit-role\\\\_id.vue",
-    "chunkName": "pages/user-management/role/edit-role/_id",
-    "_name": "_d8030f38"
+    "chunkName": "pages/user-management/role/edit-role/_id"
   },
   {
     "name": "user-management-user-edit-user-id",
     "path": "/user-management/user/edit-user/:id",
     "component": "F:\\\\Xampp\\\\htdocs\\\\lmsnuxt\\\\pages\\\\user-management\\\\user\\\\edit-user\\\\_id.vue",
-    "chunkName": "pages/user-management/user/edit-user/_id",
-    "_name": "_32a128f8"
+    "chunkName": "pages/user-management/user/edit-user/_id"
   },
   {
     "name": "category-management-edit-id",
     "path": "/category-management/edit/:id",
     "component": "F:\\\\Xampp\\\\htdocs\\\\lmsnuxt\\\\pages\\\\category-management\\\\edit\\\\_id.vue",
-    "chunkName": "pages/category-management/edit/_id",
-    "_name": "_62e0fdc6"
+    "chunkName": "pages/category-management/edit/_id"
   },
   {
     "name": "sub-category-create-sub-category-id",
     "path": "/sub-category/create-sub-category/:id?",
     "component": "F:\\\\Xampp\\\\htdocs\\\\lmsnuxt\\\\pages\\\\sub-category\\\\create-sub-category\\\\_id.vue",
-    "chunkName": "pages/sub-category/create-sub-category/_id",
-    "_name": "_11e5895e"
+    "chunkName": "pages/sub-category/create-sub-category/_id"
   },
   {
     "name": "sub-category-edit-id",
     "path": "/sub-category/edit/:id?",
     "component": "F:\\\\Xampp\\\\htdocs\\\\lmsnuxt\\\\pages\\\\sub-category\\\\edit\\\\_id.vue",
-    "chunkName": "pages/sub-category/edit/_id",
-    "_name": "_1a87bf4d"
+    "chunkName": "pages/sub-category/edit/_id"
   },
   {
     "name": "reset-password-id",
     "path": "/reset-password/:id?",
     "component": "F:\\\\Xampp\\\\htdocs\\\\lmsnuxt\\\\pages\\\\reset-password\\\\_id.vue",
-    "chunkName": "pages/reset-password/_id",
-    "_name": "_27302da9"
+    "chunkName": "pages/reset-password/_id"
   },
   {
     "name": "sub-category-id",
     "path": "/sub-category/:id?",
     "component": "F:\\\\Xampp\\\\htdocs\\\\lmsnuxt\\\\pages\\\\sub-category\\\\_id.vue",
-    "chunkName": "pages/sub-category/_id",
-    "_name": "_68085557"
+    "chunkName": "pages/sub-category/_id"
   },
   {
     "name": "index",
     "path": "/",
     "component": "F:\\\\Xampp\\\\htdocs\\\\lmsnuxt\\\\pages\\\\index.vue",
-    "chunkName": "pages/index",
-    "_name": "_1e03350c"
+    "chunkName": "pages/index"
   }
 ]

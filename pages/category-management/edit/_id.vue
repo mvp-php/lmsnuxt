@@ -5,7 +5,7 @@
             <div class="main-card">
                 <div class="role-main">
                     <div class="mb-18 back-text">
-                        <ImageComponent :log="require('~/assets/img/svg/arrow-left.svg')"  />
+                        <ImageComponent :log="require('~/assets/img/svg/arrow-left.svg')" :className="classObj" />
                         <nuxt-link to="/category-management"><span>BACK </span></nuxt-link>
                     </div>
                     <form @submit="updateCategory">
@@ -26,37 +26,31 @@
 </template>
 <script>
 // import Category from '../../components/Category/category.vue';
-import Dropzone from '../../../components/element/Dropzone.vue';
-import FormTextBoxField from '../../../components/element/formTextBoxField.vue';
-import FormTextareaField from '../../../components/element/textArea.vue';
-import FormButton from '../../../components/element/formButton.vue';
+
+
 import CategoryService from '../../../components/Service/CategoryService';
 import ImageComponent from '../../../components/element/image.vue';
 import  CategoryEdit  from  '.../../../components/Category/edit_category.vue';
 // import successToastrVue from '../../../components/element/successToastr.vue';
 import errorToastr from '../../../components/element/errorToastr.vue';
+import FormButton from '../../../components/element/formButton.vue';
 export default {
     layout: 'frontend',
     name: 'UserForm',
     props: ['theUser'],
     components: {
         // Category,
-        Dropzone,
-        FormTextBoxField,
-        FormTextareaField,
-        FormButton,
         ImageComponent,
         CategoryEdit,
-        // successToastrVue,
-        errorToastr
+        errorToastr,
+        FormButton
     },
     data() {
         return {
           
             dangerHide: true,
-            editModelData: {
-               
-            },
+            editModelData: {},
+            classObj: 'arrow-left',
         }
     },
     methods: {
