@@ -14,8 +14,7 @@
                     <form v-on:submit.prevent="submitData">
                         <CreateRole :the-user="user" :EntitiesList="EntitiesList" />
                         <div class="btn-align-end">
-                            <ButtonComponent type="submit" class="slds-button slds-button_brand btnmain blue-btn ml-10"
-                                :buttonName="ButtonName" />
+                            <ButtonComponent type="submit" class="slds-button slds-button_brand btnmain blue-btn ml-10" :buttonName="ButtonName" />
                         </div>
                     </form>
                 </div>
