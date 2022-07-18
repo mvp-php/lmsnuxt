@@ -20,6 +20,12 @@
   "ConfigDataService": {
     "description": "Auto imported from components/config/DataService.js"
   },
+  "CourseList": {
+    "description": "Auto imported from components/Course/courseList.vue"
+  },
+  "CourseCreateCource": {
+    "description": "Auto imported from components/Course/createCource.vue"
+  },
   "Dashboard": {
     "description": "Auto imported from components/Dashboard/dashboard.vue"
   },
@@ -44,11 +50,17 @@
   "ElementFormLabel": {
     "description": "Auto imported from components/element/formLabel.vue"
   },
+  "ElementFormRadio": {
+    "description": "Auto imported from components/element/formRadio.vue"
+  },
   "ElementFormSelectField": {
     "description": "Auto imported from components/element/formSelectField.vue"
   },
   "ElementFormTextBoxField": {
     "description": "Auto imported from components/element/formTextBoxField.vue"
+  },
+  "ElementFormTynymc": {
+    "description": "Auto imported from components/element/formTynymc.vue"
   },
   "ElementImage": {
     "description": "Auto imported from components/element/image.vue"
@@ -113,8 +125,14 @@
   "ServiceCategoryService": {
     "description": "Auto imported from components/Service/CategoryService.js"
   },
+  "ServiceCourseService": {
+    "description": "Auto imported from components/Service/CourseService.js"
+  },
   "ServiceDocumentUpload": {
     "description": "Auto imported from components/Service/DocumentUpload.js"
+  },
+  "ServiceDropZoneService": {
+    "description": "Auto imported from components/Service/DropZoneService.js"
   },
   "ServicePaymentPlanService": {
     "description": "Auto imported from components/Service/PaymentPlanService.js"

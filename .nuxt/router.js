@@ -5,6 +5,7 @@ import { interopDefault } from './utils'
 import scrollBehavior from './router.scrollBehavior.js'
 
 const _2756b628 = () => interopDefault(import('..\\pages\\category-management\\index.vue' /* webpackChunkName: "pages/category-management/index" */))
+const _60241cf6 = () => interopDefault(import('..\\pages\\course-management\\index.vue' /* webpackChunkName: "pages/course-management/index" */))
 const _d7f4aa74 = () => interopDefault(import('..\\pages\\dashboard\\index.vue' /* webpackChunkName: "pages/dashboard/index" */))
 const _a3d1e296 = () => interopDefault(import('..\\pages\\forgot-password\\index.vue' /* webpackChunkName: "pages/forgot-password/index" */))
 const _18781100 = () => interopDefault(import('..\\pages\\link-successfully\\index.vue' /* webpackChunkName: "pages/link-successfully/index" */))
@@ -14,6 +15,7 @@ const _76cf0b35 = () => interopDefault(import('..\\pages\\reset-success\\index.v
 const _a72bd54a = () => interopDefault(import('..\\pages\\update-password\\index.vue' /* webpackChunkName: "pages/update-password/index" */))
 const _26a71796 = () => interopDefault(import('..\\pages\\update-profile\\index.vue' /* webpackChunkName: "pages/update-profile/index" */))
 const _4c1a3c05 = () => interopDefault(import('..\\pages\\category-management\\create-category.vue' /* webpackChunkName: "pages/category-management/create-category" */))
+const _636826bf = () => interopDefault(import('..\\pages\\course-management\\create-course.vue' /* webpackChunkName: "pages/course-management/create-course" */))
 const _288a2f3f = () => interopDefault(import('..\\pages\\user-management\\role\\index.vue' /* webpackChunkName: "pages/user-management/role/index" */))
 const _c7f8666c = () => interopDefault(import('..\\pages\\user-management\\user\\index.vue' /* webpackChunkName: "pages/user-management/user/index" */))
 const _169f9ed4 = () => interopDefault(import('..\\pages\\user-management\\role\\create-role.vue' /* webpackChunkName: "pages/user-management/role/create-role" */))
@@ -43,6 +45,10 @@ export const routerOptions = {
     path: "/category-management",
     component: _2756b628,
     name: "category-management"
+  }, {
+    path: "/course-management",
+    component: _60241cf6,
+    name: "course-management"
   }, {
     path: "/dashboard",
     component: _d7f4aa74,
@@ -79,6 +85,10 @@ export const routerOptions = {
     path: "/category-management/create-category",
     component: _4c1a3c05,
     name: "category-management-create-category"
+  }, {
+    path: "/course-management/create-course",
+    component: _636826bf,
+    name: "course-management-create-course"
   }, {
     path: "/user-management/role",
     component: _288a2f3f,
