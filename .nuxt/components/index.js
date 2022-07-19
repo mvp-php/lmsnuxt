@@ -27,6 +27,7 @@ export { default as ForgotPassword } from '../..\\components\\ForgotPassword\\fo
 export { default as IncludeFooter } from '../..\\components\\Include\\Footer.vue'
 export { default as IncludeHeader } from '../..\\components\\Include\\Header.vue'
 export { default as IncludeSidebar } from '../..\\components\\Include\\Sidebar.vue'
+export { default as LearningPathLearningpath } from '../..\\components\\LearningPath\\learningpath.vue'
 export { default as Profile } from '../..\\components\\Profile\\profile.vue'
 export { default as ProfileUpdatePassword } from '../..\\components\\Profile\\update_password.vue'
 export { default as ResetPassword } from '../..\\components\\ResetPassword\\resetPassword.vue'

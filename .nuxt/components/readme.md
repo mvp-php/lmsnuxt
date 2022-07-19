@@ -35,6 +35,7 @@ You can directly use them in pages and other components without the need to impo
 - `<IncludeFooter>` | `<include-footer>` (components/Include/Footer.vue)
 - `<IncludeHeader>` | `<include-header>` (components/Include/Header.vue)
 - `<IncludeSidebar>` | `<include-sidebar>` (components/Include/Sidebar.vue)
+- `<LearningPathLearningpath>` | `<learning-path-learningpath>` (components/LearningPath/learningpath.vue)
 - `<Profile>` | `<profile>` (components/Profile/profile.vue)
 - `<ProfileUpdatePassword>` | `<profile-update-password>` (components/Profile/update_password.vue)
 - `<ResetPassword>` | `<reset-password>` (components/ResetPassword/resetPassword.vue)

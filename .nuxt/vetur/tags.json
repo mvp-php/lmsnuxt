@@ -86,6 +86,9 @@
   "IncludeSidebar": {
     "description": "Auto imported from components/Include/Sidebar.vue"
   },
+  "LearningPathLearningpath": {
+    "description": "Auto imported from components/LearningPath/learningpath.vue"
+  },
   "Profile": {
     "description": "Auto imported from components/Profile/profile.vue"
   },
