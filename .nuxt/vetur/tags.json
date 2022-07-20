@@ -5,15 +5,6 @@
   "NuxtLogo": {
     "description": "Auto imported from components/NuxtLogo.vue"
   },
-  "Category": {
-    "description": "Auto imported from components/Category/category.vue"
-  },
-  "CategoryCreateCategory": {
-    "description": "Auto imported from components/Category/create_category.vue"
-  },
-  "CategoryEditCategory": {
-    "description": "Auto imported from components/Category/edit_category.vue"
-  },
   "ConfigAuthHeader": {
     "description": "Auto imported from components/config/AuthHeader.js"
   },
@@ -22,6 +13,15 @@
   },
   "Dashboard": {
     "description": "Auto imported from components/Dashboard/dashboard.vue"
+  },
+  "Category": {
+    "description": "Auto imported from components/Category/category.vue"
+  },
+  "CategoryCreateCategory": {
+    "description": "Auto imported from components/Category/create_category.vue"
+  },
+  "CategoryEditCategory": {
+    "description": "Auto imported from components/Category/edit_category.vue"
   },
   "ElementDataTable": {
     "description": "Auto imported from components/element/dataTable.vue"
