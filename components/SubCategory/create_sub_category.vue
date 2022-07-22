@@ -13,7 +13,6 @@
                         <option v-for="category in categoryList" :key="category.id" :value="category.id">
                             {{ category.title }}
                         </option>
-
                     </select>
 
                     <span class="text-danger" id="major_category_error" ref="majorCategoryerror"></span>
@@ -84,9 +83,7 @@ export default {
     },
 
     methods: {
-        ChangeCategory() {
-
-        },
+      
         fileUploadSuccessEvent(file, response) {
             this.subCategoryData.image_name = response;
 

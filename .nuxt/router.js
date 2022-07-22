@@ -24,6 +24,7 @@ const _5eabaac0 = () => interopDefault(import('..\\pages\\user-management\\user\
 const _ec158190 = () => interopDefault(import('..\\pages\\user-management\\role\\edit-role\\_id.vue' /* webpackChunkName: "pages/user-management/role/edit-role/_id" */))
 const _46b39b50 = () => interopDefault(import('..\\pages\\user-management\\user\\edit-user\\_id.vue' /* webpackChunkName: "pages/user-management/user/edit-user/_id" */))
 const _5e91051c = () => interopDefault(import('..\\pages\\category-management\\edit\\_id.vue' /* webpackChunkName: "pages/category-management/edit/_id" */))
+const _f4604782 = () => interopDefault(import('..\\pages\\learning-path-managment\\edit\\_id.vue' /* webpackChunkName: "pages/learning-path-managment/edit/_id" */))
 const _80216206 = () => interopDefault(import('..\\pages\\sub-category\\create-sub-category\\_id.vue' /* webpackChunkName: "pages/sub-category/create-sub-category/_id" */))
 const _456e4921 = () => interopDefault(import('..\\pages\\sub-category\\edit\\_id.vue' /* webpackChunkName: "pages/sub-category/edit/_id" */))
 const _6cecc17d = () => interopDefault(import('..\\pages\\reset-password\\_id.vue' /* webpackChunkName: "pages/reset-password/_id" */))
@@ -121,6 +122,10 @@ export const routerOptions = {
     path: "/category-management/edit/:id",
     component: _5e91051c,
     name: "category-management-edit-id"
+  }, {
+    path: "/learning-path-managment/edit/:id?",
+    component: _f4604782,
+    name: "learning-path-managment-edit-id"
   }, {
     path: "/sub-category/create-sub-category/:id?",
     component: _80216206,

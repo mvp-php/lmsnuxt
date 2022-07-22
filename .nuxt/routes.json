@@ -140,6 +140,13 @@
     "_name": "_5e91051c"
   },
   {
+    "name": "learning-path-managment-edit-id",
+    "path": "/learning-path-managment/edit/:id?",
+    "component": "C:\\\\xampp\\\\htdocs\\\\NuxtJS\\\\lms\\\\pages\\\\learning-path-managment\\\\edit\\\\_id.vue",
+    "chunkName": "pages/learning-path-managment/edit/_id",
+    "_name": "_f4604782"
+  },
+  {
     "name": "sub-category-create-sub-category-id",
     "path": "/sub-category/create-sub-category/:id?",
     "component": "C:\\\\xampp\\\\htdocs\\\\NuxtJS\\\\lms\\\\pages\\\\sub-category\\\\create-sub-category\\\\_id.vue",

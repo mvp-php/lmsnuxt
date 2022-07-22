@@ -9,7 +9,7 @@
                         <nuxt-link to="/category-management"><span>BACK </span></nuxt-link>
                     </div>
                     <form @submit="updateCategory">
-                        <CategoryEdit   :edit-model-data="editModelData"></CategoryEdit>
+                        <CategoryEdit :edit-model-data="editModelData"></CategoryEdit>
                         <div class="btn-align-end p-0">
                             <FormButton type="submit" buttonName="Update Major Category"
                                 className="slds-button slds-button_brand btnmain blue-btn" />
@@ -30,7 +30,7 @@
 
 import CategoryService from '../../../components/Service/CategoryService';
 import ImageComponent from '../../../components/element/image.vue';
-import  CategoryEdit  from  '.../../../components/Category/edit_category.vue';
+import CategoryEdit from '.../../../components/Category/edit_category.vue';
 // import successToastrVue from '../../../components/element/successToastr.vue';
 import errorToastr from '../../../components/element/errorToastr.vue';
 import FormButton from '../../../components/element/formButton.vue';
@@ -47,14 +47,14 @@ export default {
     },
     data() {
         return {
-          
+
             dangerHide: true,
             editModelData: {},
             classObj: 'arrow-left',
         }
     },
     methods: {
-       
+
         editData(id) {
             CategoryService.getEditDetails(id).then((result) => {
                 this.editModelData = result.data.data;
@@ -78,23 +78,23 @@ export default {
                 e.preventDefault();
             }
             CategoryService.updateCategory(this.editModelData).then((result) => {
-                localStorage.setItem('sucess_msg',result.data.response_msg);
-               this.$router.push({ path: '/category-management' });
+                localStorage.setItem('sucess_msg', result.data.response_msg);
+                this.$router.push({ path: '/category-management' });
             }).catch((error) => {
-               this.errorMessage = error.response.data.response_msg;
+                this.errorMessage = error.response.data.response_msg;
 
-                        this.dangerToasterShow();
+                this.dangerToasterShow();
             });
             e.preventDefault();
         },
-         dangerToasterShow() {
+        dangerToasterShow() {
 
             this.dangerHide = false;
             setTimeout(() => this.dangerHide = true, 5000);
         },
-        errorClose(){
+        errorClose() {
             this.dangerHide = true;
-            }
+        }
     }
     , created() {
         this.editData(this.$route.params.id);

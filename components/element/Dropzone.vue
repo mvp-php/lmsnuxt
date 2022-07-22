@@ -1,22 +1,24 @@
 <template>
-    <dropzone id="foo" ref="el" :options="options" :destroyDropzone="true" @vdropzone-success="fileUploadSuccessEvent">
+    <dropzone id="foo" ref="el" :options="options" :destroyDropzone="true" @vdropzone-success="fileUploadSuccessEvent"
+        v-bind:dropImage="dropImage">
         <!-- <div class="dropzone-custom-content">
             <h3 class="dropzone-custom-title">Drag and drop to upload content!</h3>
             <div class="subtitle">...or click to select a file from your computer</div>
         </div> -->
     </dropzone>
 </template>
+<style>
+.dropzone .dz-preview .dz-image img {
+    max-width: 200px !important;
+}
+</style>
 <script>
 import Dropzone from 'nuxt-dropzone'
 import 'nuxt-dropzone/dropzone.css'
-// import DropZoneService from '../Service/DropZoneService';
 export default {
-    props: ['fileUploadSuccessEvent','existingImage'],
+    props: ['fileUploadSuccessEvent', 'existingImage', 'dropImage'],
     components: {
         Dropzone
-    },
-    mounted(){
-        console.log(this.existingImage,"Vishalpatel")
     },
     data() {
         return {
@@ -31,7 +33,7 @@ export default {
                 clickable: true,
                 maxFiles: 1,
                 parallelUploads: 5,
-                headers: { "My-Awesome-Header": "header value"}
+                headers: { "My-Awesome-Header": "header value" }
             },
             dataV: this.data,
             loading: true,
@@ -47,8 +49,21 @@ export default {
     },
     mounted() {
         const instance = this.$refs.el.dropzone
+        setTimeout(() =>
+            this.dropzonePrivew(),
+            1000);
     },
     methods: {
+        dropzonePrivew() {
+
+            if (this.$options.propsData.dropImage != 'undefined' && this.$options.propsData.dropImage != null) {
+
+                const instance = this.$refs.el.dropzone;
+                var mockFile = { name: this.$options.propsData.dropImage, size: 12345 };
+                instance.options.addedfile.call(instance, mockFile);
+                instance.options.thumbnail.call(instance, mockFile, this.$options.propsData.dropImage);
+            }
+        }
         // fileUploadSuccessEvent(file, response) {
         //     console.log(response, "response");
         // }
@@ -72,6 +87,5 @@ export default {
         //         console.log(e, "kjuuhhhh");
         //     },
     }
-
 }
 </script>

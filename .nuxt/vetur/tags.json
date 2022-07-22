@@ -11,9 +11,6 @@
   "ConfigDataService": {
     "description": "Auto imported from components/config/DataService.js"
   },
-  "Dashboard": {
-    "description": "Auto imported from components/Dashboard/dashboard.vue"
-  },
   "Category": {
     "description": "Auto imported from components/Category/category.vue"
   },
@@ -22,6 +19,9 @@
   },
   "CategoryEditCategory": {
     "description": "Auto imported from components/Category/edit_category.vue"
+  },
+  "Dashboard": {
+    "description": "Auto imported from components/Dashboard/dashboard.vue"
   },
   "ElementDataTable": {
     "description": "Auto imported from components/element/dataTable.vue"
@@ -89,6 +89,9 @@
   "LearningPathLearningpath": {
     "description": "Auto imported from components/LearningPath/learningpath.vue"
   },
+  "LearningPathManagmentCreate": {
+    "description": "Auto imported from components/LearningPathManagment/create.vue"
+  },
   "Profile": {
     "description": "Auto imported from components/Profile/profile.vue"
   },
@@ -118,6 +121,9 @@
   },
   "ServiceDocumentUpload": {
     "description": "Auto imported from components/Service/DocumentUpload.js"
+  },
+  "ServiceLearningPathService": {
+    "description": "Auto imported from components/Service/LearningPathService.js"
   },
   "ServicePaymentPlanService": {
     "description": "Auto imported from components/Service/PaymentPlanService.js"

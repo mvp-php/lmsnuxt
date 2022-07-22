@@ -18,18 +18,18 @@
                             class="slds-button slds-button_brand btnmain blue-btn ml-10">
                             Add Major Category</nuxt-link>
 
-                       
+
                         <button class="slds-button slds-button_brand btnmain light-blue-btn ml-10"
                             href="javascript:void(0)" @click="BulkDelete()" v-if="!bulk_delete_button">Delete
-                           Major Category</button>
+                            Major Category</button>
                     </div>
                     <div class="slds-tabs_default cus-tab-default">
 
-             
+
 
                         <div class="table-main">
-                           <Category :header="header" :tableData="tableData" :no_record_avalible="no_record_avalible"
-                        :paginateObj="paginate" :searchkeyword="searchkeyword" :pageCount="pageCount" />
+                            <Category :header="header" :tableData="tableData" :no_record_avalible="no_record_avalible"
+                                :paginateObj="paginate" :searchkeyword="searchkeyword" :pageCount="pageCount" />
                         </div>
                     </div>
 
@@ -97,12 +97,12 @@
                                     <div class="img-section-manage mb-16px">
                                         <div class="img-tag-thumnails">
                                             <span v-if="viewModelData.image_name">
-                                            
-                                                
+
+
                                             </span>
                                             <span v-else>
-                                                <ImageComponent :log='require(`~/assets/img/img-manage.png`)'  />
-                                                
+                                                <ImageComponent :log='require(`~/assets/img/img-manage.png`)' />
+
                                             </span>
 
                                         </div>
@@ -163,7 +163,7 @@
             </section>
             <div class="slds-backdrop" role="presentation" id="delete-modal-backdrop">
             </div>
-        </div>  
+        </div>
         <!-- delete model -->
         <errorToastr :errorMessage="errorMessage" v-if="!error_hide" />
     </span>
@@ -174,7 +174,7 @@ import CategoryService from '../../components/Service/CategoryService';
 import successToastrVue from '../../components/element/successToastr.vue';
 import errorToastr from '../../components/element/errorToastr.vue';
 import SubcategoryService from '../../components/Service/SubcategoryService';
-import  ImageComponent  from    '../../components/element/image.vue';
+import ImageComponent from '../../components/element/image.vue';
 export default {
     layout: 'frontend',
     name: 'category-list',
@@ -198,11 +198,11 @@ export default {
             searchkeyword: '',
             pageCount: '',
             bulk_delete_button: true,
-            successToastrHide:true,
-            viewModelData:[],
+            successToastrHide: true,
+            viewModelData: [],
             categoryData: {},
-            deleteFlag:'',
-            multipleDelete:''
+            deleteFlag: '',
+            multipleDelete: ''
         }
     },
     created() {
@@ -214,7 +214,7 @@ export default {
 
     },
     methods: {
-        successSMG(){
+        successSMG() {
             const ISSERVER = typeof window === "undefined";
 
             if (!ISSERVER) {
@@ -269,7 +269,7 @@ export default {
                     var final = [];
                     this.tableData = [];
                     response.data.data.data.map(function (value, key) {
-                       
+
                         var temp_array = {};
                         temp_array.key = '';
                         temp_array.id = value.id;
@@ -281,11 +281,11 @@ export default {
                     })
                     this.tableData = final;
 
-                   
+
                     this.no_record_avalible = response.data.response_msg
                     this.paginate = response.data.data;
 
-                    this.pageCount =  response.data.data.data.length;
+                    this.pageCount = response.data.data.data.length;
                     this.searchkeyword = value;
                 }.bind(this)
             );
@@ -320,56 +320,56 @@ export default {
             });
 
         },
-        
+
         getPaginatesMain: function (currentPage, value) {
             this.getAllCatData(currentPage, value);
         },
         userDelete(id) {
             this.$refs.deleteCategoryModel.classList.add("slds-fade-in-open");
             this.DeleteId = id;
-            this.deleteFlag  ='single';
+            this.deleteFlag = 'single';
         },
         closeDeleteModel() {
             this.$refs.deleteCategoryModel.classList.remove("slds-fade-in-open");
         },
         deleteCategory() {
-            if(this.deleteFlag  =='single'){
+            if (this.deleteFlag == 'single') {
                 CategoryService.deleteCategory(this.DeleteId).then((result) => {
-                   
-                    localStorage.setItem('sucess_msg',result.data.response_msg);
+
+                    localStorage.setItem('sucess_msg', result.data.response_msg);
                     this.successMessage = result.data.response_msg;
                     this.successToasterShow();
-                   
+
                     this.closeDeleteModel();
                     this.getAllCatData(1, "");
-                       
+
                 }).catch((err) => {
-                 
+
                     this.errorMessage = err.response.data.response_msg;
                     this.errorToastrShow();
                 });
-            }else{
+            } else {
                 CategoryService.bulkCategoryDelete(this.multipleDelete).then((result) => {
-                     localStorage.setItem('sucess_msg',result.data.response_msg);
+                    localStorage.setItem('sucess_msg', result.data.response_msg);
                     this.successMessage = result.data.response_msg;
                     this.successToasterShow();
-                   
+
                     this.closeDeleteModel();
                     this.getAllCatData(1, "");
                 }).catch((err) => {
-                   this.errorMessage = err.response.data.response_msg;
+                    this.errorMessage = err.response.data.response_msg;
                     this.errorToastrShow();
                 });
             }
-           
+
 
         },
-       
+
         closeSubCategoryModel() {
             this.$refs.addsubcategory.classList.remove("slds-fade-in-open");
             this.$refs.addsubcategorybackdrop.classList.remove("slds-backdrop_open");
-        },  
-        
+        },
+
         bulkDeleteds: function (id) {
             if (id.length != 0) {
                 this.bulk_delete_button = false;
@@ -377,17 +377,17 @@ export default {
                 this.bulk_delete_button = true;
             }
             this.multipleDelete = id;
-         
+
         },
-        
+
         BulkDelete() {
-             this.$refs.deleteCategoryModel.classList.add("slds-fade-in-open");
-            this.deleteFlag  ='multiple';
-            
+            this.$refs.deleteCategoryModel.classList.add("slds-fade-in-open");
+            this.deleteFlag = 'multiple';
+
         },
-       mainOpenMainSubCategory:function(id){
+        mainOpenMainSubCategory: function (id) {
             this.$router.push({ path: "/sub-category/" + id });
-             
+
         },
 
     }
