@@ -5,6 +5,7 @@ import { interopDefault } from './utils'
 import scrollBehavior from './router.scrollBehavior.js'
 
 const _2756b628 = () => interopDefault(import('..\\pages\\category-management\\index.vue' /* webpackChunkName: "pages/category-management/index" */))
+const _60241cf6 = () => interopDefault(import('..\\pages\\course-management\\index.vue' /* webpackChunkName: "pages/course-management/index" */))
 const _d7f4aa74 = () => interopDefault(import('..\\pages\\dashboard\\index.vue' /* webpackChunkName: "pages/dashboard/index" */))
 const _a3d1e296 = () => interopDefault(import('..\\pages\\forgot-password\\index.vue' /* webpackChunkName: "pages/forgot-password/index" */))
 const _18781100 = () => interopDefault(import('..\\pages\\link-successfully\\index.vue' /* webpackChunkName: "pages/link-successfully/index" */))
@@ -15,6 +16,7 @@ const _919d59a2 = () => interopDefault(import('..\\pages\\sub-category\\index.vu
 const _a72bd54a = () => interopDefault(import('..\\pages\\update-password\\index.vue' /* webpackChunkName: "pages/update-password/index" */))
 const _26a71796 = () => interopDefault(import('..\\pages\\update-profile\\index.vue' /* webpackChunkName: "pages/update-profile/index" */))
 const _4c1a3c05 = () => interopDefault(import('..\\pages\\category-management\\create-category.vue' /* webpackChunkName: "pages/category-management/create-category" */))
+const _636826bf = () => interopDefault(import('..\\pages\\course-management\\create-course.vue' /* webpackChunkName: "pages/course-management/create-course" */))
 const _6d66de84 = () => interopDefault(import('..\\pages\\sub-category\\add.vue' /* webpackChunkName: "pages/sub-category/add" */))
 const _288a2f3f = () => interopDefault(import('..\\pages\\user-management\\role\\index.vue' /* webpackChunkName: "pages/user-management/role/index" */))
 const _c7f8666c = () => interopDefault(import('..\\pages\\user-management\\user\\index.vue' /* webpackChunkName: "pages/user-management/user/index" */))
@@ -24,6 +26,7 @@ const _36b360f4 = () => interopDefault(import('..\\pages\\user-management\\user\
 const _d8030f38 = () => interopDefault(import('..\\pages\\user-management\\role\\edit-role\\_id.vue' /* webpackChunkName: "pages/user-management/role/edit-role/_id" */))
 const _32a128f8 = () => interopDefault(import('..\\pages\\user-management\\user\\edit-user\\_id.vue' /* webpackChunkName: "pages/user-management/user/edit-user/_id" */))
 const _62e0fdc6 = () => interopDefault(import('..\\pages\\category-management\\edit\\_id.vue' /* webpackChunkName: "pages/category-management/edit/_id" */))
+const _2c8142a3 = () => interopDefault(import('..\\pages\\course-management\\edit\\_id.vue' /* webpackChunkName: "pages/course-management/edit/_id" */))
 const _11e5895e = () => interopDefault(import('..\\pages\\sub-category\\create-sub-category\\_id.vue' /* webpackChunkName: "pages/sub-category/create-sub-category/_id" */))
 const _1a87bf4d = () => interopDefault(import('..\\pages\\sub-category\\edit\\_id.vue' /* webpackChunkName: "pages/sub-category/edit/_id" */))
 const _27302da9 = () => interopDefault(import('..\\pages\\reset-password\\_id.vue' /* webpackChunkName: "pages/reset-password/_id" */))
@@ -46,6 +49,10 @@ export const routerOptions = {
     path: "/category-management",
     component: _2756b628,
     name: "category-management"
+  }, {
+    path: "/course-management",
+    component: _60241cf6,
+    name: "course-management"
   }, {
     path: "/dashboard",
     component: _d7f4aa74,
@@ -87,6 +94,10 @@ export const routerOptions = {
     component: _4c1a3c05,
     name: "category-management-create-category"
   }, {
+    path: "/course-management/create-course",
+    component: _636826bf,
+    name: "course-management-create-course"
+  }, {
     path: "/sub-category/add",
     component: _6d66de84,
     name: "sub-category-add"
@@ -122,6 +133,10 @@ export const routerOptions = {
     path: "/category-management/edit/:id",
     component: _62e0fdc6,
     name: "category-management-edit-id"
+  }, {
+    path: "/course-management/edit/:id",
+    component: _2c8142a3,
+    name: "course-management-edit-id"
   }, {
     path: "/sub-category/create-sub-category/:id",
     component: _11e5895e,

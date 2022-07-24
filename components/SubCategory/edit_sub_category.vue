@@ -59,7 +59,7 @@
  
             <div class="modal-record-col2">
                 <Dropzone v-bind:fileUploadSuccessEvent="fileUploadSuccessEvent" modelname="Dropzone"
-                    v-model="subCategoryData.dropzoneImage" :existingImage="`${subCategoryData.image_name}`" />
+                    v-model="subCategoryData.dropzoneImage" :type="`image`"  :extension="`.png, .jpeg, .jpg, .gif`" :existingImage="`${subCategoryData.image_name}`" />
             </div>
         </div>
     </span>

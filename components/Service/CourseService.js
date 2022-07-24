@@ -4,23 +4,21 @@ class CourseService {
     getCourseList(data,currentPage){
         return http.get(`/call-courses-list?page=`+currentPage+`&search=`+data, { headers: authHeader() });
     }
-    addCategory(data) {
-        return http.post(`/category-save`, data, { headers: authHeader() });
+    saveCourse(data) {
+        return http.post(`/add-courses`, data, { headers: authHeader() });
     }
-    getCategoryList(data,currentPage) {
-        return http.get(`/category-list?page=`+currentPage+`&search=`+data, { headers: authHeader() });
-    }
+   
     getEditDetails(id) {
-        return http.get(`/get-category/${id}`, { headers: authHeader() });
+        return http.get(`/call-courses-detail/${id}`, { headers: authHeader() });
     }
-    updateCategory(data) {
-        return http.post(`/update-category`, data, { headers: authHeader() });
+    updateCourse(data) {
+        return http.post(`/call-update-courses`, data, { headers: authHeader() });
     }
-    deleteCategory(id,parent_category_id="") {
-        return http.post(`/delete-category`, {id: id,parent_category_id:parent_category_id}, { headers: authHeader() });
+    deleteCourse(id) {
+        return http.post(`/call-delete-courses`, {id: id}, { headers: authHeader() });
     }
-    bulkCategoryDelete(bulkId,parent_category_id=""){
-        return http.post(`/category-bulk-delete/`,{id: bulkId,parent_category_id:parent_category_id},{ headers: authHeader() });
+    bulkCourseDelete(bulkId){
+        return http.post(`/call-bulk-delete-courses/`,{id: bulkId},{ headers: authHeader() });
     }
 
     getCategoryListNew(){

@@ -20,6 +20,12 @@
   "ConfigDataService": {
     "description": "Auto imported from components/config/DataService.js"
   },
+  "CourseList": {
+    "description": "Auto imported from components/Course/courseList.vue"
+  },
+  "CourseCreateCource": {
+    "description": "Auto imported from components/Course/createCource.vue"
+  },
   "Dashboard": {
     "description": "Auto imported from components/Dashboard/dashboard.vue"
   },
@@ -128,8 +134,8 @@
   "ServiceDocumentUpload": {
     "description": "Auto imported from components/Service/DocumentUpload.js"
   },
-  "ServiceDropZoneService": {
-    "description": "Auto imported from components/Service/DropZoneService.js"
+  "ServiceInstructorService": {
+    "description": "Auto imported from components/Service/InstructorService.js"
   },
   "ServicePaymentPlanService": {
     "description": "Auto imported from components/Service/PaymentPlanService.js"
@@ -172,5 +178,11 @@
   },
   "UserViewUser": {
     "description": "Auto imported from components/User/viewUser.vue"
+  },
+  "New folderCompoCourseList": {
+    "description": "Auto imported from components/New folder/Compo/courseList.vue"
+  },
+  "New folderCompoCreateCource": {
+    "description": "Auto imported from components/New folder/Compo/createCource.vue"
   }
 }

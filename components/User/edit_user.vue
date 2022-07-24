@@ -41,9 +41,11 @@
                 required="true" />
 
             <div class="slds-form-element__control custom-grid-control mb-20">
-               
-                <formDropdown :options="rolelist" selectName="Role" class="slds-select custom-grid-input" @onChange="ChangeRole" :selected="`${theUser.role_id}`"></formDropdown>
+                <div class="slds-select_container cus-select-container">
+                    <formDropdown :options="rolelist" selectName="Role" class="slds-select custom-grid-input" @onChange="ChangeRole" :selected="`${theUser.role_id}`"></formDropdown>
 
+                </div>
+                
                 <!-- <select v-model="theUser.role_id" class="slds-select custom-grid-input" @change="ChangeRole($event)">
                     <option value="">Select Role</option>
                     <option v-for="roles in rolelist" :key="roles.id" :value="roles.id" :data-option="`${roles.is_system_role}`" :data-flag="`${roles.flag}`">
@@ -62,14 +64,12 @@
                     for="text-input-id-46" required="true" />
 
                 <div class="slds-form-element__control custom-grid-control mb-20">
-                    <select v-model="theUser.entity_id" class="slds-select custom-grid-input" @change="ChangeEntity()">
-                        <option value="">Select Membership</option>
-                        <option v-for="plan in paymentPlan" :key="plan.id" :value="plan.id">
-                            {{ plan.title }}
-                        </option>
-
-                    </select>
-
+                <div class="slds-select_container cus-select-container">
+                     <formDropdown :options="paymentPlan"   v-model="theUser.entity_id" selectName="Membership" class="slds-select custom-grid-input" @onChange="ChangeEntity" :selected="`${theUser.entity_id}`"></formDropdown>
+                
+                    
+                </div>
+                  
                     <span class="text-danger" id="members_error" ref="caterror"></span>
                 </div>
 

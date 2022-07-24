@@ -1,7 +1,7 @@
 <template>
     <span>
         <div class="content">
-            <p class="page-title mb-20">MANAGE CATEGORIES</p>
+            <p class="page-title mb-20">MANAGE COURSE</p>
             <div class="main-card">
                 <div class="tab-main">
                     <div class="btn-align-end">
@@ -14,21 +14,21 @@
 
                             </div>
                         </div>
-                        <nuxt-link :to="`/sub-category/create-sub-category/${this.$route.params.id}`"
+                        <nuxt-link to="/course-management/create-course"
                             class="slds-button slds-button_brand btnmain blue-btn ml-10">
-                            Add Sub Category</nuxt-link>
+                            Add Course</nuxt-link>
 
                        
                         <button class="slds-button slds-button_brand btnmain light-blue-btn ml-10"
                             href="javascript:void(0)" @click="BulkDelete()" v-if="!bulk_delete_button">Delete
-                            Sub Category</button>
+                           Course</button>
                     </div>
                     <div class="slds-tabs_default cus-tab-default">
 
              
 
                         <div class="table-main">
-                           <SubCategory :header="header" :tableData="tableData" :no_record_avalible="no_record_avalible"
+                           <courseList :header="header" :tableData="tableData" :no_record_avalible="no_record_avalible"
                         :paginateObj="paginate" :searchkeyword="searchkeyword" :pageCount="pageCount" />
                         </div>
                     </div>
@@ -37,7 +37,7 @@
 
             </div>
         </div>
-        <SuccessToastrVue :success-message="successMessage" id="successMsg" class="successMsg" v-if="!successToastrHide"
+        <successToastrVue :success-message="successMessage" id="successMsg" class="successMsg" v-if="!successToastrHide"
             ref="successNewMsg" />
 
         <!-- view model -->
@@ -66,7 +66,6 @@
                         <div class="modal-manage-group-main">
                             <div class="group-row-main">
                                 <div class="group-col1">
-                                    
                                     <div class="course-row-manage">
                                         <div class="course-col1">
                                             <div class="course-title-main">
@@ -79,7 +78,6 @@
                                             </div>
                                         </div>
                                     </div>
-                                    
                                     <div class="course-row-manage">
                                         <div class="course-col1">
                                             <div class="course-title-main">
@@ -99,10 +97,12 @@
                                     <div class="img-section-manage mb-16px">
                                         <div class="img-tag-thumnails">
                                             <span v-if="viewModelData.image_name">
-                                               <ImageComponent :log='`${viewModelData.image_name}`'  />
+                                            
+                                                
                                             </span>
                                             <span v-else>
-                                                <img src="../../assets/img/img-manage.png" alt="Image">
+                                                <ImageComponent :log='require(`~/assets/img/img-manage.png`)'  />
+                                                
                                             </span>
 
                                         </div>
@@ -165,24 +165,24 @@
             </div>
         </div>  
         <!-- delete model -->
-        <ErrorToastr :errorMessage="errorMessage" v-if="!error_hide" />
+        <errorToastr :errorMessage="errorMessage" v-if="!error_hide" />
     </span>
 </template>
 <script>
-import SubCategory from '../../components/SubCategory/sub_category_list.vue';
-import CategoryService from '../../components/Service/CategoryService';
-import SuccessToastrVue from '../../components/element/successToastr.vue';
-import ErrorToastr from '../../components/element/errorToastr.vue';
-import SubcategoryService from '../../components/Service/SubcategoryService';
+import courseList from '../../components/Course/courseList.vue';
+import CourseService from '../../components/Service/CourseService';
+import successToastrVue from '../../components/element/successToastr.vue';
+import errorToastr from '../../components/element/errorToastr.vue';
+
 import  ImageComponent  from    '../../components/element/image.vue';
 export default {
     layout: 'frontend',
     name: 'category-list',
 
     components: {
-        SubCategory,
-        SuccessToastrVue,
-        ErrorToastr,
+        courseList,
+        successToastrVue,
+        errorToastr,
         ImageComponent
     },
     data() {
@@ -206,10 +206,9 @@ export default {
         }
     },
     created() {
-        this.header = [{ "Key": "", 'column': '' },{ "Key": "Sr No.", 'column': 'id' },{ "Key": "Category", 'column': 'title' },{ "Key": "Major Category", 'column': 'main_title' },{ "Key": "Created On", 'column': 'created_at' },{ "Key": "Action", 'column': '' }];
+        this.header = [{ "Key": "", 'column': '' },{ "Key": "Sr No.", 'column': 'id' },{ "Key": "Course Name", 'column': 'title' },{ "Key": "Major Category", 'column': 'category_title' },{ "Key": "Sub Category", 'column': 'category_title' },{ "Key": "Created On", 'column': 'created_at' },{'Key':'Status','column': '' },{ "Key": "Action", 'column': 'created_at' }];
         
-        
-        this.getAllCatData(1)
+        this.getCourseList(1)
         this.successSMG();
     },
     mounted() {
@@ -229,9 +228,8 @@ export default {
         },
         searchText($event) {
 
-            this.getAllCatData(1, $event.target.value,)
+            this.getCourseList(1, $event.target.value,)
         },
-       
         
         successToasterShow() {
             this.successToastrHide = false;
@@ -245,28 +243,35 @@ export default {
             this.error_hide = false;
             setTimeout(() => this.error_hide = true, 5000);
         },
-        clearModel() {
-            $(this.$ref.newaddcategory).on('hidden.bs.modal', () => {
+        
+        getCourseList(page = "", value = "") {
 
-                this.$ref.category_name.value = null
-            })
-        },
-        getAllCatData(page = "", value = "") {
-
-            SubcategoryService.callSubcategoryList(value, page,this.$route.params.id).then(
+            CourseService.getCourseList(value, page).then(
                 function (response) {
                     var final = [];
                     this.tableData = [];
-                    response.data.data.data.map(function (value, key) { 
+                    response.data.data.data.map(function (value, key) {
                        
                         var temp_array = {};
+                        var mainCategory='';
+                        var subCategory='-';
+                      
+                        if(value.entity_sub_category_relation.course_sub_categoryrelation[0].category_relation  !=null){
+                            mainCategory =value.entity_sub_category_relation.course_sub_categoryrelation[0].category_relation.title;
+                            subCategory =value.entity_sub_category_relation.course_sub_categoryrelation[0].title;
+                        }else{
+                            mainCategory =value.entity_sub_category_relation.course_sub_categoryrelation[0].title;
+                        }
                         temp_array.key = '';
                         temp_array.id = value.id;
                         temp_array.title = value.title;
-                        temp_array.major_category =value.category_relation.title;
-                      
+                        temp_array.category_title = mainCategory;
+                        temp_array.sub_category_title =subCategory;
+                        
+                     
                         temp_array.created_at = value.created_at;
-                       
+                        temp_array.status ="Tetts";
+                        
                         final.push(temp_array)
                     })
                     this.tableData = final;
@@ -282,7 +287,7 @@ export default {
 
         },
         openViewModel: function (id) {
-          
+            console.log(id);
             CategoryService.getEditDetails(id).then((result) => {
                 this.viewModelData = result.data.data;
             }).catch((err) => {
@@ -296,10 +301,13 @@ export default {
             this.$refs.openViewModelNew.classList.remove("slds-fade-in-open");
             this.$refs.openViewModelNewbackdrop.classList.remove("slds-backdrop_open");
         },
-       
+        viewEditPage: function (id) {
+            this.$router.push({ path: "/course-management/edit/" + id });
+        },
+        
         
         getPaginatesMain: function (currentPage, value) {
-            this.getAllCatData(currentPage, value);
+            this.getCourseList(currentPage, value);
         },
         userDelete(id) {
             this.$refs.deleteCategoryModel.classList.add("slds-fade-in-open");
@@ -311,14 +319,14 @@ export default {
         },
         deleteCategory() {
             if(this.deleteFlag  =='single'){
-                CategoryService.deleteCategory(this.DeleteId,this.$route.params.id).then((result) => {
+                CourseService.deleteCourse(this.DeleteId).then((result) => {
                    
                     localStorage.setItem('sucess_msg',result.data.response_msg);
                     this.successMessage = result.data.response_msg;
                     this.successToasterShow();
                    
                     this.closeDeleteModel();
-                    this.getAllCatData(1, "");
+                    this.getCourseList(1, "");
                        
                 }).catch((err) => {
                  
@@ -326,13 +334,13 @@ export default {
                     this.errorToastrShow();
                 });
             }else{
-                CategoryService.bulkCategoryDelete(this.multipleDelete,this.$route.params.id).then((result) => {
+                CourseService.bulkCourseDelete(this.multipleDelete).then((result) => {
                      localStorage.setItem('sucess_msg',result.data.response_msg);
                     this.successMessage = result.data.response_msg;
                     this.successToasterShow();
                    
                     this.closeDeleteModel();
-                    this.getAllCatData(1, "");
+                    this.getCourseList(1, "");
                 }).catch((err) => {
                    this.errorMessage = err.response.data.response_msg;
                     this.errorToastrShow();
@@ -341,7 +349,6 @@ export default {
            
 
         },
-       
         bulkDeleteds: function (id) {
             if (id.length != 0) {
                 this.bulk_delete_button = false;
@@ -356,13 +363,6 @@ export default {
              this.$refs.deleteCategoryModel.classList.add("slds-fade-in-open");
             this.deleteFlag  ='multiple';
             
-        },
-       mainOpenMainSubCategory:function(id){
-            this.$router.push({ path: "/sub-category/" + id });
-             
-        },
-        viewEditPage: function (id) {
-            this.$router.push({ path: "/sub-category/edit/" + id });
         },
 
     }

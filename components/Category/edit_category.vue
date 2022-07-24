@@ -39,7 +39,7 @@
                                 <p class="mb-0 user-modal-title">Upload thumbnail</p>
                             </div>
                             <div class="modal-record-col2">
-                                <Dropzone v-bind:fileUploadSuccessEvent="fileUploadSuccessEvent" modelname="image" :existingImage="`${editModelData.image_name}`"/>
+                                <Dropzone v-bind:fileUploadSuccessEvent="fileUploadSuccessEvent" modelname="image"  :folder="`category`" :type="`image`"  :extension="`.png, .jpeg, .jpg, .gif`"  :existingImage="`${editModelData.image_name}`"/>
                             </div>
                         </div>
 </span>

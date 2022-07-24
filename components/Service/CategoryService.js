@@ -23,6 +23,9 @@ class CategoryService {
     getCategoryListNew(){
         return http.get(`/call-allcategory-list/`,{ headers: authHeader() });
     }
+    getSubCategoryListByCategoryId(category_id){
+        return http.get(`/call-sub-category-lists?category_id=`+category_id,{ headers: authHeader() });
+    }
 
     
 }

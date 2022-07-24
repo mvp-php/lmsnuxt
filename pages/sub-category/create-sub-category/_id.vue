@@ -49,7 +49,8 @@ export default {
     data() {
         return {
             subCategoryData: {
-                image_name:""
+                image_name:"",
+                description:''
             },
             errorMessage: "",
             errorToastrHide: true,

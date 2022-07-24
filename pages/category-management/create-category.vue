@@ -70,7 +70,7 @@ export default {
                 document.getElementById("category_description_error").textContent = "Please enter Description";
                 e.preventDefault();
             }
-            console.log(this.categoryData.description)
+            
             if (this.categoryData.title && this.categoryData.description) {
                 categoryService.addCategory(this.categoryData).then((result) => {
                     localStorage.setItem('sucess_msg',result.data.response_msg);

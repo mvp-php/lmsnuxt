@@ -7,6 +7,13 @@
     "_name": "_2756b628"
   },
   {
+    "name": "course-management",
+    "path": "/course-management",
+    "component": "F:\\\\Xampp\\\\htdocs\\\\lmsnuxt\\\\pages\\\\course-management\\\\index.vue",
+    "chunkName": "pages/course-management/index",
+    "_name": "_60241cf6"
+  },
+  {
     "name": "dashboard",
     "path": "/dashboard",
     "component": "F:\\\\Xampp\\\\htdocs\\\\lmsnuxt\\\\pages\\\\dashboard\\\\index.vue",
@@ -77,6 +84,13 @@
     "_name": "_4c1a3c05"
   },
   {
+    "name": "course-management-create-course",
+    "path": "/course-management/create-course",
+    "component": "F:\\\\Xampp\\\\htdocs\\\\lmsnuxt\\\\pages\\\\course-management\\\\create-course.vue",
+    "chunkName": "pages/course-management/create-course",
+    "_name": "_636826bf"
+  },
+  {
     "name": "sub-category-add",
     "path": "/sub-category/add",
     "component": "F:\\\\Xampp\\\\htdocs\\\\lmsnuxt\\\\pages\\\\sub-category\\\\add.vue",
@@ -138,6 +152,13 @@
     "component": "F:\\\\Xampp\\\\htdocs\\\\lmsnuxt\\\\pages\\\\category-management\\\\edit\\\\_id.vue",
     "chunkName": "pages/category-management/edit/_id",
     "_name": "_62e0fdc6"
+  },
+  {
+    "name": "course-management-edit-id",
+    "path": "/course-management/edit/:id",
+    "component": "F:\\\\Xampp\\\\htdocs\\\\lmsnuxt\\\\pages\\\\course-management\\\\edit\\\\_id.vue",
+    "chunkName": "pages/course-management/edit/_id",
+    "_name": "_2c8142a3"
   },
   {
     "name": "sub-category-create-sub-category-id",

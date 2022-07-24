@@ -1,7 +1,7 @@
 <template>
-    <dropzone id="foo" ref="el" :options="options" :destroyDropzone="true" @vdropzone-success="fileUploadSuccessEvent">
-     
-    </dropzone>
+<dropzone id="foo" ref="el" :options="options" :destroyDropzone="true"  v-if="this.type=='video'"   @vdropzone-success="videoUploadSuccessEvent"></dropzone>
+    <dropzone id="foo" ref="el" :options="options" :destroyDropzone="true" v-else @vdropzone-success="fileUploadSuccessEvent"></dropzone>
+    
 </template>
 <style>
 .dropzone .dz-preview .dz-image img{
@@ -12,7 +12,7 @@
 import Dropzone from 'nuxt-dropzone'
 import 'nuxt-dropzone/dropzone.css'
 export default {
-    props: ['fileUploadSuccessEvent','existingImage'],
+    props: ['fileUploadSuccessEvent','existingImage','type','folder','extension','videoUploadSuccessEvent'],
     components: {
         Dropzone
     },
@@ -23,11 +23,11 @@ export default {
     data() {
         return {
             options: {
-                url: process.env.baseUrl + "/dropzone-image-upload",
+                url: process.env.baseUrl + "/dropzone-image-upload?folder="+this.folder,
                 thumbnailWidth: 200,
                 paramName: "image",
-                acceptedFiles: ".png, .jpeg, .jpg, .gif",
-                maxFilesize: 0.5,
+                acceptedFiles: this.extension,
+                maxFilesize: 2048,
                 addRemoveLinks: true,
                 uploadMultiple: false,
                 clickable: true,

@@ -1,22 +1,14 @@
 <template>
 
-    <input type="checkbox"  v-bind:class="className" v-bind:click="onselected"
-    
-    v-on:input="checkboxVal = $event.target.value"
-
-    />
-        
-         
-
-
-    </template>
+    <input type="checkbox"  v-bind:class="className" v-on:click="getClick" v-bind:value="modelName" v-on:input="modelName = $event.target.value"/>
+</template>
 
 <script>
-
     export default{
-        props: ['className','onselected'],
+        props: ['className','modelName'],
+        emits: ['onClick'],
         created(){
-            console.log(this.onselected);
+           
         },
         data(){
             return{
@@ -33,12 +25,20 @@
                     this.tempSelected.push(event.target.value)
                     this.selectedId.push(this.tempSelected);
                     
-                }else{
-
+                } 
+            },
+            getClick(event){
+                if(event.target.checked ==true){
+                   var value=event.target.value;
+                } else{
+                    var value="";
                 }
-
-                
+                 this.$emit('onClick', value);
+               // this.$emit('onClick',selected);
+           
             }
+            
+           
         }
     };
 </script>

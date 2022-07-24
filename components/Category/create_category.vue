@@ -34,7 +34,7 @@
                 <p class="mb-0 user-modal-title">Upload thumbnail</p>
             </div>
             <div class="modal-record-col2">
-                <Dropzone v-bind:fileUploadSuccessEvent="fileUploadSuccessEvent" modelname="Dropzone"
+                <Dropzone v-bind:fileUploadSuccessEvent="fileUploadSuccessEvent" :folder="`category`" :type="`image`"  :extension="`.png, .jpeg, .jpg, .gif`" modelname="Dropzone"
                     v-model="categoryData.image_name" />
             </div>
         </div>

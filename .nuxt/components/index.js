@@ -5,6 +5,8 @@ export { default as CategoryCreateCategory } from '../..\\components\\Category\\
 export { default as CategoryEditCategory } from '../..\\components\\Category\\edit_category.vue'
 export { default as ConfigAuthHeader } from '../..\\components\\config\\AuthHeader.js'
 export { default as ConfigDataService } from '../..\\components\\config\\DataService.js'
+export { default as CourseList } from '../..\\components\\Course\\courseList.vue'
+export { default as CourseCreateCource } from '../..\\components\\Course\\createCource.vue'
 export { default as Dashboard } from '../..\\components\\Dashboard\\dashboard.vue'
 export { default as ElementDataTable } from '../..\\components\\element\\dataTable.vue'
 export { default as ElementDropzone } from '../..\\components\\element\\Dropzone.vue'
@@ -41,7 +43,7 @@ export { default as ServiceAuthService } from '../..\\components\\Service\\AuthS
 export { default as ServiceCategoryService } from '../..\\components\\Service\\CategoryService.js'
 export { default as ServiceCourseService } from '../..\\components\\Service\\CourseService.js'
 export { default as ServiceDocumentUpload } from '../..\\components\\Service\\DocumentUpload.js'
-export { default as ServiceDropZoneService } from '../..\\components\\Service\\DropZoneService.js'
+export { default as ServiceInstructorService } from '../..\\components\\Service\\InstructorService.js'
 export { default as ServicePaymentPlanService } from '../..\\components\\Service\\PaymentPlanService.js'
 export { default as ServiceRoleDataService } from '../..\\components\\Service\\RoleDataService.js'
 export { default as ServiceSubcategoryService } from '../..\\components\\Service\\SubcategoryService.js'
@@ -56,6 +58,8 @@ export { default as UserImportCsv } from '../..\\components\\User\\import_csv.vu
 export { default as UserImportUserList } from '../..\\components\\User\\import_user_list.vue'
 export { default as UserList } from '../..\\components\\User\\user_list.vue'
 export { default as UserViewUser } from '../..\\components\\User\\viewUser.vue'
+export { default as New folderCompoCourseList } from '../..\\components\\New folder\\Compo\\courseList.vue'
+export { default as New folderCompoCreateCource } from '../..\\components\\New folder\\Compo\\createCource.vue'
 
 // nuxt/nuxt.js#8607
 function wrapFunctional(options) {

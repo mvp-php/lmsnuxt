@@ -1,4 +1,5 @@
 <template>
+<span>
     <div class="create-role-main">
         <div class="slds-form-element custom-grid">
             <Labels labelName="First Name" className="slds-form-element__label custom-label" for="text-input-id-46"
@@ -11,6 +12,8 @@
                 <span class="text-danger" id="first_name_error" ref="caterror"></span>
             </div>
         </div>
+    </div>
+    <div class="create-role-main">
         <div class="slds-form-element custom-grid">
             <Labels labelName="Last Name" className="slds-form-element__label custom-label" for="text-input-id-46"
                 required="true" />
@@ -22,6 +25,8 @@
                 <span class="text-danger" id="last_name_error" ref="caterror"></span>
             </div>
         </div>
+    </div>
+    <div class="create-role-main">
         <div class="slds-form-element custom-grid">
             <Labels labelName="Email" className="slds-form-element__label custom-label" for="text-input-id-46"
                 required="true" />
@@ -33,60 +38,69 @@
                 <span class="text-danger" id="email_error" ref="caterror"></span>
             </div>
         </div>
+    </div>
+    <div  class="create-role-main">
         <div class="slds-form-element custom-grid">
             <Labels labelName="Role" className="slds-form-element__label custom-label" for="text-input-id-46"
                 required="true" />
 
             <div class="slds-form-element__control custom-grid-control mb-20">
-                <formDropdown :options="rolelist"   v-model="theUser.role_id" selectName="Role" class="slds-select custom-grid-input" @onChange="ChangeRole" :selected="`${theUser.role_id}`"></formDropdown>
+                <div class="slds-select_container cus-select-container">
+                    <formDropdown :options="rolelist"   v-model="theUser.role_id" selectName="Role" class="slds-select custom-grid-input" @onChange="ChangeRole" :selected="`${theUser.role_id}`"></formDropdown>
+                
+                </div>
                 
                 <span class="text-danger" id="role_error" ref="caterror"></span>
             </div>
         </div>
-
-        <div id="studentId">
-            <div class="slds-form-element custom-grid" v-if="studentSectionHide">
+    </div>
+    <div id="studentId">
+        <div class="create-role-main"   v-if="studentSectionHide">
+            <div class="slds-form-element custom-grid" >
                 <Labels labelName="Select Membership" className="slds-form-element__label custom-label"
                     for="text-input-id-46" required="true" />
 
                 <div class="slds-form-element__control custom-grid-control mb-20">
-                    <formDropdown :options="paymentPlan"   v-model="theUser.entity_id" selectName="Membership" class="slds-select custom-grid-input" @onChange="ChangeEntity" :selected="`${theUser.entity_id}`"></formDropdown>
+                    <div class="slds-select_container cus-select-container">
+                        <formDropdown :options="paymentPlan"   v-model="theUser.entity_id" selectName="Membership" class="slds-select custom-grid-input" @onChange="ChangeEntity" :selected="`${theUser.entity_id}`"></formDropdown>
                 
+                    </div>
+                    
                   
                     <span class="text-danger" id="members_error" ref="caterror"></span>
                 </div>
 
             </div>
-            <span id="instructors_id" v-if="instructorSectionHide">
-                <div class="slds-form-element custom-grid valid-col1">
-                    <Labels labelName="Valid From" className="slds-form-element__label custom-label"
-                        for="text-input-id-46" />
+
+        </div>
+        <div class="create-role-main"   v-if="instructorSectionHide">
+            <div class="slds-form-element custom-grid valid-col1">
+                <Labels labelName="Valid From" className="slds-form-element__label custom-label"
+                    for="text-input-id-46" />
 
 
-                    <div class="slds-form-element__control custom-grid-control mb-20">
-                        <Inputs type="date" fieldId="valid_from" placeHolder="Valid From"
-                            class="slds-input custom-grid-input "   id="valid_from" className="slds-input"
-                            v-model.trim="theUser.valid_from"  @change="changeDate($event)"   :min="minDate" />
+                <div class="slds-form-element__control custom-grid-control mb-20">
+                    <Inputs type="date" fieldId="valid_from" placeHolder="Valid From"
+                        class="slds-input custom-grid-input "   id="valid_from" className="slds-input"
+                        v-model.trim="theUser.valid_from"  @change="changeDate($event)"   :min="minDate" />
 
-                    </div>
                 </div>
-                <div class="slds-form-element custom-grid valid-col2">
-                    <Labels labelName="Valid To" className="slds-form-element__label custom-label"
-                        for="text-input-id-46" />
+            </div>
+            <div class="slds-form-element custom-grid valid-col2">
+                <Labels labelName="Valid To" className="slds-form-element__label custom-label"
+                    for="text-input-id-46" />
 
-                    <div class="slds-form-element__control custom-grid-control mb-20">
+                <div class="slds-form-element__control custom-grid-control mb-20">
 
-                        <Inputs type="date" fieldId="valid_to" placeHolder="Valid To"
-                            class="slds-input custom-grid-input " className="slds-input"
-                            v-model.trim="theUser.valid_till" :min="minTil"/>
+                    <Inputs type="date" fieldId="valid_to" placeHolder="Valid To"
+                        class="slds-input custom-grid-input " className="slds-input"
+                        v-model.trim="theUser.valid_till" :min="minTil"/>
 
-                    </div>
                 </div>
-            </span>
-
-
-
-            <div class="slds-form-element custom-grid" v-if="studentSectionHide">
+            </div>
+        </div>
+        <div class="create-role-main"   v-if="studentSectionHide">
+            <div class="slds-form-element custom-grid">
                 <Labels labelName="Amount" className="slds-form-element__label custom-label" for="text-input-id-46"
                     required="true" />
 
@@ -99,10 +113,11 @@
                 </div>
 
             </div>
+        
         </div>
-
     </div>
-
+</span>
+  
 </template>
 
 <script>
