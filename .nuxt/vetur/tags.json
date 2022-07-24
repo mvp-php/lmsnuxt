@@ -20,12 +20,6 @@
   "ConfigDataService": {
     "description": "Auto imported from components/config/DataService.js"
   },
-  "CourseList": {
-    "description": "Auto imported from components/Course/courseList.vue"
-  },
-  "CourseCreateCource": {
-    "description": "Auto imported from components/Course/createCource.vue"
-  },
   "Dashboard": {
     "description": "Auto imported from components/Dashboard/dashboard.vue"
   },
@@ -119,6 +113,9 @@
   "RoleSetDefaultRoles": {
     "description": "Auto imported from components/Role/set_default_roles.vue"
   },
+  "RoleViewRole": {
+    "description": "Auto imported from components/Role/view_role.vue"
+  },
   "ServiceAuthService": {
     "description": "Auto imported from components/Service/AuthService.js"
   },
@@ -146,6 +143,9 @@
   "ServiceUserService": {
     "description": "Auto imported from components/Service/UserService.js"
   },
+  "SetPassword": {
+    "description": "Auto imported from components/SetPassword/setPassword.vue"
+  },
   "SubCategoryCreateSubCategory": {
     "description": "Auto imported from components/SubCategory/create_sub_category.vue"
   },
@@ -169,5 +169,8 @@
   },
   "UserList": {
     "description": "Auto imported from components/User/user_list.vue"
+  },
+  "UserViewUser": {
+    "description": "Auto imported from components/User/viewUser.vue"
   }
 }

@@ -55,10 +55,10 @@ export default {
     },
     methods: {
        
-        editData(id) {
-            CategoryService.getEditDetails(id).then((result) => {
+        async  editData(id) {
+            await   CategoryService.getEditDetails(id).then(  (result) => {
                 this.editModelData = result.data.data;
-                console.log(result.data.data);
+              
             }).catch((err) => {
                 console.error(err);
             });

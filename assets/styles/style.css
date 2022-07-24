@@ -299,7 +299,7 @@ body {
 
 .btn-align-end {
     display: flex;
-    justify-content: end;
+    justify-content: flex-end;
     padding: 15px 20px 0 0;
 }
 
@@ -836,7 +836,7 @@ ul.sidebar-list li {
 }
 .custom-grid-drop-down{
     display: flex;
-    justify-content: end;
+    justify-content: flex-end;
     padding: 0 20px;
 }
 .cus-select-container:after{
@@ -3064,7 +3064,7 @@ margin-bottom: 60px;
 .paginate ul {
     display: flex;
     align-items: center;
-    justify-content: end;
+    justify-content: flex-end;
 }
 .paginate ul li {
     margin-right: 8px;

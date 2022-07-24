@@ -61,8 +61,8 @@ export default {
             ButtonName: "Save User",
             errorMessage: "",
             classObj: 'arrow-left',
-            hides: true,
-            hidessucces: true,
+    
+    
             successMessage: "",
             allRoleList: [],
             paymentPlan: [],
@@ -81,8 +81,19 @@ export default {
         getRoleList() {
 
             RoleDataService.getAllRoleList().then(response => {
+                var final = [];
 
-                this.allRoleList = response.data.data;
+                response.data.data.map(function (value, key) {
+
+                    var objectElement = {};
+                    objectElement.id = value.id;
+                    objectElement.title = value.title;
+                    objectElement.flag = value.flag;
+                    objectElement.is_system_role = value.is_system_role;
+                    final.push(objectElement);
+
+                })
+                this.allRoleList =final;
 
             }).catch(e => {
                 console.log(e)

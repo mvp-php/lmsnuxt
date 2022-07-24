@@ -1,10 +1,21 @@
 <template>
-     <input type="radio"  v-bind:id="idName" v-bind:class="className"   v-bind:value="value" v-bind:name="modelname" v-bind:checked="checkedVal">
+    <input type="radio" v-bind:id="idName" v-bind:value="modelName" v-on:input="modelName = $event.target.value"
+        v-on:click="getClick">
 </template>
-
 <script>
+export default {
+    props: ['modelName', 'idName', 'value'],
+    emits: ['onClick'],
+    created() {
+        console.log(this.modelName)
+    },
+    methods: {
+        getClick(event) {
 
-    export default{
-        props: ['value', 'className', 'modelname','idName','checkedVal','selectArr'],
-    };
+            this.$emit('onClick', event.target.value);
+
+        }
+    }
+
+};
 </script>

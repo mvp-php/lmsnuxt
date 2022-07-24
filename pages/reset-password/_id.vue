@@ -80,11 +80,11 @@ export default {
           console.log(result);
           // localStorage.setItem("userData", JSON.stringify(result.data.data))
           this.$router.push({ path: '/reset-success' });
-          this.successMessage = result.data.error_msg;
+          this.successMessage = result.data.response_msg;
 
-          this.successToastrShow();
+          //this.successToastrShow();
         }).catch(error => {
-          this.errorMessage = error.response.data.error_msg;
+          this.errorMessage = error.response.data.response_msg;
           this.errorToastrShow();
    
         })

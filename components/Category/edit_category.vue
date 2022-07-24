@@ -18,6 +18,7 @@
                             <div class="modal-category-col1">
                                 <p class="mb-0 user-modal-title">Category description</p>
                             </div>
+                    
                             <div class="modal-record-col2">
                                 <div class="mb-0 user-modal-desc">
                                     <div class="slds-form-element__control ">
@@ -33,6 +34,7 @@
                             </div>
                         </div>
                         <div class="modal-row">
+                    
                             <div class="modal-category-col1">
                                 <p class="mb-0 user-modal-title">Upload thumbnail</p>
                             </div>

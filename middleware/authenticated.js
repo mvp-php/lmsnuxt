@@ -5,7 +5,7 @@ export default function ({ $auth, redirect }) {
     // Perform localStorage action
     const user = localStorage.getItem('userData');
     if (user === null) {
-      //redirect.push('/login');
+      redirect.push('/login');
 
     }
 

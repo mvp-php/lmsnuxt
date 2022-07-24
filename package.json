@@ -23,6 +23,7 @@
     "webpack": "^4.46.0"
   },
   "devDependencies": {
+    "css-loader": "^4.3.0",
     "sass": "^1.53.0",
     "sass-loader": "^10.2.1"
   }

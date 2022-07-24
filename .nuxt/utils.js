@@ -200,7 +200,7 @@ export async function setContext (app, context) {
       payload: context.payload,
       error: context.error,
       base: app.router.options.base,
-      env: {"baseUrl":"http://127.0.0.1:8000/api/v1"}
+      env: {"baseUrl":"http://127.0.0.1:8000/api/v1","serverUrl":"http://127.0.0.1:8000"}
     }
     // Only set once
 

@@ -10,8 +10,6 @@
 
                                 <input type="text" id="text-input-id-50" placeHolder="Search category here…"
                                     class="slds-input search-inp" v-on:keyup="searchText($event)" />
-
-
                             </div>
                         </div>
                         <nuxt-link to="/category-management/create-category"
@@ -97,7 +95,7 @@
                                     <div class="img-section-manage mb-16px">
                                         <div class="img-tag-thumnails">
                                             <span v-if="viewModelData.image_name">
-                                            
+                                                <ImageComponent :log='`${viewModelData.image_name}`'  />
                                                 
                                             </span>
                                             <span v-else>
@@ -206,7 +204,7 @@ export default {
         }
     },
     created() {
-        this.header = ["", 'Sr No.', 'Category Name', 'Category Description', 'Created On', 'Add Sub Category', 'Action'];
+       this.header = [{ "Key": "", 'column': '' },{ "Key": "Sr No.", 'column': 'id' },{ "Key": "Category Name", 'column': 'title' },{ "Key": "Category Description", 'column': 'description' },{ "Key": "Created On", 'column': 'created_at' },{'Key':'Add Sub Category','column': '' },{ "Key": "Action", 'column': 'created_at' }];
         this.getAllCatData(1)
         this.successSMG();
     },

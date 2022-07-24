@@ -2,11 +2,12 @@
   <div class="slds-pagination">
    
           <div class="paginate" v-if="pageCount !=0">
+       
               <ul>
                
                  
                <li class="slds-prev" v-if="!isPrevious">
-               <a  class="slds-button slds-prev-box"  @click="getPaginate(currentPage-1,searchKeyword)"">
+               <a  class="slds-button slds-prev-box"  @click="getPaginate(currentPage-1,searchKeyword)">
                 <imageComponent :log="require('~/assets/img/front/forword-arrow.svg')"></imageComponent>
                {{index}}</a></li>
                 <li class="slds-items" :class="[currentPage ==index? 'slds-active' : '']" v-for="index in paginateObjFinal.last_page" :key="index"> 
@@ -28,7 +29,8 @@
 <script>
 import imageComponent from '../../components/element/image.vue';
 export default {
-  props:['tableData','paginateObjFinal','searchKeyword','pageCount'],
+  props:['tableData','paginateObjFinal','searchKeyword','pageCount','field'],
+
   components:{
     imageComponent
   },
@@ -43,17 +45,14 @@ export default {
       isNext:false
     }
   },
-  mounted() {
+  mounted:function() {
     this.currentPage = 1;
     this.prevpage = 1;
-     setTimeout(() =>
-                this.getURL(),
-
-                1000);
+    setTimeout(() =>this.getURL(),500);
     
   },
-  
   methods: {
+  
     getURL:function(){
       if(this.paginateObjFinal.next_page_url){
         this.isNext =true;
@@ -61,7 +60,7 @@ export default {
     },
     getPaginate (currentPage,value){
 
-        this.$parent.getPaginates(currentPage,value);
+        this.$parent.getPaginates(currentPage,value,this.field,this.sort);
         this.currentPage = currentPage;
         this.isPrevious =false;
         this.isNext =false;
@@ -74,7 +73,7 @@ export default {
         }
        
     },
-   
+    
     
   }
 }

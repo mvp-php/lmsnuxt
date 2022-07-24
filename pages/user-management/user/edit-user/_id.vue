@@ -12,7 +12,7 @@
                         Edit A User
                     </div>
                     <form v-on:submit.prevent="submitData">
-                        <EditUser :the-user="user" :rolelist="allRoleList" :paymentPlan="paymentPlan"
+                        <EditUser :the-user="user" :rolelist="allRoleList"  :paymentPlan="paymentPlan"  :instructorSectionHides="instructorSectionHide"    :studentSectionHides="studentSectionHide"
                            />
                         <div class="btn-align-end">
                             <ButtonComponent type="submit" class="slds-button slds-button_brand btnmain blue-btn ml-10"
@@ -31,7 +31,7 @@
 </template>
 
 <script>
-import EditUser from '../../../../components/User/edit_user.vue';
+import EditUser from '../../../../components/User/create_user.vue';
 import imageComponent from '../../../../components/element/image.vue';
 import RoleDataService from "../../../../components/Service/RoleDataService";
 import PaymentPlanService from "../../../../components/Service/PaymentPlanService";
@@ -64,16 +64,14 @@ export default {
             ButtonName: "Update User",
             errorMessage: "",
             classObj: 'arrow-left',
-            hides: true,
+            studentSectionHide: false,
+            instructorSectionHide:false,
             allRoleList: [],
             paymentPlan: [],
             dangerHide: true,
             userForm: [],
             
         };
-    },
-    mounted() {
-        console.log(123, 'abc');
     },
     created() {
         this.getRoleList();
@@ -84,8 +82,18 @@ export default {
         getRoleList() {
 
             RoleDataService.getAllRoleList().then(response => {
+                var final =[];
+                response.data.data.map(function (value, key) {
 
-                this.allRoleList = response.data.data;
+                    var objectElement = {};
+                    objectElement.id = value.id;
+                    objectElement.title = value.title;
+                    objectElement.flag = value.flag;
+                    objectElement.is_system_role = value.is_system_role;
+                    final.push(objectElement);
+
+                })
+                this.allRoleList =final;
 
             }).catch(e => {
                 console.log(e)
@@ -103,8 +111,7 @@ export default {
         },
         getUserDetails() {
             userService.getUserDetails(this.$route.params.id).then(response => {
-                this.loading = false;
-                
+               
                 this.user = response.data.data[0];
                 this.user.role_id = response.data.data[0].user_role_relation_ship.role_relation_ship.id;
                 var entity_id='';
@@ -121,11 +128,24 @@ export default {
 
 
 
-                 this.user.entity_id = entity_id;
+                this.user.entity_id = entity_id;
                 this.user.amount = amount;
                 var validFrom='';
                 var validTill='';
+               
+
+                if(response.data.data[0].user_role_relation_ship){
+                    if(response.data.data[0].user_role_relation_ship.role_relation_ship.flag=="Instructor"){
+                   
+                        this.instructorSectionHide=true;
+                    }
+                    if(response.data.data[0].user_role_relation_ship.role_relation_ship.flag=="Student"){
+                        this.studentSectionHide=true;
+                        this.instructorSectionHide=true;
+                    }
+                }
                 if(response.data.data[0].user_instructor){
+                   
                     if(response.data.data[0].user_instructor.valid_from){
                         console.log(moment(response.data.data[0].user_instructor.valid_from));
                         validFrom  = moment(response.data.data[0].user_instructor.valid_from).format('YYYY-MM-DD');
@@ -135,6 +155,7 @@ export default {
                     }
                 }
                 if(response.data.data[0].user_custom_payment){
+               
                     if(response.data.data[0].user_custom_payment.valid_from){
                         validFrom  = moment(response.data.data[0].user_custom_payment.valid_from).format('YYYY-MM-DD');
                     }
@@ -151,10 +172,7 @@ export default {
                 console.log(e)
             });
         },
-        
-        hide(){
-            this.hides = true;
-        },
+       
         submitData(event) {
             document.getElementById("first_name_error").textContent = "";
             document.getElementById("last_name_error").textContent = "";

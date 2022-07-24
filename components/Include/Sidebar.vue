@@ -54,7 +54,7 @@
             </NuxtLink>
           </li>
           <li>
-            <NuxtLink to="/course-management">
+            <a href="">
               <div class="side-svg-main slds-align_absolute-center">
                 <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 15 15">
                   <g id="icons_utility_description-copy" data-name="icons/utility/description-copy"
@@ -66,8 +66,7 @@
                 </svg>
                 <div class="sidebar-tooltip"><span>Manage Course</span> </div>
               </div>
-            </NuxtLink>
-           
+            </a>
           </li>
 
           <li>

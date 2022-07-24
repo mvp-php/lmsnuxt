@@ -46,7 +46,7 @@
 
                 <div class="slds-form-element__control custom-grid-control mb-20">
                     <TextArea fieldId="hio" placeHolder="Bio" class="slds-input custom-grid-input "
-                        className="slds-input" v-model.trim="theUser.bio" @keypress="validation($event)" />
+                        className="slds-input" v-model.trim="theUser.profile_description" @keypress="validation($event)" />
 
 
                 </div>
@@ -60,12 +60,8 @@
                         <div class="slds-form-element__control custom-grid-control">
 
                             <div class="edit-content-inner">
-                                <span v-if="theUser.profile_image_name">
-                                
-                                </span>
-                                <span v-else>
-                                    <ImageComponent :log="require('~/assets/img/svg/avtar1.svg')" alt="" id="profiles" class="edit-content-img"></ImageComponent>
-                                </span>
+                                <ImageComponent v-if="theUser.profile_image_name" :log="`${theUser.profile_image_name}`" alt="" id="profiles" class="edit-content-img"></ImageComponent>
+                                <ImageComponent v-if="!theUser.profile_image_name" :log="require('~/assets/img/svg/avtar1.svg')" alt="" id="profiles" class="edit-content-img"></ImageComponent>
                                 
                                
                                 <div class="edit-btns">
@@ -97,7 +93,7 @@
 <script>
 
 import Inputs from '../element/formTextBoxField.vue';
-import InputFile from '../element/inputFile.vue';
+
 import Labels from '../element/formLabel.vue';
 import ButtonComponent from '../element/formButton.vue';
 import TextArea from '../element/textArea.vue';
@@ -113,7 +109,7 @@ export default {
         ButtonComponent,
         TextArea,
         ImageComponent,
-        InputFile
+        
 
     },
     data() {
@@ -127,7 +123,7 @@ export default {
     },
     methods: {
        async handleSelectedFiles(event) {
-            console.log(event.target.files,"Event")
+           
           var output = document.getElementById('profiles');
             output.src = URL.createObjectURL(event.target.files[0]);
             var filename = await UploadDocument(event.target.files[0],'user');

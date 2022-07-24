@@ -5,8 +5,6 @@ export { default as CategoryCreateCategory } from '../..\\components\\Category\\
 export { default as CategoryEditCategory } from '../..\\components\\Category\\edit_category.vue'
 export { default as ConfigAuthHeader } from '../..\\components\\config\\AuthHeader.js'
 export { default as ConfigDataService } from '../..\\components\\config\\DataService.js'
-export { default as CourseList } from '../..\\components\\Course\\courseList.vue'
-export { default as CourseCreateCource } from '../..\\components\\Course\\createCource.vue'
 export { default as Dashboard } from '../..\\components\\Dashboard\\dashboard.vue'
 export { default as ElementDataTable } from '../..\\components\\element\\dataTable.vue'
 export { default as ElementDropzone } from '../..\\components\\element\\Dropzone.vue'
@@ -38,6 +36,7 @@ export { default as RoleCreateRole } from '../..\\components\\Role\\create_role.
 export { default as RoleEditRole } from '../..\\components\\Role\\edit_role.vue'
 export { default as Role } from '../..\\components\\Role\\Role.vue'
 export { default as RoleSetDefaultRoles } from '../..\\components\\Role\\set_default_roles.vue'
+export { default as RoleViewRole } from '../..\\components\\Role\\view_role.vue'
 export { default as ServiceAuthService } from '../..\\components\\Service\\AuthService.js'
 export { default as ServiceCategoryService } from '../..\\components\\Service\\CategoryService.js'
 export { default as ServiceCourseService } from '../..\\components\\Service\\CourseService.js'
@@ -47,6 +46,7 @@ export { default as ServicePaymentPlanService } from '../..\\components\\Service
 export { default as ServiceRoleDataService } from '../..\\components\\Service\\RoleDataService.js'
 export { default as ServiceSubcategoryService } from '../..\\components\\Service\\SubcategoryService.js'
 export { default as ServiceUserService } from '../..\\components\\Service\\UserService.js'
+export { default as SetPassword } from '../..\\components\\SetPassword\\setPassword.vue'
 export { default as SubCategoryCreateSubCategory } from '../..\\components\\SubCategory\\create_sub_category.vue'
 export { default as SubCategoryEditSubCategory } from '../..\\components\\SubCategory\\edit_sub_category.vue'
 export { default as SubCategoryList } from '../..\\components\\SubCategory\\sub_category_list.vue'
@@ -55,6 +55,7 @@ export { default as UserEditUser } from '../..\\components\\User\\edit_user.vue'
 export { default as UserImportCsv } from '../..\\components\\User\\import_csv.vue'
 export { default as UserImportUserList } from '../..\\components\\User\\import_user_list.vue'
 export { default as UserList } from '../..\\components\\User\\user_list.vue'
+export { default as UserViewUser } from '../..\\components\\User\\viewUser.vue'
 
 // nuxt/nuxt.js#8607
 function wrapFunctional(options) {

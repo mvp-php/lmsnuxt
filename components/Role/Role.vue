@@ -15,8 +15,8 @@ export default {
         dataTable
     },
     methods:{
-        getPaginatesNew:function(currentPage,value){
-            this.$parent.getPaginatesMain(currentPage,value);
+        getPaginatesNew:function(currentPage,value,field,sort){
+            this.$parent.getPaginatesMain(currentPage,value,field,sort);
         },
         viewMethod: function(id) { 
            this.$parent.openViewModel(id);

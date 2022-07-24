@@ -1,45 +1,45 @@
 <template>
-<span>
-    <div class="modal-row">
-                            <div class="modal-category-col1">
-                                <p class="mb-0 user-modal-title">Category Name</p>
-                            </div>
-                            <div class="modal-record-col2">
-                                <div class="slds-form-element__control  ">
-                                    <FormTextBoxField v-model="categoryData.title" fieldId="category_name"
-                                        placeHolder="Category Name" className="slds-input" ref="category_name"  @keypress="checkInput()"/>
-                                    <span class="text-danger" id="category_title_error" ref="caterror"></span>
-                                </div>
-                            </div>
-                        </div> 
-                        <div class="modal-row">
-                            <div class="modal-category-col1">
-                                <p class="mb-0 user-modal-title">Category description</p>
-                            </div>
-                            <div class="modal-record-col2">
-                                <div class="mb-0 user-modal-desc">
-                                    <div class="slds-form-element__control ">
-                                        <FormTextareaField rows="3" v-model="categoryData.description" 
-                                            placeHolder="Description comes here with a character limit."
-                                            className="slds-textarea custom-grid-textarea cat-desc"
-                                            fieldId="category_desc" ref="category_description" @keypress="checkInput()"/>
+    <span>
+        <div class="modal-row">
+            <div class="modal-category-col1">
+                <p class="mb-0 user-modal-title">Category Name</p>
+            </div>
+            <div class="modal-record-col2">
+                <div class="slds-form-element__control  ">
+                    <FormTextBoxField v-model="categoryData.title" fieldId="category_name" placeHolder="Category Name"
+                        className="slds-input" ref="category_name" @keypress="checkInput()" />
+                    <span class="text-danger" id="category_title_error" ref="caterror"></span>
+                </div>
+            </div>
+        </div>
+        <div class="modal-row">
+            <div class="modal-category-col1">
+                <p class="mb-0 user-modal-title">Category description</p>
+            </div>
+            <div class="modal-record-col2">
+                <div class="mb-0 user-modal-desc">
+                    <div class="slds-form-element__control ">
+                        <FormTextareaField rows="3" 
+                            placeHolder="Description comes here with a character limit."
+                            className="slds-textarea custom-grid-textarea cat-desc" fieldId="category_desc"
+                            ref="category_description" :bindValue="`${categoryData.description}`"   @keyup="updateTextArea()" />
 
-                                        <span class="text-danger" id="category_description_error" ref="caterror"></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="modal-row">
-                            <div class="modal-category-col1">
-                                <p class="mb-0 user-modal-title">Upload thumbnail</p>
-                            </div>
-                            <div class="modal-record-col2">
-                                <Dropzone v-bind:fileUploadSuccessEvent="fileUploadSuccessEvent" modelname="Dropzone"
-                                    v-model="categoryData.image_name" />
-                            </div>
-                        </div>
-</span>
-   
+                        <span class="text-danger" id="category_description_error" ref="caterror"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-row">
+            <div class="modal-category-col1">
+                <p class="mb-0 user-modal-title">Upload thumbnail</p>
+            </div>
+            <div class="modal-record-col2">
+                <Dropzone v-bind:fileUploadSuccessEvent="fileUploadSuccessEvent" modelname="Dropzone"
+                    v-model="categoryData.image_name" />
+            </div>
+        </div>
+    </span>
+
 </template>
 <script>
 import Dropzone from '../../components/element/Dropzone.vue';
@@ -53,9 +53,11 @@ export default {
     components: {
         Dropzone,
         FormTextBoxField,
-        FormTextareaField, 
+        FormTextareaField,
     },
-   
+    mounted:function(){
+
+    },
     methods: {
         fileUploadSuccessEvent(file, response) {
             this.categoryData.image_name = response;
@@ -70,6 +72,12 @@ export default {
             }
 
 
+        },
+         updateTextArea:function () {
+            this.categoryData.description=event.target.value;
+            if (this.categoryData.description) {
+                document.getElementById("category_description_error").textContent = "";
+            }
         },
     }
 

@@ -1,18 +1,25 @@
+
+<template> 
+ <select  v-on:change="emitbackthecatalog" >
+        <option value="">Select {{selectName}}</option>
+        <option   v-for="item in options" v-bind:selected="item.id == selected"  :value="item.id" :data-flag="`${item.flag}`" :data-option="`${item.is_system_role}`" :key="item.id">{{ item.title}}</option>
+    </select>
+</template>
 <script>
 
     export default{
-        props: ['list','selectedValue',  'value', 'placeHolder', 'className', 'modelname','idName','selectName','selectArr'],
-         emits: ['change'],
+        props: ['list','selectName','options','selected'],
+        
+         mounted(){
+           console.log(this.selected)
+        },
+        methods:{
+            emitbackthecatalog(event){
+            
+                var selected = event.target;
+                this.$emit('onChange',selected);
+           
+            }
+        }
     };
 </script>
-<template>
-    <select v-bind:class="className" v-bind:placeHolder="placeHolder" v-bind:name="modelname"
-         v-bind:id="idName" @change="$emit('change')">
-        <option  value="">Select {{selectName}}</option>
-        <option v-for="plan in selectArr" :key="plan.id" :value="plan.id">
-                                          {{plan.name}}
-        </option>
-    </select>
-</template>
-
-

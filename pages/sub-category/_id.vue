@@ -203,7 +203,9 @@ export default {
         }
     },
     created() {
-        this.header = ["", 'Sr No.', 'Category', 'Major Category', 'Created On', 'Action'];
+        this.header = [{ "Key": "", 'column': '' },{ "Key": "Sr No.", 'column': 'id' },{ "Key": "Category", 'column': 'title' },{ "Key": "Major Category", 'column': 'main_title' },{ "Key": "Created On", 'column': 'created_at' },{ "Key": "Action", 'column': '' }];
+        
+        
         this.getAllCatData(1)
         this.successSMG();
     },
