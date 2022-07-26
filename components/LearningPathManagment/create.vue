@@ -1,10 +1,9 @@
 <template>
     <div class="create-role-main">
         <div class="slds-form-element custom-grid mb-30">
-            <label class="slds-form-element__label custom-label" for="text-input-id-46">
-                Learning
+            <FormLabel required="true" className="slds-form-element__label custom-label" labelName=" Learning
                 Path
-                Title</label>
+                Title"></FormLabel>
             <div class="slds-form-element__control  custom-grid-control">
                 <FormTextBoxField v-model="lerningPathData.title" fieldId="learning_path_title" placeHolder=""
                     className="slds-input custom-grid-input" ref="learning_path_title" />
@@ -12,10 +11,9 @@
             </div>
         </div>
         <div class="slds-form-element custom-grid  mb-30">
-            <label class="slds-form-element__label custom-label" for="textarea-id-01">Learning
+            <FormLabel required="true" className="slds-form-element__label custom-label" labelName=" Learning
                 Path
-                Description
-            </label>
+                Description"></FormLabel>
             <div class="slds-form-element__control custom-grid-control">
                 <editor class="slds-textarea custom-grid-textarea mb-20" placeHolder="" name="learning_path_description"
                     id="learning_path_description" api-key="no-api-key" v-model="lerningPathData.description" :init="{
@@ -32,11 +30,9 @@
             </div>
         </div>
         <div class="slds-form-element custom-grid mb-30">
-            <label class="slds-form-element__label custom-label" for="textarea-id-01">Learning
+            <FormLabel className="slds-form-element__label custom-label" labelName=" Learning
                 Path
-                requirements
-                <span class="">*</span>
-            </label>
+                requirements" required="true" for="textarea-id-01"> </FormLabel>
             <div class="slds-form-element__control custom-grid-control">
                 <editor class="slds-textarea custom-grid-textarea mb-20" placeHolder="" name="requirement"
                     id="requirement" api-key="no-api-key" v-model="lerningPathData.requirement" :init="{
@@ -54,63 +50,61 @@
             </div>
         </div>
         <div class="slds-form-element  custom-grid  mb-20">
-            <label class="slds-form-element__label custom-label mb-0" for="textarea-id-01">
-                Learning
+            <FormLabel required="true" className="slds-form-element__label custom-label" labelName=" Learning
                 Path
-                Thumbnail
-            </label>
+                Thumbnail" for="textarea-id-01"> </FormLabel>
             <div class="slds-form-element__control custom-grid-control">
                 <div class="position-relative">
-                    <Dropzone v-bind:fileUploadSuccessEvent="thumbnailUpload" modelname="Dropzone"
+                    <!-- <Dropzone v-bind:fileUploadSuccessEvent="thumbnailUpload" modelname="Dropzone"
+                        v-model="lerningPathData.image_name" /> -->
+
+                    <Dropzone v-bind:fileUploadSuccessEvent="thumbnailUpload" :folder="`learningPathThumbnails`"
+                        :type="`image`" :extension="`.png, .jpeg, .jpg, .gif`" modelname="Dropzone"
                         v-model="lerningPathData.image_name" />
                 </div>
                 <span style="color: red;" id="learning_path_thumbnail_error"></span>
             </div>
         </div>
         <div class="slds-form-element custom-grid  mb-30">
-            <label class="slds-form-element__label custom-label " for="textarea-id-01">
-                Learning
+
+            <FormLabel className="slds-form-element__label custom-label" labelName="  Learning
                 Path
                 preview
-                Video
-            </label>
+                Video" for="textarea-id-01"> </FormLabel>
             <div class="slds-form-element__control custom-grid-control">
-                <Dropzone v-bind:fileUploadSuccessEvent="videoUpload" modelname="Dropzone"
-                    v-model="lerningPathData.intro_video" />
+
+                <Dropzone v-bind:fileUploadSuccessEvent="videoUpload" :folder="`learningPathThumbnails`" :type="`video`"
+                    :extension="`.MPEG, .AVI, .MKV, .mp4`" modelname="Dropzone" v-model="lerningPathData.intro_video" />
                 <span style="color: red;" id="learning_path_video_error"></span>
             </div>
         </div>
         <div class="slds-form-element  custom-grid">
-            <label class="slds-form-element__label custom-label" for="select-01">Select
+            <FormLabel className="slds-form-element__label custom-label" labelName="  Select
                 major
-                Category
-            </label>
+                Category" required="true" for="textarea-id-01"> </FormLabel>
             <div class="slds-form-element__control custom-grid-control mb-30">
                 <div class="slds-select_container   cus-select-container">
-                    <FormDropdown class="slds-select custom-grid-input" selectName="Category "
-                        @blur="e => lerningPathData.category_id = e.target.value" :options="categoryList"
+                    <FormDropdown class="slds-select custom-grid-input" selectName="Category " :options="categoryList"
                         @onChange="getSubCategory" v-model="lerningPathData.category_id" />
                     <span style="color: red;" id="learning_path_major_category_error"></span>
                 </div>
             </div>
         </div>
         <div class="slds-form-element custom-grid">
-            <label class="slds-form-element__label custom-label" for="select-01">Select
+            <FormLabel className="slds-form-element__label custom-label" labelName="Select
                 sub
-                Category
-            </label>
+                Category" for="textarea-id-01"> </FormLabel>
             <div class="slds-form-element__control custom-grid-control mb-30">
                 <div class="slds-select_container cus-select-container">
                     <FormDropdown class="slds-select custom-grid-input" selectName="Sub Category "
-                        :options="subCategoryList" />
+                        :options="subCategoryList" @onChange="getSubCategoryData" />
                     <span style="color: red;" id="learning_path_sub_category_error"></span>
                 </div>
             </div>
         </div>
         <div class="slds-form-element custom-grid">
-            <label class="slds-form-element__label custom-label" for="text-input-id-46">
-                instructor
-                name</label>
+            <FormLabel className="slds-form-element__label custom-label" labelName="instructor
+                name" for="textarea-id-01"> </FormLabel>
             <div class="slds-form-element__control custom-grid-control mb-30">
                 <FormTextBoxField v-model="lerningPathData.learning_path_instructor_name"
                     fieldId="learning_path_instructor_name" placeHolder="" className="slds-input custom-grid-input "
@@ -119,15 +113,15 @@
             </div>
         </div>
         <div class="slds-form-element check-element-main mb-20">
-            <label class="slds-form-element__label  custom-label" for="textarea-id-01">Certificate
-            </label>
+            <FormLabel className="slds-form-element__label custom-label" labelName="Certificate" required="true"
+                for="textarea-id-01"> </FormLabel>
             <div class="check-boxes">
                 <div class="slds-form-element  check-element-inner  checkbox2">
                     <div class="slds-form-element__control">
                         <div class="slds-checkbox   role-check-main">
                             <FormCheckboxField className="role-check" idName="yes" checkboxName="options"
                                 checkboxVal="yes" />
-                            <label class="slds-checkbox__label" for="yes">
+                            <label class="slds-checkbox__label " for="yes">
                                 <span class="slds-checkbox_faux"></span>
                                 <span class="slds-form-element__label">Yes</span>
                             </label>
@@ -149,8 +143,8 @@
             </div>
         </div>
         <div class="slds-form-element cus-price-main-inner">
-            <label class="slds-form-element__label custom-label" for="text-input-id-46">
-                Course Pirce <span class="require-danger">*</span></label>
+            <FormLabel className="slds-form-element__label custom-label" labelName="Course Pirce" required="true"
+                for="textarea-id-01"> </FormLabel>
             <div class="sub-categoty-inner">
                 <div class="slds-form-element__control custom-grid-control">
                     <FormTextBoxField fieldId="learning_path_course_price" placeHolder=""
@@ -202,39 +196,58 @@
 
 </template>
 <script>
-import ImageComponent from '../element/image.vue';
 import FormTextBoxField from '../element/formTextBoxField.vue';
 import FormTextareaField from '../element/textArea.vue';
 import FormDropdown from "../element/formDropdown.vue";
-import FormFileField from "../element/inputFile.vue";
 import FormCheckboxField from '../element/formCheckbox.vue';
 import FormButton from '../element/formButton.vue';
+import FormLabel from '../element/formLabel.vue';
 import Editor from "@tinymce/tinymce-vue";
-import LearningPathService from '../Service/LearningPathService.js';
-import ErrorToastr from '../element/errorToastr.vue';
+import ErrorToastr from '../element/errorToastr.vue'; 
 import Dropzone from '../element/Dropzone.vue';
-import CategoryService from '../Service/CategoryService';
 import SubCategoryService from '../Service/SubCategoryService';
 
 
 export default {
     name: 'create-role',
-
+    props: ['lerningPathData', 'categoryList', 'subCategoryList'],
     components: {
-        ImageComponent,
         FormTextBoxField,
         FormTextareaField,
         FormDropdown,
-        FormFileField,
         FormCheckboxField,
         FormButton,
         Editor,
         Dropzone,
-        ErrorToastr
+        ErrorToastr,
+        FormLabel
     },
-    props: ['lerningPathData'],
-    methods: {
+    data() {
+        return {
 
+        }
+    },
+    methods: {
+        videoUpload(file, response) {
+            this.lerningPathData.intro_video = response;
+        },
+        thumbnailUpload(file, response) {
+            this.lerningPathData.image_name = response;
+        },
+        getSubCategory(id) {
+            console.log(id, "NAYAN RAVAL");
+            SubCategoryService.getEditSubCategory(id).then((result) => {
+                this.subCategoryList = result.data.data;
+                this.lerningPathData.category_id = id;
+                console.log(result.data.data, "NAYAN");
+
+            }).catch((err) => {
+                console.error(err);
+            });
+        },
+        getSubCategoryData(selected) {
+            this.lerningPathData.learning_path_sub_category = selected;
+        },
     }
 
 }

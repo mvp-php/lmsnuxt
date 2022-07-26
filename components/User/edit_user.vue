@@ -2,7 +2,7 @@
 
 
     <div class="create-role-main">
-       
+
         <div class="slds-form-element custom-grid">
             <Labels labelName="First Name" className="slds-form-element__label custom-label" for="text-input-id-46"
                 required="true" />
@@ -43,7 +43,8 @@
             <div class="slds-form-element__control custom-grid-control mb-20">
                 <select v-model="theUser.role_id" class="slds-select custom-grid-input" @change="ChangeRole($event)">
                     <option value="">Select Role</option>
-                    <option v-for="roles in rolelist" :key="roles.id" :value="roles.id" :data-option="`${roles.is_system_role}`" :data-flag="`${roles.flag}`">
+                    <option v-for="roles in rolelist" :key="roles.id" :value="roles.id"
+                        :data-option="`${roles.is_system_role}`" :data-flag="`${roles.flag}`">
                         {{ roles.title }}
                     </option>
 
@@ -54,7 +55,7 @@
 
         <div id="studentId">
 
-            <div class="slds-form-element custom-grid" ref="test" v-if="!hides" >
+            <div class="slds-form-element custom-grid" ref="test" v-if="!hides">
                 <Labels labelName="Select Membership" className="slds-form-element__label custom-label"
                     for="text-input-id-46" required="true" />
 
@@ -78,7 +79,7 @@
 
 
                     <div class="slds-form-element__control custom-grid-control mb-20">
-                        <Inputs type="date" fieldId="valid_from" id="valid_from"   placeHolder="Valid From"
+                        <Inputs type="date" fieldId="valid_from" id="valid_from" placeHolder="Valid From"
                             class="slds-input custom-grid-input " className="slds-input"
                             v-model.trim="theUser.valid_from" @change="changeDate()" :min="minDate" />
 
@@ -92,7 +93,7 @@
 
                         <Inputs type="date" fieldId="valid_to" placeHolder="Valid To"
                             class="slds-input custom-grid-input " className="slds-input"
-                            v-model.trim="theUser.valid_till" @change="changeDate()" :min='minTil'/>
+                            v-model.trim="theUser.valid_till" @change="changeDate()" :min='minTil' />
 
                     </div>
                 </div>
@@ -107,8 +108,7 @@
 
                 <div class="slds-form-element__control custom-grid-control mb-20">
                     <Inputs fieldId="amount" placeHolder="Amount" class="slds-input custom-grid-input "
-                        className="slds-input" v-model.trim="theUser.amount" @keypress="handleInput()"
-                        />
+                        className="slds-input" v-model.trim="theUser.amount" @keypress="handleInput()" />
 
                     <span class="text-danger" id="amount_error" ref="caterror"></span>
                 </div>
@@ -124,7 +124,7 @@
 
 import Inputs from '../element/formTextBoxField.vue';
 import Labels from '../element/formLabel.vue';
-import moment  from 'moment';
+import moment from 'moment';
 import { format } from 'path';
 export default {
     name: 'create-user',
@@ -136,42 +136,42 @@ export default {
         return {
             hides: true,
             hidesins: true,
-            minDate:moment().format('YYYY-MM-DD'),
-            minTil:moment().format('YYYY-MM-DD')
+            minDate: moment().format('YYYY-MM-DD'),
+            minTil: moment().format('YYYY-MM-DD')
         }
     },
     props: ['theUser', 'rolelist', 'paymentPlan'],
-    mounted(){
-       
-      setTimeout(() =>
-                this.selectedRole(),
+    mounted() {
 
-                1000);
+        setTimeout(() =>
+            this.selectedRole(),
+
+            1000);
     },
     methods: {
-        selectedRole(){
-           
-            if( this.theUser.user_role_relation_ship.role_relation_ship.flag =='Student' && this.theUser.user_role_relation_ship.role_relation_ship.is_system_role ==1){
-                 this.hides = false;
-                    this.hidesins = false;
+        selectedRole() {
+
+            if (this.theUser.user_role_relation_ship.role_relation_ship.flag == 'Student' && this.theUser.user_role_relation_ship.role_relation_ship.is_system_role == 1) {
+                this.hides = false;
+                this.hidesins = false;
             } else if (this.theUser.user_role_relation_ship.role_relation_ship.flag == 'Instructor' && this.theUser.user_role_relation_ship.role_relation_ship.is_system_role == 1) {
-                    this.hides = true;
-                    this.hidesins = false;
-                } else {
-                    this.hides = true;
-                    this.hidesins = true;
-                }
+                this.hides = true;
+                this.hidesins = false;
+            } else {
+                this.hides = true;
+                this.hidesins = true;
+            }
         },
         ChangeRole(e) {
-           
+
             if (e.target.options.selectedIndex > -1) {
                 var systemRole = e.target.options[e.target.options.selectedIndex].dataset.option;
                 var systemText = e.target.options[e.target.options.selectedIndex].dataset.flag;
-              //  theUser.user_role_relation_ship.role_relation_ship.flag =systemText;
+                //  theUser.user_role_relation_ship.role_relation_ship.flag =systemText;
                 if (systemText == 'Student' && systemRole == 1) {
                     this.hides = false;
                     this.hidesins = false;
-                    
+
                 } else if (systemText == 'Instructor' && systemRole == 1) {
                     this.hides = true;
                     this.hidesins = false;
@@ -187,9 +187,9 @@ export default {
             }
 
         },
-       
+
         handleInput() {
-           
+
             let keyCode = (event.keyCode ? event.keyCode : event.which);
             if (this.theUser.amount) {
                 if ((keyCode < 48 || keyCode > 57) && (keyCode !== 46 || this.theUser
@@ -202,7 +202,7 @@ export default {
                 }
                 document.getElementById("amount_error").textContent = "";
             }
-          
+
 
         },
         checkInput: function () {
@@ -232,11 +232,11 @@ export default {
 
         },
         changeDate(e) {
-            var valid_from=document.getElementById("valid_from").value;
-           var  fDate= moment(valid_from).format('YYYY-MM-DD');
-           this.minTil=fDate;
+            var valid_from = document.getElementById("valid_from").value;
+            var fDate = moment(valid_from).format('YYYY-MM-DD');
+            this.minTil = fDate;
 
-         },
+        },
 
     }
 

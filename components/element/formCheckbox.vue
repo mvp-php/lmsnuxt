@@ -16,14 +16,7 @@ export default {
         }
     },
     methods: {
-        onselected() {
-            if (event.target.checked == true) {
-                console.log(event.target.value);
-                this.tempSelected.push(event.target.value)
-                this.selectedId.push(this.tempSelected);
-            } else {
-            }
-        }
+        
     }
 };
 </script>

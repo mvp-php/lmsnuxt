@@ -12,7 +12,8 @@
                     Create Learning Path
                 </div>
                 <form @submit="submitData" method="POST" ref="learning_path_data_submit" enctype="multipart/form-data">
-                    <CreateLearningPath :lerning-Path-data="lerningPathData" />
+                    <CreateLearningPath :lerning-path-data="lerningPathData" :category-list="categoryList"
+                        :sub-category-list="subCategoryList" />
                     <div class="btn-align-end">
                         <FormButton type="submit" buttonName="Next"
                             className="slds-button slds-button_brand  btnmain blue-btn  ml-10" />
@@ -28,33 +29,16 @@
 <script>
 import ImageComponent from '../../components/element/image.vue';
 import CreateLearningPath from '../../components/LearningPathManagment/create.vue'
-// import FormTextBoxField from '../../components/element/formTextBoxField.vue';
-// import FormTextareaField from '../../components/element/textArea.vue';
-// import FormDropdown from "../../components/element/formDropdown.vue";
-// import FormFileField from "../../components/element/inputFile.vue";
-// import FormCheckboxField from '../../components/element/formCheckbox.vue';
 import FormButton from '../../components/element/formButton.vue';
-// import Editor from "@tinymce/tinymce-vue";
 import LearningPathService from '../../components/Service/LearningPathService.js';
 import ErrorToastr from '../../components/element/errorToastr.vue';
-// import Dropzone from '../../components/element/Dropzone.vue';
 import CategoryService from '../../components/Service/CategoryService';
-import SubCategoryService from '../../components/Service/SubCategoryService';
-
-
 export default {
     layout: 'frontend',
     components: {
         ImageComponent,
         CreateLearningPath,
-        // FormTextBoxField,
-        // FormTextareaField,
-        // FormDropdown,
-        // FormFileField,
-        // FormCheckboxField,
         FormButton,
-        // Editor,
-        // Dropzone,
         ErrorToastr
     },
     data() {
@@ -71,8 +55,6 @@ export default {
                 price: '',
                 learning_path_instructor_name: '',
             },
-            // lerningPathData: {},
-
             categoryList: [],
             subCategoryList: [],
             errorMessage: "",
@@ -80,16 +62,9 @@ export default {
             hidessucces: true,
             successMessage: "",
             dangerHide: true,
-
         }
     },
     methods: {
-        videoUpload(file, response) {
-            this.lerningPathData.intro_video = response;
-        },
-        thumbnailUpload(file, response) {
-            this.lerningPathData.image_name = response;
-        },
         submitData(event) {
             console.log(this.lerningPathData, "Data");
             document.getElementById("learning_path_title_error").textContent = "";
@@ -102,9 +77,35 @@ export default {
             document.getElementById("learning_path_video_error").textContent = "";
             document.getElementById("learning_path_course_price_error").textContent = "";
             var cnt = 0;
-
+            if (!this.lerningPathData.title) {
+                document.getElementById("learning_path_title_error").textContent = "Enter the learning path title";
+                event.preventDefault();
+                cnt = 1;
+            }
+            if (!this.lerningPathData.description) {
+                document.getElementById("learning_path_description_error").textContent = "Enter the learning description title";
+                event.preventDefault();
+                cnt = 1;
+            }
             if (!this.lerningPathData.requirement) {
                 document.getElementById("requirement_error").textContent = "Enter the learning requirements title";
+                event.preventDefault();
+                cnt = 1;
+            }
+            if (!this.lerningPathData.category_id) {
+                document.getElementById("learning_path_major_category_error").textContent = "Select major category";
+                event.preventDefault();
+                cnt = 1;
+            }
+
+            if (!this.lerningPathData.image_name) {
+                document.getElementById("learning_path_thumbnail_error").textContent = "Select  learning path thumbnail";
+                event.preventDefault();
+                cnt = 1;
+            }
+
+            if (!this.lerningPathData.price) {
+                document.getElementById("learning_path_course_price_error").textContent = "Enter the learning requirements course price";
                 event.preventDefault();
                 cnt = 1;
             }
@@ -116,16 +117,12 @@ export default {
                     }).catch(error => {
                         console.log(error, "ddd");
                         this.errorMessage = error.response.data.response_msg;
-
                         this.dangerToasterShow();
-
-
                     })
             }
             event.preventDefault();
         },
         dangerToasterShow() {
-
             this.dangerHide = false;
             setTimeout(() => this.dangerHide = true, 5000);
         },
@@ -135,16 +132,6 @@ export default {
         getAllCategoryList() {
             CategoryService.getCategoryListNew().then((result) => {
                 this.categoryList = result.data.data;
-            }).catch((err) => {
-                console.error(err);
-            });
-        },
-        getSubCategory(id) {
-            console.log(id);
-            SubCategoryService.getEditSubCategory(id).then((result) => {
-                this.subCategoryList = result.data.data;
-                console.log(result.data.data, "NAYAN");
-
             }).catch((err) => {
                 console.error(err);
             });
