@@ -1,12 +1,12 @@
 export { default as Login } from '../..\\components\\Login.vue'
 export { default as NuxtLogo } from '../..\\components\\NuxtLogo.vue'
+export { default as ConfigAuthHeader } from '../..\\components\\config\\AuthHeader.js'
+export { default as ConfigDataService } from '../..\\components\\config\\DataService.js'
 export { default as Category } from '../..\\components\\Category\\category.vue'
 export { default as CategoryCreateCategory } from '../..\\components\\Category\\create_category.vue'
 export { default as CategoryEditCategory } from '../..\\components\\Category\\edit_category.vue'
-export { default as Dashboard } from '../..\\components\\Dashboard\\dashboard.vue'
-export { default as ConfigAuthHeader } from '../..\\components\\config\\AuthHeader.js'
-export { default as ConfigDataService } from '../..\\components\\config\\DataService.js'
 export { default as CourseList } from '../..\\components\\Course\\courseList.vue'
+export { default as CourseView } from '../..\\components\\Course\\courseView.vue'
 export { default as CourseCreateCource } from '../..\\components\\Course\\createCource.vue'
 export { default as Dashboard } from '../..\\components\\Dashboard\\dashboard.vue'
 export { default as ElementDataTable } from '../..\\components\\element\\dataTable.vue'
@@ -17,7 +17,6 @@ export { default as ElementFormCheckbox } from '../..\\components\\element\\form
 export { default as ElementFormDropdown } from '../..\\components\\element\\formDropdown.vue'
 export { default as ElementFormLabel } from '../..\\components\\element\\formLabel.vue'
 export { default as ElementFormRadio } from '../..\\components\\element\\formRadio.vue'
-export { default as ElementFormSelectField } from '../..\\components\\element\\formSelectField.vue'
 export { default as ElementFormTextBoxField } from '../..\\components\\element\\formTextBoxField.vue'
 export { default as ElementFormTynymc } from '../..\\components\\element\\formTynymc.vue'
 export { default as ElementImage } from '../..\\components\\element\\image.vue'
@@ -28,6 +27,7 @@ export { default as ElementPaginate } from '../..\\components\\element\\Paginate
 export { default as ElementSuccessToastr } from '../..\\components\\element\\successToastr.vue'
 export { default as ElementTabs } from '../..\\components\\element\\Tabs.vue'
 export { default as ElementTextArea } from '../..\\components\\element\\textArea.vue'
+export { default as ElementVideo } from '../..\\components\\element\\video.vue'
 export { default as ForgotPassword } from '../..\\components\\ForgotPassword\\forgotPassword.vue'
 export { default as IncludeFooter } from '../..\\components\\Include\\Footer.vue'
 export { default as IncludeHeader } from '../..\\components\\Include\\Header.vue'
@@ -47,6 +47,7 @@ export { default as ServiceCategoryService } from '../..\\components\\Service\\C
 export { default as ServiceCourseService } from '../..\\components\\Service\\CourseService.js'
 export { default as ServiceDocumentUpload } from '../..\\components\\Service\\DocumentUpload.js'
 export { default as ServiceInstructorService } from '../..\\components\\Service\\InstructorService.js'
+export { default as ServiceLearningPathService } from '../..\\components\\Service\\LearningPathService.js'
 export { default as ServicePaymentPlanService } from '../..\\components\\Service\\PaymentPlanService.js'
 export { default as ServiceRoleDataService } from '../..\\components\\Service\\RoleDataService.js'
 export { default as ServiceSubcategoryService } from '../..\\components\\Service\\SubcategoryService.js'
@@ -61,7 +62,6 @@ export { default as UserImportCsv } from '../..\\components\\User\\import_csv.vu
 export { default as UserImportUserList } from '../..\\components\\User\\import_user_list.vue'
 export { default as UserList } from '../..\\components\\User\\user_list.vue'
 export { default as UserViewUser } from '../..\\components\\User\\viewUser.vue'
-
 
 // nuxt/nuxt.js#8607
 function wrapFunctional(options) {

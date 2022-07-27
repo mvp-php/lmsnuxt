@@ -234,11 +234,12 @@ export default {
         thumbnailUpload(file, response) {
             this.lerningPathData.image_name = response;
         },
-        getSubCategory(id) {
-            console.log(id, "NAYAN RAVAL");
-            SubCategoryService.getEditSubCategory(id).then((result) => {
+        getSubCategory(selected) {
+
+
+            SubCategoryService.getEditSubCategory(selected.value).then((result) => {
                 this.subCategoryList = result.data.data;
-                this.lerningPathData.category_id = id;
+                this.lerningPathData.category_id = selected.value;
                 console.log(result.data.data, "NAYAN");
 
             }).catch((err) => {
@@ -246,7 +247,7 @@ export default {
             });
         },
         getSubCategoryData(selected) {
-            this.lerningPathData.learning_path_sub_category = selected;
+            this.lerningPathData.learning_path_sub_category = selected.value;
         },
     }
 

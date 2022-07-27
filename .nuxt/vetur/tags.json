@@ -5,6 +5,12 @@
   "NuxtLogo": {
     "description": "Auto imported from components/NuxtLogo.vue"
   },
+  "ConfigAuthHeader": {
+    "description": "Auto imported from components/config/AuthHeader.js"
+  },
+  "ConfigDataService": {
+    "description": "Auto imported from components/config/DataService.js"
+  },
   "Category": {
     "description": "Auto imported from components/Category/category.vue"
   },
@@ -14,17 +20,11 @@
   "CategoryEditCategory": {
     "description": "Auto imported from components/Category/edit_category.vue"
   },
-  "Dashboard": {
-    "description": "Auto imported from components/Dashboard/dashboard.vue"
-  },
-  "ConfigAuthHeader": {
-    "description": "Auto imported from components/config/AuthHeader.js"
-  },
-  "ConfigDataService": {
-    "description": "Auto imported from components/config/DataService.js"
-  },
   "CourseList": {
     "description": "Auto imported from components/Course/courseList.vue"
+  },
+  "CourseView": {
+    "description": "Auto imported from components/Course/courseView.vue"
   },
   "CourseCreateCource": {
     "description": "Auto imported from components/Course/createCource.vue"
@@ -56,9 +56,6 @@
   "ElementFormRadio": {
     "description": "Auto imported from components/element/formRadio.vue"
   },
-  "ElementFormSelectField": {
-    "description": "Auto imported from components/element/formSelectField.vue"
-  },
   "ElementFormTextBoxField": {
     "description": "Auto imported from components/element/formTextBoxField.vue"
   },
@@ -88,6 +85,9 @@
   },
   "ElementTextArea": {
     "description": "Auto imported from components/element/textArea.vue"
+  },
+  "ElementVideo": {
+    "description": "Auto imported from components/element/video.vue"
   },
   "ForgotPassword": {
     "description": "Auto imported from components/ForgotPassword/forgotPassword.vue"
@@ -146,6 +146,9 @@
   "ServiceInstructorService": {
     "description": "Auto imported from components/Service/InstructorService.js"
   },
+  "ServiceLearningPathService": {
+    "description": "Auto imported from components/Service/LearningPathService.js"
+  },
   "ServicePaymentPlanService": {
     "description": "Auto imported from components/Service/PaymentPlanService.js"
   },
@@ -187,11 +190,5 @@
   },
   "UserViewUser": {
     "description": "Auto imported from components/User/viewUser.vue"
-  },
-  "New folderCompoCourseList": {
-    "description": "Auto imported from components/New folder/Compo/courseList.vue"
-  },
-  "New folderCompoCreateCource": {
-    "description": "Auto imported from components/New folder/Compo/createCource.vue"
   }
 }

@@ -10,9 +10,7 @@
     export default{
 
         props: ['list','selectName','options'],
-        methods:{
-            emitbackthecatalog(event){
-        },
+      
         methods:{
             emitbackthecatalog(event){
             
@@ -21,5 +19,6 @@
                 this.$emit('onChange',selected);
            
             }
+        }
     };
 </script>
