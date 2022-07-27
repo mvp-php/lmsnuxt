@@ -3,182 +3,156 @@
     "name": "category-management",
     "path": "/category-management",
     "component": "C:\\\\xampp\\\\htdocs\\\\NuxtJS\\\\lms\\\\pages\\\\category-management\\\\index.vue",
-    "chunkName": "pages/category-management/index",
-    "_name": "_ed502858"
+    "chunkName": "pages/category-management/index"
   },
   {
     "name": "dashboard",
     "path": "/dashboard",
     "component": "C:\\\\xampp\\\\htdocs\\\\NuxtJS\\\\lms\\\\pages\\\\dashboard\\\\index.vue",
-    "chunkName": "pages/dashboard/index",
-    "_name": "_37d1c772"
+    "chunkName": "pages/dashboard/index"
   },
   {
     "name": "forgot-password",
     "path": "/forgot-password",
     "component": "C:\\\\xampp\\\\htdocs\\\\NuxtJS\\\\lms\\\\pages\\\\forgot-password\\\\index.vue",
-    "chunkName": "pages/forgot-password/index",
-    "_name": "_020dfa61"
+    "chunkName": "pages/forgot-password/index"
   },
   {
     "name": "learning-path-managment",
     "path": "/learning-path-managment",
     "component": "C:\\\\xampp\\\\htdocs\\\\NuxtJS\\\\lms\\\\pages\\\\learning-path-managment\\\\index.vue",
-    "chunkName": "pages/learning-path-managment/index",
-    "_name": "_5de1b921"
+    "chunkName": "pages/learning-path-managment/index"
   },
   {
     "name": "link-successfully",
     "path": "/link-successfully",
     "component": "C:\\\\xampp\\\\htdocs\\\\NuxtJS\\\\lms\\\\pages\\\\link-successfully\\\\index.vue",
-    "chunkName": "pages/link-successfully/index",
-    "_name": "_4a62c1ac"
+    "chunkName": "pages/link-successfully/index"
   },
   {
     "name": "Login",
     "path": "/Login",
     "component": "C:\\\\xampp\\\\htdocs\\\\NuxtJS\\\\lms\\\\pages\\\\Login\\\\index.vue",
-    "chunkName": "pages/Login/index",
-    "_name": "_53ef4d9d"
+    "chunkName": "pages/Login/index"
   },
   {
     "name": "reset-password",
     "path": "/reset-password",
     "component": "C:\\\\xampp\\\\htdocs\\\\NuxtJS\\\\lms\\\\pages\\\\reset-password\\\\index.vue",
-    "chunkName": "pages/reset-password/index",
-    "_name": "_14ab4dd5"
+    "chunkName": "pages/reset-password/index"
   },
   {
     "name": "reset-success",
     "path": "/reset-success",
     "component": "C:\\\\xampp\\\\htdocs\\\\NuxtJS\\\\lms\\\\pages\\\\reset-success\\\\index.vue",
-    "chunkName": "pages/reset-success/index",
-    "_name": "_2eb61c3e"
+    "chunkName": "pages/reset-success/index"
   },
   {
     "name": "update-password",
     "path": "/update-password",
     "component": "C:\\\\xampp\\\\htdocs\\\\NuxtJS\\\\lms\\\\pages\\\\update-password\\\\index.vue",
-    "chunkName": "pages/update-password/index",
-    "_name": "_00610107"
+    "chunkName": "pages/update-password/index"
   },
   {
     "name": "update-profile",
     "path": "/update-profile",
     "component": "C:\\\\xampp\\\\htdocs\\\\NuxtJS\\\\lms\\\\pages\\\\update-profile\\\\index.vue",
-    "chunkName": "pages/update-profile/index",
-    "_name": "_94d939ee"
+    "chunkName": "pages/update-profile/index"
   },
   {
     "name": "category-management-create-category",
     "path": "/category-management/create-category",
     "component": "C:\\\\xampp\\\\htdocs\\\\NuxtJS\\\\lms\\\\pages\\\\category-management\\\\create-category.vue",
-    "chunkName": "pages/category-management/create-category",
-    "_name": "_43854ab1"
+    "chunkName": "pages/category-management/create-category"
   },
   {
     "name": "learning-path-managment-create",
     "path": "/learning-path-managment/create",
     "component": "C:\\\\xampp\\\\htdocs\\\\NuxtJS\\\\lms\\\\pages\\\\learning-path-managment\\\\create.vue",
-    "chunkName": "pages/learning-path-managment/create",
-    "_name": "_f3ec9486"
+    "chunkName": "pages/learning-path-managment/create"
   },
   {
     "name": "user-management-role",
     "path": "/user-management/role",
     "component": "C:\\\\xampp\\\\htdocs\\\\NuxtJS\\\\lms\\\\pages\\\\user-management\\\\role\\\\index.vue",
-    "chunkName": "pages/user-management/role/index",
-    "_name": "_0f14a9eb"
+    "chunkName": "pages/user-management/role/index"
   },
   {
     "name": "user-management-user",
     "path": "/user-management/user",
     "component": "C:\\\\xampp\\\\htdocs\\\\NuxtJS\\\\lms\\\\pages\\\\user-management\\\\user\\\\index.vue",
-    "chunkName": "pages/user-management/user/index",
-    "_name": "_fae37114"
+    "chunkName": "pages/user-management/user/index"
   },
   {
     "name": "user-management-role-create-role",
     "path": "/user-management/role/create-role",
     "component": "C:\\\\xampp\\\\htdocs\\\\NuxtJS\\\\lms\\\\pages\\\\user-management\\\\role\\\\create-role.vue",
-    "chunkName": "pages/user-management/role/create-role",
-    "_name": "_9ed32f00"
+    "chunkName": "pages/user-management/role/create-role"
   },
   {
     "name": "user-management-role-set-default-role",
     "path": "/user-management/role/set-default-role",
     "component": "C:\\\\xampp\\\\htdocs\\\\NuxtJS\\\\lms\\\\pages\\\\user-management\\\\role\\\\set-default-role.vue",
-    "chunkName": "pages/user-management/role/set-default-role",
-    "_name": "_3389f604"
+    "chunkName": "pages/user-management/role/set-default-role"
   },
   {
     "name": "user-management-user-create-user",
     "path": "/user-management/user/create-user",
     "component": "C:\\\\xampp\\\\htdocs\\\\NuxtJS\\\\lms\\\\pages\\\\user-management\\\\user\\\\create-user.vue",
-    "chunkName": "pages/user-management/user/create-user",
-    "_name": "_5eabaac0"
+    "chunkName": "pages/user-management/user/create-user"
   },
   {
     "name": "user-management-role-edit-role-id",
     "path": "/user-management/role/edit-role/:id",
     "component": "C:\\\\xampp\\\\htdocs\\\\NuxtJS\\\\lms\\\\pages\\\\user-management\\\\role\\\\edit-role\\\\_id.vue",
-    "chunkName": "pages/user-management/role/edit-role/_id",
-    "_name": "_ec158190"
+    "chunkName": "pages/user-management/role/edit-role/_id"
   },
   {
     "name": "user-management-user-edit-user-id",
     "path": "/user-management/user/edit-user/:id",
     "component": "C:\\\\xampp\\\\htdocs\\\\NuxtJS\\\\lms\\\\pages\\\\user-management\\\\user\\\\edit-user\\\\_id.vue",
-    "chunkName": "pages/user-management/user/edit-user/_id",
-    "_name": "_46b39b50"
+    "chunkName": "pages/user-management/user/edit-user/_id"
   },
   {
     "name": "category-management-edit-id",
     "path": "/category-management/edit/:id",
     "component": "C:\\\\xampp\\\\htdocs\\\\NuxtJS\\\\lms\\\\pages\\\\category-management\\\\edit\\\\_id.vue",
-    "chunkName": "pages/category-management/edit/_id",
-    "_name": "_5e91051c"
+    "chunkName": "pages/category-management/edit/_id"
   },
   {
     "name": "learning-path-managment-edit-id",
     "path": "/learning-path-managment/edit/:id?",
     "component": "C:\\\\xampp\\\\htdocs\\\\NuxtJS\\\\lms\\\\pages\\\\learning-path-managment\\\\edit\\\\_id.vue",
-    "chunkName": "pages/learning-path-managment/edit/_id",
-    "_name": "_f4604782"
+    "chunkName": "pages/learning-path-managment/edit/_id"
   },
   {
     "name": "sub-category-create-sub-category-id",
     "path": "/sub-category/create-sub-category/:id?",
     "component": "C:\\\\xampp\\\\htdocs\\\\NuxtJS\\\\lms\\\\pages\\\\sub-category\\\\create-sub-category\\\\_id.vue",
-    "chunkName": "pages/sub-category/create-sub-category/_id",
-    "_name": "_80216206"
+    "chunkName": "pages/sub-category/create-sub-category/_id"
   },
   {
     "name": "sub-category-edit-id",
     "path": "/sub-category/edit/:id?",
     "component": "C:\\\\xampp\\\\htdocs\\\\NuxtJS\\\\lms\\\\pages\\\\sub-category\\\\edit\\\\_id.vue",
-    "chunkName": "pages/sub-category/edit/_id",
-    "_name": "_456e4921"
+    "chunkName": "pages/sub-category/edit/_id"
   },
   {
     "name": "reset-password-id",
     "path": "/reset-password/:id?",
     "component": "C:\\\\xampp\\\\htdocs\\\\NuxtJS\\\\lms\\\\pages\\\\reset-password\\\\_id.vue",
-    "chunkName": "pages/reset-password/_id",
-    "_name": "_6cecc17d"
+    "chunkName": "pages/reset-password/_id"
   },
   {
     "name": "sub-category-id",
     "path": "/sub-category/:id?",
     "component": "C:\\\\xampp\\\\htdocs\\\\NuxtJS\\\\lms\\\\pages\\\\sub-category\\\\_id.vue",
-    "chunkName": "pages/sub-category/_id",
-    "_name": "_3dbfce2b"
+    "chunkName": "pages/sub-category/_id"
   },
   {
     "name": "index",
     "path": "/",
     "component": "C:\\\\xampp\\\\htdocs\\\\NuxtJS\\\\lms\\\\pages\\\\index.vue",
-    "chunkName": "pages/index",
-    "_name": "_fbb50764"
+    "chunkName": "pages/index"
   }
 ]

@@ -14,14 +14,14 @@
   "CategoryEditCategory": {
     "description": "Auto imported from components/Category/edit_category.vue"
   },
+  "Dashboard": {
+    "description": "Auto imported from components/Dashboard/dashboard.vue"
+  },
   "ConfigAuthHeader": {
     "description": "Auto imported from components/config/AuthHeader.js"
   },
   "ConfigDataService": {
     "description": "Auto imported from components/config/DataService.js"
-  },
-  "Dashboard": {
-    "description": "Auto imported from components/Dashboard/dashboard.vue"
   },
   "ElementDataTable": {
     "description": "Auto imported from components/element/dataTable.vue"
