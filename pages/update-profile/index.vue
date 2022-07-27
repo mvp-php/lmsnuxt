@@ -122,11 +122,12 @@ export default {
                     formData.append(key, value);
                 }
                 
-                userService.profileUpdate(formData).then(async response => {
-                    localStorage.setItem('sucess_msg',result.data.response_msg);
-                  
+                userService.profileUpdate(formData).then((result)  => {
+                    
+                 
+               this.successMessage = result.data.response_msg;
                     this.successToasterShow();
-                    if(response.data.email_status ==0){
+                    if(result.data.email_status ==0){
                         userService.callLogout().then((result) => {
                             
                            
@@ -134,18 +135,13 @@ export default {
                                 this.$router.push({ path: '/login' });
 
                             }).catch(error => {
-
                                 this.errorMessage = error.response.data.response_msg;
 
 
                         })
                     }
                 
-                }).catch(error => {
-                    this.errorMessage = error.response.data.response_msg;
-
-                    this.dangerToasterShow();
-                });
+                })
             }
             
         },

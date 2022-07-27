@@ -14,9 +14,9 @@ export default {
     components: {
         dataTable
     },
-    methods: {
-        getPaginatesNew: function (currentPage, value) {
-            this.$parent.getPaginatesMain(currentPage, value);
+    methods:{
+        getPaginatesNew:function(currentPage,value,sortBy,sortOrder){
+            this.$parent.getPaginatesMain(currentPage,value,sortBy,sortOrder);
         },
         viewMethod: function (id) {
             this.$parent.openViewModel(id);

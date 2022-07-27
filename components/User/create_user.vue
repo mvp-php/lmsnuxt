@@ -1,4 +1,5 @@
 <template>
+<span>
     <div class="create-role-main">
         <div class="slds-form-element custom-grid">
             <Labels labelName="First Name" className="slds-form-element__label custom-label" for="text-input-id-46"
@@ -11,6 +12,8 @@
                 <span class="text-danger" id="first_name_error" ref="caterror"></span>
             </div>
         </div>
+    </div>
+    <div class="create-role-main">
         <div class="slds-form-element custom-grid">
             <Labels labelName="Last Name" className="slds-form-element__label custom-label" for="text-input-id-46"
                 required="true" />
@@ -22,6 +25,8 @@
                 <span class="text-danger" id="last_name_error" ref="caterror"></span>
             </div>
         </div>
+    </div>
+    <div class="create-role-main">
         <div class="slds-form-element custom-grid">
             <Labels labelName="Email" className="slds-form-element__label custom-label" for="text-input-id-46"
                 required="true" />
@@ -33,70 +38,69 @@
                 <span class="text-danger" id="email_error" ref="caterror"></span>
             </div>
         </div>
+    </div>
+    <div  class="create-role-main">
         <div class="slds-form-element custom-grid">
             <Labels labelName="Role" className="slds-form-element__label custom-label" for="text-input-id-46"
                 required="true" />
 
             <div class="slds-form-element__control custom-grid-control mb-20">
-                <select v-model="theUser.role_id" class="slds-select custom-grid-input" @change="ChangeRole($event)">
-                    <option value="">Select Role</option>
-                    <option v-for="roles in rolelist"   :key="roles.id" :value="roles.id" :data-flag="`${roles.flag}`" :data-option="`${roles.is_system_role}`">
-                        {{ roles.title }}
-                    </option>
-
-                </select>
+                <div class="slds-select_container cus-select-container">
+                    <formDropdown :options="rolelist"   v-model="theUser.role_id" selectName="Role" class="slds-select custom-grid-input" @onChange="ChangeRole" :selected="`${theUser.role_id}`"></formDropdown>
+                
+                </div>
+                
                 <span class="text-danger" id="role_error" ref="caterror"></span>
             </div>
         </div>
-
-        <div id="studentId">
-            <div class="slds-form-element custom-grid" v-if="!hides">
+    </div>
+    <div id="studentId">
+        <div class="create-role-main"   v-if="studentSectionHide">
+            <div class="slds-form-element custom-grid" >
                 <Labels labelName="Select Membership" className="slds-form-element__label custom-label"
                     for="text-input-id-46" required="true" />
 
                 <div class="slds-form-element__control custom-grid-control mb-20">
-                    <select v-model="theUser.entity_id" class="slds-select custom-grid-input" @change="ChangeEntity()">
-                        <option value="">Select Membership</option>
-                        <option v-for="plan in paymentPlan" :key="plan.id"  :value="plan.id">
-                            {{ plan.title }}
-                        </option>
-
-                    </select>
-
+                    <div class="slds-select_container cus-select-container">
+                        <formDropdown :options="paymentPlan"   v-model="theUser.entity_id" selectName="Membership" class="slds-select custom-grid-input" @onChange="ChangeEntity" :selected="`${theUser.entity_id}`"></formDropdown>
+                
+                    </div>
+                    
+                  
                     <span class="text-danger" id="members_error" ref="caterror"></span>
                 </div>
 
             </div>
-            <span id="instructors_id" v-if="!hidesins">
-                <div class="slds-form-element custom-grid valid-col1">
-                    <Labels labelName="Valid From" className="slds-form-element__label custom-label"
-                        for="text-input-id-46" />
+
+        </div>
+        <div class="create-role-main"   v-if="instructorSectionHide">
+            <div class="slds-form-element custom-grid valid-col1">
+                <Labels labelName="Valid From" className="slds-form-element__label custom-label"
+                    for="text-input-id-46" />
 
 
-                    <div class="slds-form-element__control custom-grid-control mb-20">
-                        <Inputs type="date" fieldId="valid_from" placeHolder="Valid From"
-                            class="slds-input custom-grid-input "   id="valid_from" className="slds-input"
-                            v-model.trim="theUser.valid_from"  @change="changeDate($event)"   :min="minDate" />
+                <div class="slds-form-element__control custom-grid-control mb-20">
+                    <Inputs type="date" fieldId="valid_from" placeHolder="Valid From"
+                        class="slds-input custom-grid-input "   id="valid_from" className="slds-input"
+                        v-model.trim="theUser.valid_from"  @change="changeDate($event)"   :min="minDate" />
 
-                    </div>
                 </div>
-                <div class="slds-form-element custom-grid valid-col2">
-                    <Labels labelName="Valid To" className="slds-form-element__label custom-label"
-                        for="text-input-id-46" />
+            </div>
+            <div class="slds-form-element custom-grid valid-col2">
+                <Labels labelName="Valid To" className="slds-form-element__label custom-label"
+                    for="text-input-id-46" />
 
-                    <div class="slds-form-element__control custom-grid-control mb-20">
+                <div class="slds-form-element__control custom-grid-control mb-20">
 
-                        <Inputs type="date" fieldId="valid_to" placeHolder="Valid To"
-                            class="slds-input custom-grid-input " className="slds-input"
-                            v-model.trim="theUser.valid_to" :min="minTil"/>
+                    <Inputs type="date" fieldId="valid_to" placeHolder="Valid To"
+                        class="slds-input custom-grid-input " className="slds-input"
+                        v-model.trim="theUser.valid_till" :min="minTil"/>
 
-                    </div>
                 </div>
-            </span>
-
-
-
-            <div class="slds-form-element custom-grid" v-if="!hides">
+            </div>
+        </div>
+        <div class="create-role-main"   v-if="studentSectionHide">
+            <div class="slds-form-element custom-grid">
                 <Labels labelName="Amount" className="slds-form-element__label custom-label" for="text-input-id-46"
                     required="true" />
 
@@ -109,16 +113,18 @@
                 </div>
 
             </div>
+        
         </div>
-
     </div>
-
+</span>
+  
 </template>
 
 <script>
 
 import Inputs from '../element/formTextBoxField.vue';
 import Labels from '../element/formLabel.vue';
+import formDropdown from '../element/formDropdown.vue';
 
 import moment from 'moment';
 
@@ -127,35 +133,44 @@ export default {
     components: {
         Inputs,
         Labels,
+        formDropdown
     },
+    props: ['theUser', 'rolelist', 'paymentPlan','userId','studentSectionHides','instructorSectionHides'],
     data() {
         return {
-            hides: true,
-            hidesins: true,
+            studentSectionHide: this.studentSectionHides,
+            instructorSectionHide: this.instructorSectionHides,
             minDate:moment().format('YYYY-MM-DD'),
             minTil:moment().format('YYYY-MM-DD'),
         }
     },
-    props: ['theUser', 'rolelist', 'paymentPlan'],
+    
+    mounted:function(){
+       setTimeout(()=>{
+        this.studentSectionHide=this.studentSectionHides,
+       this.instructorSectionHide=this.instructorSectionHides;
+       },2000);
+    },
     methods: {
-        ChangeRole(e) {
-            if (e.target.options.selectedIndex > -1) {
-                var systemRole = e.target.options[e.target.options.selectedIndex].dataset.option;
-                var systemText = e.target.options[e.target.options.selectedIndex].dataset.flag;
+        ChangeRole(selected) {
+            console.log(selected.value);
+            if (selected.options.selectedIndex > -1) {
+                var systemRole = selected.options[selected.options.selectedIndex].dataset.option;
+                var systemText = selected.options[selected.options.selectedIndex].dataset.flag;
 
                 if (systemText == 'Student' && systemRole == 1) {
-                    this.hides = false;
-                    this.hidesins = false;
+                    this.studentSectionHide = true;
+                    this.instructorSectionHide = true;
                 } else if (systemText == 'Instructor' && systemRole == 1) {
-                    this.hides = true;
-                    this.hidesins = false;
+                    this.studentSectionHide = false;
+                    this.instructorSectionHide = true;
                 } else {
-                    this.hides = true;
-                    this.hidesins = true;
+                    this.studentSectionHide = false;
+                    this.instructorSectionHide = false;
                 }
-                console.log(systemText)
+        
                 this.theUser.srole_title = systemText;
-
+                this.theUser.role_id = selected.value;
                 if(this.theUser.role_id){
                     document.getElementById("role_error").textContent = "";
                 }
@@ -200,7 +215,8 @@ export default {
 
 
         },
-        ChangeEntity(){
+        ChangeEntity(selected){
+            this.theUser.entity_id=selected.value;
             if (this.theUser.entity_id) {
                 document.getElementById("members_error").textContent = "";
             
@@ -211,8 +227,10 @@ export default {
             var valid_from=document.getElementById("valid_from").value;
            var  fDate= moment(valid_from).format('YYYY-MM-DD');
            this.minTil=fDate;
+           this.theUser.valid_from=moment(valid_from).format('MM-DD-YYYY');
 
-         },   
+         },  
+        
 
     }
 }

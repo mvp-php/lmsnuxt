@@ -1,6 +1,6 @@
 <template>
+    
     <span>
-
         <div class="create-role-main">
             <div class="slds-form-element custom-grid">
                 <Labels labelName="First Name" className="slds-form-element__label custom-label" for="text-input-id-46"
@@ -31,7 +31,7 @@
             <div class="slds-form-element custom-grid">
                 <Labels labelName="Email" className="slds-form-element__label custom-label" for="text-input-id-46"
                     required="true" />
-     
+
                 <div class="slds-form-element__control custom-grid-control mb-20">
                     <Inputs fieldId="email" placeHolder="Email" class="slds-input custom-grid-input "
                         className="slds-input" v-model.trim="theUser.email" @keypress="validation($event)" />
@@ -46,7 +46,7 @@
 
                 <div class="slds-form-element__control custom-grid-control mb-20">
                     <TextArea fieldId="hio" placeHolder="Bio" class="slds-input custom-grid-input "
-                        className="slds-input" v-model.trim="theUser.bio" @keypress="validation($event)" />
+                        className="slds-input" v-model.trim="theUser.profile_description" @keypress="validation($event)" />
 
 
                 </div>
@@ -55,49 +55,50 @@
         <div class="create-role-main">
             <div class="slds-form-element__control custom-grid-control mb-20">
                     <div class="slds-form-element custom-grid mb-20">
-                       <Labels labelName="Profile Image" className="slds-form-element__label custom-label"
-                    for="text-input-id-46" />
+                        <Labels labelName="Profile Image" className="slds-form-element__label custom-label"
+                            for="text-input-id-46" />
                         <div class="slds-form-element__control custom-grid-control">
 
-                            <div class="edit-content-inner">
-                                <span v-if="theUser.profile_image_name">
+                                <div class="edit-content-inner">
+                                    <ImageComponent v-if="theUser.profile_image_name" :log="`${theUser.profile_image_name}`" alt="" id="profiles" class="edit-content-img"></ImageComponent>
+                                    <ImageComponent v-if="!theUser.profile_image_name" :log="require('~/assets/img/svg/avtar1.svg')" alt="" id="profiles" class="edit-content-img"></ImageComponent>
+                                    
                                 
-                                </span>
-                                <span v-else>
-                                    <ImageComponent :log="require('~/assets/img/svg/avtar1.svg')" alt="" id="profiles" class="edit-content-img"></ImageComponent>
-                                </span>
-                                
-                               
+                                    
+
                                 <div class="edit-btns">
                                     <div class="position-relative">
-                                        <a class="slds-button slds-button_brand btnmain blue-btn ml-10 whiteSpace" href="#">upload
+                                        <a class="slds-button slds-button_brand btnmain blue-btn ml-10 whiteSpace"
+                                            href="#">upload
                                             profile</a>
-                                           <input type="file" class="upload-profile"  @change="handleSelectedFiles" >
-                                            </div>
+                                        <input type="file" class="upload-profile" @change="handleSelectedFiles">
+                                    </div>
 
                                     <a class="slds-button slds-button_brand btnmain light-blue-btn ml-10 whiteSpace"
-                                        href="#" @click="RemoveImage" >Remove profile</a>
+                                        href="#" @click="RemoveImage">Remove profile</a>
                                 </div>
-                            </div>
+                            
 
                         </div>
                     </div>
                 </div>
+            </div>
         </div>
+           
     </span>
 
 
 
 </template>
 <style>
-    .whiteSpace{
-        white-space: nowrap;
-    }
+.whiteSpace {
+    white-space: nowrap;
+}
 </style>
 <script>
 
 import Inputs from '../element/formTextBoxField.vue';
-import InputFile from '../element/inputFile.vue';
+
 import Labels from '../element/formLabel.vue';
 import ButtonComponent from '../element/formButton.vue';
 import TextArea from '../element/textArea.vue';
@@ -113,7 +114,7 @@ export default {
         ButtonComponent,
         TextArea,
         ImageComponent,
-        InputFile
+        
 
     },
     data() {
@@ -127,29 +128,28 @@ export default {
     },
     methods: {
        async handleSelectedFiles(event) {
-            console.log(event.target.files,"Event")
+           
           var output = document.getElementById('profiles');
             output.src = URL.createObjectURL(event.target.files[0]);
-            var filename = await UploadDocument(event.target.files[0],'user');
+            var filename = await UploadDocument(event.target.files[0], 'user');
             this.theUser.profile_image_name = filename[0].response;
-            
+
         },
-        RemoveImage(){
+        RemoveImage() {
             var output = document.getElementById('profiles');
             output.src = '/_nuxt/assets/img/svg/avtar1.svg';
         },
-        validation(){
-            if(this.theUser.first_name){
-                document.getElementById('first_name_error').textContent="";
+        validation() {
+            if (this.theUser.first_name) {
+                document.getElementById('first_name_error').textContent = "";
             }
-            if(this.theUser.last_name){
-                document.getElementById('last_name_error').textContent="";
+            if (this.theUser.last_name) {
+                document.getElementById('last_name_error').textContent = "";
             }
-            if(this.theUser.email){
-                document.getElementById('email_error').textContent="";
+            if (this.theUser.email) {
+                document.getElementById('email_error').textContent = "";
             }
         }
     }
-
 }
 </script>

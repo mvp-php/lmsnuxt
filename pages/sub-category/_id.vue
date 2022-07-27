@@ -9,7 +9,7 @@
                             <div class="slds-form-element__control search-inp-control">
 
                                 <input type="text" id="text-input-id-50" placeHolder="Search category here…"
-                                    class="slds-input search-inp" v-on:keyup="searchText($event)" />
+                                    class="slds-input search-inp" v-on:keyup="search($event)" />
 
 
                             </div>
@@ -66,6 +66,7 @@
                         <div class="modal-manage-group-main">
                             <div class="group-row-main">
                                 <div class="group-col1">
+                                    
                                     <div class="course-row-manage">
                                         <div class="course-col1">
                                             <div class="course-title-main">
@@ -97,11 +98,12 @@
                                 <div class="group-col2">
                                     <div class="img-section-manage mb-16px">
                                         <div class="img-tag-thumnails">
-                                            <span v-if="viewModelData.image">
-                                                <img :src="viewModelData.image" alt="Category Image">
+                                            <span v-if="viewModelData.image_name">
+                                               <ImageComponent :log='`${viewModelData.image_name}`'  />
                                             </span>
                                             <span v-else>
-                                                <img src="../../assets/img/img-manage.png" alt="Image">
+                                                <ImageComponent :log='require(`~/assets/img/img-manage.png`)'  />
+                                               
                                             </span>
 
                                         </div>
@@ -173,6 +175,8 @@ import CategoryService from '../../components/Service/CategoryService';
 import SuccessToastrVue from '../../components/element/successToastr.vue';
 import ErrorToastr from '../../components/element/errorToastr.vue';
 import SubcategoryService from '../../components/Service/SubcategoryService';
+import  ImageComponent  from    '../../components/element/image.vue';
+import moment from 'moment';
 export default {
     layout: 'frontend',
     name: 'category-list',
@@ -180,7 +184,8 @@ export default {
     components: {
         SubCategory,
         SuccessToastrVue,
-        ErrorToastr
+        ErrorToastr,
+        ImageComponent
     },
     data() {
         return {
@@ -199,17 +204,18 @@ export default {
             viewModelData:[],
             categoryData: {},
             deleteFlag:'',
-            multipleDelete:''
+            multipleDelete:'',
+            searchText:''
         }
     },
     created() {
-        this.header = ["", 'Sr No.', 'Category', 'Major Category', 'Created On', 'Action'];
-        this.getAllCatData(1)
+        this.header = [{ "Key": "", 'column': '' },{ "Key": "Sr No.", 'column': 'id' },{ "Key": "Category", 'column': 'title' },{ "Key": "Major Category", 'column': 'main_title' },{ "Key": "Created On", 'column': 'created_at' },{ "Key": "Action", 'column': '' }];
+        
+        
+        this.getAllCatData(1,"",'created_at','desc');
         this.successSMG();
     },
-    mounted() {
-
-    },
+    
     methods: {
         successSMG(){
             const ISSERVER = typeof window === "undefined";
@@ -222,9 +228,9 @@ export default {
                 }
             }
         },
-        searchText($event) {
-
-            this.getAllCatData(1, $event.target.value,)
+        search($event) {
+            this.searchText = $event.target.value;
+            this.getAllCatData(1, $event.target.value,'created_at','desc');
         },
        
         
@@ -240,15 +246,10 @@ export default {
             this.error_hide = false;
             setTimeout(() => this.error_hide = true, 5000);
         },
-        clearModel() {
-            $(this.$ref.newaddcategory).on('hidden.bs.modal', () => {
+       
+        getAllCatData(page = "", value = "",sortBy,sortOrder) {
 
-                this.$ref.category_name.value = null
-            })
-        },
-        getAllCatData(page = "", value = "") {
-
-            SubcategoryService.callSubcategoryList(value, page,this.$route.params.id).then(
+            SubcategoryService.callSubcategoryList(value, page,this.$route.params.id,sortBy,sortOrder).then(
                 function (response) {
                     var final = [];
                     this.tableData = [];
@@ -260,7 +261,7 @@ export default {
                         temp_array.title = value.title;
                         temp_array.major_category =value.category_relation.title;
                       
-                        temp_array.created_at = value.created_at;
+                        temp_array.created_at =moment(value.created_at).format('MM-DD-YYYY');
                        
                         final.push(temp_array)
                     })
@@ -293,8 +294,8 @@ export default {
         },
        
         
-        getPaginatesMain: function (currentPage, value) {
-            this.getAllCatData(currentPage, value);
+        getPaginatesMain: function (currentPage, value,sortBy,sortOrder) {
+            this.getAllCatData(currentPage, value,sortBy,sortOrder);
         },
         userDelete(id) {
             this.$refs.deleteCategoryModel.classList.add("slds-fade-in-open");
@@ -313,7 +314,7 @@ export default {
                     this.successToasterShow();
                    
                     this.closeDeleteModel();
-                    this.getAllCatData(1, "");
+                    this.getAllCatData(1, "",'created_at','desc');
                        
                 }).catch((err) => {
                  
@@ -327,7 +328,7 @@ export default {
                     this.successToasterShow();
                    
                     this.closeDeleteModel();
-                    this.getAllCatData(1, "");
+                    this.getAllCatData(1, "",'created_at','desc');
                 }).catch((err) => {
                    this.errorMessage = err.response.data.response_msg;
                     this.errorToastrShow();
@@ -359,7 +360,6 @@ export default {
         viewEditPage: function (id) {
             this.$router.push({ path: "/sub-category/edit/" + id });
         },
-
     }
 }
 </script>

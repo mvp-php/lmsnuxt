@@ -9,15 +9,12 @@
                             <div class="slds-form-element__control search-inp-control">
 
                                 <input type="text" id="text-input-id-50" placeHolder="Search user here…"
-                                    class="slds-input search-inp" v-on:keyup="setCanMessageSubmit($event)" />
-
-
+                                    class="slds-input search-inp" v-on:blur="setCanMessageSubmit($event)" />
                             </div>
                         </div>
                         <nuxt-link to="/user-management/user/create-user"
                             class="slds-button slds-button_brand btnmain blue-btn ml-10">
                             Create User</nuxt-link>
-
                         <button class="slds-button slds-button_brand btnmain light-blue-btn ml-10"
                             href="javascript:void(0)" @click="importCSV()">Import User CSV</button>
 
@@ -31,8 +28,8 @@
 
                         <div class="table-main">
                             <userListNew :header="header" :tableData="tableData"
-                                :no_record_avalible="no_record_avalible" 
-                                :paginateObj="paginate" :searchkeyword="searchkeyword" :pageCount="pageCount" />
+                                :no_record_avalible="no_record_avalible" :paginateObj="paginate"
+                                :searchkeyword="searchkeyword" :pageCount="pageCount" />
                         </div>
                     </div>
 
@@ -61,64 +58,7 @@
                             <span class="slds-assistive-text">Cancel and close</span>
                         </button>
                     </div>
-                    <div class="slds-modal__content slds-p-around_medium modal-content-group-view"
-                        id="modal-content-id-1">
-                        <div class="modal-manage-group-main">
-                            <div class="group-row-main">
-                                <div class="group-col1">
-                                    <div class="course-row-manage">
-                                        <div class="course-col1">
-                                            <div class="course-title-main">
-                                                <p class="mb-0">First Name</p>
-                                            </div>
-                                        </div>
-                                        <div class="course-col2">
-                                            <div class="course-title-desc">
-                                                <p class="mb-0">{{ viewDetails.first_name }}</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="course-row-manage">
-                                        <div class="course-col1">
-                                            <div class="course-title-main">
-                                                <p class="mb-0">Last Name</p>
-                                            </div>
-                                        </div>
-                                        <div class="course-col2">
-                                            <div class="course-title-desc">
-                                                <p class="mb-0">{{ viewDetails.last_name }}</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="course-row-manage">
-                                        <div class="course-col1">
-                                            <div class="course-title-main">
-                                                <p class="mb-0">Email</p>
-                                            </div>
-                                        </div>
-                                        <div class="course-col2">
-                                            <div class="course-title-desc">
-                                                <p class="mb-0">{{ viewDetails.email }}</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="course-row-manage">
-                                        <div class="course-col1 mt-0" style="margin-top:0px !important">
-                                            <div class="course-title-main">
-                                                <p class="mb-0">Role</p>
-                                            </div>
-                                        </div>
-                                        <div class="course-col2">
-                                            <div class="course-title-desc">
-                                                <p class="mb-0">{{ viewDetails.title }}</p>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <viewUser :viewDetails="viewDetails"  :studentSection="studentSection"  :instructorSection="instructorSection"></viewUser>
                 </div>
 
 
@@ -151,12 +91,9 @@
                     </div>
                     <div class="slds-modal__content slds-p-around_medium modal-content-group-view"
                         id="modal-content-id-1">
-                        <ImportUserList :deletedUserList="deletedUserList"></ImportUserList>
-
+                        <ImportUserList :deletedUserList="deletedUserList" :existingUserList="existingUserList"></ImportUserList>
                     </div>
                 </div>
-
-
             </section>
             <div class="slds-backdrop " role="presentation" id="add-category-backdrop" ref="import_user_list_drop">
             </div>
@@ -201,6 +138,8 @@
                                 </div>
                             </div>
                             <div class="btn-align-end p-0">
+                                <a download="" :href="`${downloadCsv}`" class="slds-button slds-button_brand btnmain green-btn ">Download CSV</a>
+                               
                                 <ButtonComponent type="submit" class="slds-button slds-button_brand btnmain blue-btn "
                                     :buttonName="ButtonName" />
                             </div>
@@ -280,8 +219,9 @@ import errorToastr from '../../../components/element/errorToastr.vue';
 import successToastr from '../../../components/element/successToastr.vue';
 import ImportCSV from '../../../components/User/import_csv.vue';
 import ImportUserList from '../../../components/User/import_user_list.vue';
+import viewUser from '../../../components/User/viewUser.vue';
 import axios from 'axios';
-
+import moment from 'moment';
 
 export default {
     layout: 'frontend',
@@ -296,7 +236,8 @@ export default {
         errorToastr,
         successToastr,
         ImportCSV,
-        ImportUserList
+        ImportUserList,
+        viewUser
     },
 
     data() {
@@ -307,7 +248,7 @@ export default {
             tableData: [],
             no_record_avalible: "",
             viewDetails: [],
-            deletedId: '',
+       
             bulk_delete_button: true,
             errorMessage: "",
             errorToastrHide: true,
@@ -319,17 +260,24 @@ export default {
             csv_file: '',
             ButtonName: "Import",
             deletedUserList: [],
-            deleteFlag:"",
-            multipleDeleteId:''
+            deleteFlag: "",
+            multipleDeleteId: '',
+            downloadCsv:'',
+            existingUserList:[],
+           studentSection:false,
+            instructorSection:false,
+            searchText:""
+            
         }
     },
     created() {
-
         this.tablsList = [];
         var tabs = [{ "Key": "User Roles", 'url': 'role' }, { "Key": "User", 'url': 'user' }];
         this.tablsList = tabs;
-        this.header = ["", 'Sr No.', 'User Name', 'Email Id', 'Role', 'Created On', 'Action'];
-        this.getUserList("", 1);
+        this.header = [{ "Key": "", 'column': '' },{ "Key": "Sr No.", 'column': 'id' },{ "Key": "User Name", 'column': 'userName' },{ "Key": "Email Id", 'column': 'email' },{ "Key": "Role", 'column': 'title' },{ "Key": "Created On", 'column': 'created_at' },{ "Key": "Action", 'column': 'created_at' }];
+        
+       
+        this.getUserList("", 1,'created_at','desc'); 
         this.successM();
     },
     methods: {
@@ -344,14 +292,15 @@ export default {
                 }
             }
         },
-        getPaginatesMain: function (currentPage, value) {
-            this.getUserList(value, currentPage);
+        getPaginatesMain: function (currentPage, value,sortBy="",sortOrder="") {
+            this.getUserList(this.searchText, currentPage,sortBy,sortOrder);
         },
         setCanMessageSubmit($event) {
-            this.getUserList($event.target.value, 1)
+            this.searchText = $event.target.value;
+            this.getUserList($event.target.value, 1,'created_at','desc')
         },
-        getUserList(value = "", currentPage = "") {
-            userService.getUserList(value, currentPage)
+        getUserList(value = "", currentPage = "",sortBy="",sortOrder="") {
+            userService.getUserList(value, currentPage,sortBy,sortOrder)
                 .then(async response => {
                     var final = [];
                     this.tableData = [];
@@ -366,7 +315,7 @@ export default {
                         temp_array.first_name = value.first_name;
                         temp_array.email = value.email;
                         temp_array.title = title;
-                        temp_array.created_at = value.created_at;
+                        temp_array.created_at = moment(value.created_at).format('MM-DD-YYYY');
                         final.push(temp_array)
                     })
                     this.tableData = final;
@@ -383,10 +332,26 @@ export default {
         },
         openViewModel: function (id) {
 
+            this.userId=id;
             userService.getViewUserDetail(id).then((result) => {
-                this.viewDetails = result.data.data;
-            }).catch((err) => {
-               
+                this.viewDetails = result.data.data;  
+                
+                if(result.data.data.user_role_relation_ship){
+                    this.studentSection=false;
+                this.instructorSection=false;
+                    if(result.data.data.user_role_relation_ship.role_relation_ship.flag=="Student"){
+                        this.studentSection=true;
+                        this.instructorSection=true;
+                        this.viewDetails.user_custom_payment.valid_from = moment(this.viewDetails.user_custom_payment.valid_from).format('MM-DD-YYYY');
+                        this.viewDetails.user_custom_payment.valid_till = moment(this.viewDetails.user_custom_payment.valid_till).format('MM-DD-YYYY');
+                    }
+                    if(result.data.data.user_role_relation_ship.role_relation_ship.flag=="Instructor"){
+                        this.studentSection=false;
+                        this.instructorSection=true;
+                        this.viewDetails.user_instructor.valid_from = moment(this.viewDetails.user_instructor.valid_from).format('MM-DD-YYYY');
+                        this.viewDetails.user_instructor.valid_till = moment(this.viewDetails.user_instructor.valid_till).format('MM-DD-YYYY');
+                    }
+                }
             });
             this.$refs.addsubcategory.classList.add("slds-fade-in-open");
             this.$refs.addsubcategorybackdrop.classList.add("slds-backdrop_open");
@@ -398,37 +363,36 @@ export default {
         userDelete(id) {
             this.$refs.deleteUserModel.classList.add("slds-fade-in-open");
             this.DeleteId = id;
-            this.deleteFlag  ='single';
+            this.deleteFlag = 'single';
         },
         deleteUser() {
-            console.log(this.deleteFlag)
-            if(this.deleteFlag  =='single'){
+            if (this.deleteFlag == 'single') {
                 userService.deleteUser(this.DeleteId).then((result) => {
-                    localStorage.setItem('sucess_msg',result.data.response_msg);
+                    localStorage.setItem('sucess_msg', result.data.response_msg);
                     this.successMessage = result.data.response_msg;
                     this.successToastrShow();
-                    this.getUserList("", 1);
+                    this.getUserList("", 1,'created_at','desc');
                     this.closeDeleteModel();
                     this.bulk_delete_button = true;
                 }).catch((err) => {
-                    this.errorMessage =  err.response.data.response_msg;
+                    this.errorMessage = err.response.data.response_msg;
                     this.dangerToasterShow();
                 });
-            }else{
+            } else {
                 userService.bulkUserDelete(this.multipleDeleteId).then((result) => {
-                    localStorage.setItem('sucess_msg',result.data.response_msg);
+                    localStorage.setItem('sucess_msg', result.data.response_msg);
                     this.successMessage = result.data.response_msg;
-                    this.getUserList("", 1);
-                    
+                    this.getUserList("", 1,'created_at','desc');
+
                     this.successToastrShow();
                     this.closeDeleteModel();
                     this.bulk_delete_button = true;
                 }).catch((err) => {
-                this.errorMessage =  err.response.data.response_msg;
+                    this.errorMessage = err.response.data.response_msg;
                     this.dangerToasterShow();
                 });
             }
-            
+
         },
         closeDeleteModel() {
             this.$refs.deleteUserModel.classList.remove("slds-fade-in-open");
@@ -443,25 +407,26 @@ export default {
             } else {
                 this.bulk_delete_button = true;
             }
+
+            console.log(id);
             this.multipleDeleteId = id;
         },
 
         BulkDelete() {
-           this.$refs.deleteUserModel.classList.add("slds-fade-in-open");
-            this.deleteFlag  ='multiple';
-            
+            this.$refs.deleteUserModel.classList.add("slds-fade-in-open");
+            this.deleteFlag = 'multiple';
+
         },
         successToastrShow() {
             this.successToastrHide = false;
-            setTimeout(() =>
-                this.successToastrHide = true,
-
-                5000);
+            setTimeout(() =>this.successToastrHide = true,5000);
         },
-        
+
         importCSV() {
             this.$refs.importUserModel.classList.add("slds-fade-in-open");
             this.$refs.addimportuserbackdrop.classList.add("slds-fade-in-open");
+            
+            this.downloadCsv =process.env.serverUrl+'/assets/Users.csv';
         },
         handleSelectedFiles(e) {
             this.csv_file = e.target.files[0];
@@ -474,13 +439,13 @@ export default {
         submitData() {
             document.getElementById("import_csv_error").textContent = "";
             var cnt = 0;
-           
+
             if (!this.csv_file) {
                 document.getElementById("import_csv_error").textContent = "Please select csf file";
                 cnt = 1;
             }
             if (cnt == 0) {
-                
+
                 let formData = new FormData();
                 formData.append('file', this.csv_file);
                 let API_ENDPOINT = process.env.baseUrl;
@@ -495,9 +460,10 @@ export default {
                     }
                 ).then((result) => {
                     this.closeViewImportodel();
-                    this.deletedUserList = result.data.data;
-                    console.log(this.deletedUserList)
-                    if (result.data.data.length != 0) {
+                    this.getUserList("",1,'created_at','desc');
+                    this.deletedUserList = result.data.data.deleted_array;
+
+                    if (result.data.data.deleted_array.length != 0) {
                         this.deletedUserModel();
                     } else {
                         this.successMessage = result.data.response_msg;
@@ -510,7 +476,6 @@ export default {
                     this.errorMessage = error.response.data.response_msg;
 
                     this.dangerToasterShow();
-
 
                 });
 
@@ -533,28 +498,28 @@ export default {
             this.$refs.deletedUserModel.classList.remove("slds-fade-in-open");
             this.$refs.import_user_list_drop.classList.remove("slds-fade-in-open");
         },
-        
+
         reactiveUserModel: function (id) {
             userService.activeUser({ id: id }).then((result) => {
-                this.getUserList("", 1);
+                this.getUserList("", 1,'created_at','desc');
                 this.successMessage = result.data.response_msg;
                 this.successToastrShow();
                 document.getElementById(id).remove();
                 var remainingRow = document.getElementsByClassName('all-row-count').length;
-                 
-                if(remainingRow ==0){
+
+                if (remainingRow == 0) {
                     this.closeReactiveModel();
                 }
             }).catch((err) => {
-             this.errorMessage = err.response.data.response_msg;
+                this.errorMessage = err.response.data.response_msg;
 
-                    this.dangerToasterShow();
+                this.dangerToasterShow();
             });
         },
-        successClose: function () {
-            this.successToastrHide = true;
+        successClose:function(){
+            this.successToastrHide = false;
         }
-    }
+    }   
 
 }
 </script>

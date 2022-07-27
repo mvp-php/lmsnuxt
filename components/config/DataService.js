@@ -7,8 +7,8 @@ export default axios.create({
         'Content-Type': 'application/x-www-form-urlencoded',
         "Content-type": "application/json",
         // 'Content-Type': 'multipart/form-data',
-        // "Access-Control-Allow-Origin":"*",
-        // "Access-Control-Allow-Methods":"GET,PUT,POST,DELETE",
+        "Access-Control-Allow-Origin":"*",
+        "Access-Control-Allow-Methods":"GET,PUT,POST,DELETE",
         
       
     }

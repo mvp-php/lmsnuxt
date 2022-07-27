@@ -1,34 +1,30 @@
 <template>
-    <dropzone id="foo" ref="el" :options="options" :destroyDropzone="true" @vdropzone-success="fileUploadSuccessEvent"
-        v-bind:dropImage="dropImage">
-        <!-- <div class="dropzone-custom-content">
-            <h3 class="dropzone-custom-title">Drag and drop to upload content!</h3>
-            <div class="subtitle">...or click to select a file from your computer</div>
-        </div> -->
-    </dropzone>
+<dropzone id="foo" ref="el" :options="options" :destroyDropzone="true"  v-if="this.type=='video'"   @vdropzone-success="videoUploadSuccessEvent"></dropzone>
+    <dropzone id="foo" ref="el" :options="options" :destroyDropzone="true" v-else @vdropzone-success="fileUploadSuccessEvent"></dropzone>
+    
 </template>
 <style>
-.dropzone .dz-preview .dz-image img {
+.dropzone .dz-preview .dz-image img{
     max-width: 200px !important;
 }
 </style>
 <script>
 import Dropzone from 'nuxt-dropzone'
 import 'nuxt-dropzone/dropzone.css'
-
 export default {
-    props: ['fileUploadSuccessEvent', 'existingImage', 'type', 'folder', 'extension', 'videoUploadSuccessEvent'],
+    props: ['fileUploadSuccessEvent','existingImage','type','folder','extension','videoUploadSuccessEvent'],
     components: {
         Dropzone
     },
     mounted: function () {
         setTimeout(() => this.dropzoeFetch(), 500);
     },
-
+   
     data() {
         return {
             options: {
-                url: process.env.baseUrl + "/dropzone-image-upload?folder=" + this.folder,
+                url: process.env.baseUrl + "/dropzone-image-upload?folder="+this.folder,
+
                 thumbnailWidth: 200,
                 paramName: "image",
                 acceptedFiles: this.extension,
@@ -51,23 +47,23 @@ export default {
             },
         }
     },
-
-    methods: {
-        dropzoeFetch() {
-            if (this.existingImage) {
-                console.log(this.existingImage)
-                if (this.existingImage != null) {
+   
+   methods:{
+    dropzoeFetch(){
+        if(this.existingImage){
+            console.log(this.existingImage)
+                if(this.existingImage !=null){
                     const instance = this.$refs.el.dropzone;
-
+            
                     var mockFile = { name: this.existingImage, width: "100" };
                     instance.options.addedfile.call(instance, mockFile);
                     instance.options.thumbnail.call(instance, mockFile, this.existingImage);
                 }
-
+                
             }
-        }
-
     }
+     
+   }
 
 }
 </script>

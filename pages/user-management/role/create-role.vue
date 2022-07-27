@@ -105,7 +105,8 @@ export default {
                     })
             }
         },
-        selectedId: function (selected) {
+        rolePermission: function (selected) {
+
             document.getElementById("permission_error").textContent = '';
         },
         dangerToasterShow() {

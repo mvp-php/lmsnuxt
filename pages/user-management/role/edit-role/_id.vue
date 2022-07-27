@@ -12,7 +12,7 @@
                         Edit A Role
                     </div>
                     <form v-on:submit.prevent="submitData">
-                        <EditRole :the-user="user"/>
+                        <EditRole :the-user="user" :EntitiesList="EntitiesList"/>
                         <div class="btn-align-end">
                             <ButtonComponent type="submit" class="slds-button slds-button_brand btnmain blue-btn ml-10"
                                 :buttonName="ButtonName" />
@@ -30,7 +30,7 @@
 </template>
 
 <script>
-import EditRole from '../../../../components/Role/edit_role.vue';
+import EditRole from '../../../../components/Role/create_role.vue';
 
 import RoleDataService from "../../../../components/Service/RoleDataService";
 
@@ -60,28 +60,36 @@ export default {
             classObj: 'arrow-left',
 
             successMessage: "",
-
+            EntitiesList: [],
 
             dangerHide: true,
             userForm: [],
         };
     },
 
-    created() {
-
-        this.getRoleDetails();
-
+    beforeMount() {
+       this.getRoleDetails();
+        this.getEntitiesAndPermissionList();
+       
     },
     methods: {
-
-
+         getEntitiesAndPermissionList() {
+            this.EntitiesList = [];
+            RoleDataService.getEntitiesAndPermissionList()
+                .then(response => {
+                    this.EntitiesList = response.data.data;
+                    console.log(response.data);
+                })
+                .catch(e => {
+                    console.log(e);
+                });
+        },
         getRoleDetails() {
             RoleDataService.getDetailsById(this.$route.params.id).then(response => {
+                console.log(response.data.data)
                 this.user = response.data.data;
-
-
+                
             }).catch(e => {
-
             });
         },
         submitData(event) {
@@ -118,7 +126,11 @@ export default {
         },
         errorClose() {
             this.dangerHide = true;
-        }
+        },
+        rolePermission: function (selected) {
+
+            document.getElementById("permission_error").textContent = '';
+        },
     }
 };
 </script>

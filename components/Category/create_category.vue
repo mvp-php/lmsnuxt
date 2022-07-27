@@ -19,10 +19,10 @@
             <div class="modal-record-col2">
                 <div class="mb-0 user-modal-desc">
                     <div class="slds-form-element__control ">
-                        <FormTextareaField rows="3" v-model="categoryData.description"
+                        <FormTextareaField rows="3" 
                             placeHolder="Description comes here with a character limit."
                             className="slds-textarea custom-grid-textarea cat-desc" fieldId="category_desc"
-                            ref="category_description" @keypress="checkInput()" />
+                            ref="category_description" :bindValue="`${categoryData.description}`"   @keyup="updateTextArea()" />
 
                         <span class="text-danger" id="category_description_error" ref="caterror"></span>
                     </div>
@@ -34,7 +34,8 @@
                 <p class="mb-0 user-modal-title">Upload thumbnail</p>
             </div>
             <div class="modal-record-col2">
-                <Dropzone v-bind:fileUploadSuccessEvent="fileUploadSuccessEvent" modelname="Dropzone"
+                <Dropzone v-bind:fileUploadSuccessEvent="fileUploadSuccessEvent" :folder="`category`" :type="`image`"  :extension="`.png, .jpeg, .jpg, .gif`" modelname="Dropzone"
+
                     v-model="categoryData.image_name" />
             </div>
         </div>
@@ -55,7 +56,9 @@ export default {
         FormTextBoxField,
         FormTextareaField,
     },
+    mounted:function(){
 
+    },
     methods: {
         fileUploadSuccessEvent(file, response) {
             this.categoryData.image_name = response;
@@ -70,6 +73,12 @@ export default {
             }
 
 
+        },
+         updateTextArea:function () {
+            this.categoryData.description=event.target.value;
+            if (this.categoryData.description) {
+                document.getElementById("category_description_error").textContent = "";
+            }
         },
     }
 

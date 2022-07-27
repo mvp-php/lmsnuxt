@@ -23,6 +23,15 @@
   "ConfigDataService": {
     "description": "Auto imported from components/config/DataService.js"
   },
+  "CourseList": {
+    "description": "Auto imported from components/Course/courseList.vue"
+  },
+  "CourseCreateCource": {
+    "description": "Auto imported from components/Course/createCource.vue"
+  },
+  "Dashboard": {
+    "description": "Auto imported from components/Dashboard/dashboard.vue"
+  },
   "ElementDataTable": {
     "description": "Auto imported from components/element/dataTable.vue"
   },
@@ -44,8 +53,17 @@
   "ElementFormLabel": {
     "description": "Auto imported from components/element/formLabel.vue"
   },
+  "ElementFormRadio": {
+    "description": "Auto imported from components/element/formRadio.vue"
+  },
+  "ElementFormSelectField": {
+    "description": "Auto imported from components/element/formSelectField.vue"
+  },
   "ElementFormTextBoxField": {
     "description": "Auto imported from components/element/formTextBoxField.vue"
+  },
+  "ElementFormTynymc": {
+    "description": "Auto imported from components/element/formTynymc.vue"
   },
   "ElementImage": {
     "description": "Auto imported from components/element/image.vue"
@@ -110,17 +128,23 @@
   "RoleSetDefaultRoles": {
     "description": "Auto imported from components/Role/set_default_roles.vue"
   },
+  "RoleViewRole": {
+    "description": "Auto imported from components/Role/view_role.vue"
+  },
   "ServiceAuthService": {
     "description": "Auto imported from components/Service/AuthService.js"
   },
   "ServiceCategoryService": {
     "description": "Auto imported from components/Service/CategoryService.js"
   },
+  "ServiceCourseService": {
+    "description": "Auto imported from components/Service/CourseService.js"
+  },
   "ServiceDocumentUpload": {
     "description": "Auto imported from components/Service/DocumentUpload.js"
   },
-  "ServiceLearningPathService": {
-    "description": "Auto imported from components/Service/LearningPathService.js"
+  "ServiceInstructorService": {
+    "description": "Auto imported from components/Service/InstructorService.js"
   },
   "ServicePaymentPlanService": {
     "description": "Auto imported from components/Service/PaymentPlanService.js"
@@ -133,6 +157,9 @@
   },
   "ServiceUserService": {
     "description": "Auto imported from components/Service/UserService.js"
+  },
+  "SetPassword": {
+    "description": "Auto imported from components/SetPassword/setPassword.vue"
   },
   "SubCategoryCreateSubCategory": {
     "description": "Auto imported from components/SubCategory/create_sub_category.vue"
@@ -157,5 +184,14 @@
   },
   "UserList": {
     "description": "Auto imported from components/User/user_list.vue"
+  },
+  "UserViewUser": {
+    "description": "Auto imported from components/User/viewUser.vue"
+  },
+  "New folderCompoCourseList": {
+    "description": "Auto imported from components/New folder/Compo/courseList.vue"
+  },
+  "New folderCompoCreateCource": {
+    "description": "Auto imported from components/New folder/Compo/createCource.vue"
   }
 }

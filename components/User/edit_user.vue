@@ -41,14 +41,19 @@
                 required="true" />
 
             <div class="slds-form-element__control custom-grid-control mb-20">
-                <select v-model="theUser.role_id" class="slds-select custom-grid-input" @change="ChangeRole($event)">
+                <div class="slds-select_container cus-select-container">
+                    <formDropdown :options="rolelist" selectName="Role" class="slds-select custom-grid-input" @onChange="ChangeRole" :selected="`${theUser.role_id}`"></formDropdown>
+
+                </div>
+                
+                <!-- <select v-model="theUser.role_id" class="slds-select custom-grid-input" @change="ChangeRole($event)">
                     <option value="">Select Role</option>
                     <option v-for="roles in rolelist" :key="roles.id" :value="roles.id"
                         :data-option="`${roles.is_system_role}`" :data-flag="`${roles.flag}`">
                         {{ roles.title }}
                     </option>
 
-                </select>
+                </select> -->
                 <span class="text-danger" id="role_error" ref="caterror"></span>
             </div>
         </div>
@@ -60,14 +65,12 @@
                     for="text-input-id-46" required="true" />
 
                 <div class="slds-form-element__control custom-grid-control mb-20">
-                    <select v-model="theUser.entity_id" class="slds-select custom-grid-input" @change="ChangeEntity()">
-                        <option value="">Select Membership</option>
-                        <option v-for="plan in paymentPlan" :key="plan.id" :value="plan.id">
-                            {{ plan.title }}
-                        </option>
-
-                    </select>
-
+                <div class="slds-select_container cus-select-container">
+                     <formDropdown :options="paymentPlan"   v-model="theUser.entity_id" selectName="Membership" class="slds-select custom-grid-input" @onChange="ChangeEntity" :selected="`${theUser.entity_id}`"></formDropdown>
+                
+                    
+                </div>
+                  
                     <span class="text-danger" id="members_error" ref="caterror"></span>
                 </div>
 
@@ -124,13 +127,15 @@
 
 import Inputs from '../element/formTextBoxField.vue';
 import Labels from '../element/formLabel.vue';
-import moment from 'moment';
-import { format } from 'path';
+import formDropdown from '../element/formDropdown.vue';
+import moment  from 'moment';
+
 export default {
     name: 'create-user',
     components: {
         Inputs,
         Labels,
+        formDropdown
     },
     data() {
         return {
@@ -149,18 +154,18 @@ export default {
             1000);
     },
     methods: {
-        selectedRole() {
-
-            if (this.theUser.user_role_relation_ship.role_relation_ship.flag == 'Student' && this.theUser.user_role_relation_ship.role_relation_ship.is_system_role == 1) {
-                this.hides = false;
-                this.hidesins = false;
-            } else if (this.theUser.user_role_relation_ship.role_relation_ship.flag == 'Instructor' && this.theUser.user_role_relation_ship.role_relation_ship.is_system_role == 1) {
-                this.hides = true;
-                this.hidesins = false;
-            } else {
-                this.hides = true;
-                this.hidesins = true;
-            }
+        selectedRole(){
+           
+            // if( this.theUser.user_role_relation_ship.role_relation_ship.flag =='Student' && this.theUser.user_role_relation_ship.role_relation_ship.is_system_role ==1){
+            //      this.hides = false;
+            //         this.hidesins = false;
+            // } else if (this.theUser.user_role_relation_ship.role_relation_ship.flag == 'Instructor' && this.theUser.user_role_relation_ship.role_relation_ship.is_system_role == 1) {
+            //         this.hides = true;
+            //         this.hidesins = false;
+            //     } else {
+            //         this.hides = true;
+            //         this.hidesins = true;
+            //     }
         },
         ChangeRole(e) {
 

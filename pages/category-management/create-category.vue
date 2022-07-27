@@ -48,13 +48,17 @@ export default {
     },
     data() {
         return {
-            categoryData: { },
+            categoryData: {
+                title:'',
+                description:''
+             },
             dangerHide:true,
             classObj: 'arrow-left',
         }
     },
     methods: {
         addNewCategory(e) {
+
             document.getElementById("category_title_error").textContent = "";
             document.getElementById("category_description_error").textContent = "";
             
@@ -66,6 +70,7 @@ export default {
                 document.getElementById("category_description_error").textContent = "Please enter Description";
                 e.preventDefault();
             }
+            
             if (this.categoryData.title && this.categoryData.description) {
                 categoryService.addCategory(this.categoryData).then((result) => {
                     localStorage.setItem('sucess_msg',result.data.response_msg);

@@ -8,7 +8,7 @@
                         <div class="slds-form-element">
                             <div class="slds-form-element__control search-inp-control">
                                 <input type="text" id="text-input-id-50" placeHolder="Search role here…"
-                                    class="slds-input search-inp" v-on:keyup="searchText($event)" />
+                                    class="slds-input search-inp" v-on:keyup="search($event)" />
 
                             </div>
                         </div>
@@ -58,42 +58,8 @@
                             <span class="slds-assistive-text">Cancel and close</span>
                         </button>
                     </div>
-                    <div class="slds-modal__content slds-p-around_medium modal-content-group-view"
-                        id="modal-content-id-1">
-                        <div class="modal-manage-group-main">
-                            <div class="group-row-main ">
-                                <div class="group-col1">
-                                    <div class="course-row-manage">
-                                        <div class="course-col1">
-                                            <div class="course-title-main">
-                                                <p class="mb-0">User Role Titlee</p>
-                                            </div>
-                                        </div>
-                                        <div class="course-col2">
-                                            <div class="course-title-desc">
-                                                <p class="mb-0">{{ viewDetails.title }}</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="course-row-manage">
-                                        <div class="course-col1 removeLastChild">
-                                            <div class="course-title-main">
-                                                <p class="mb-0">No of User</p>
-                                            </div>
-                                        </div>
-                                        <div class="course-col2">
-                                            <div class="course-title-desc">
-                                                <p class="mb-0">{{ viewDetails.no_of_user }}</p>
-                                            </div>
-                                        </div>
-                                    </div>
-
-
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <viewRole  :viewDetails="viewDetails"></viewRole>
+                    
                 </div>
             </section>
             <div class="slds-backdrop " role="presentation" id="role-backdrop" ref="addRoleBackup">
@@ -159,25 +125,28 @@
 import Tabs from '../../../components/element/Tabs.vue';
 import roleService from "../../../components/Service/RoleDataService";
 import roles from '../../../components/Role/Role.vue';
+import viewRole from '../../../components/Role/view_role.vue';
 import dataTable from '../../../components/element/dataTable.vue';
 import ImageComponent from '../../../components/element/image.vue';
 import ButtonComponent from '../../../components/element/formButton.vue';
 import errorToastr from '../../../components/element/errorToastr.vue';
 import successToastr from '../../../components/element/successToastr.vue';
+import moment from 'moment';
 export default {
     layout: 'frontend',
     name: 'UserList',
-   
+
     components: {
         Tabs,
         dataTable,
         roles,
         ImageComponent,
         ButtonComponent,
-        errorToastr, successToastr
+        errorToastr, successToastr,
+        viewRole
 
     },
-    
+
     data() {
         return {
             tablsList: [],
@@ -188,7 +157,7 @@ export default {
             viewDetails: [],
             bulk_delete_button: true,
             deletedId: "",
-            multipleDeleteId:'',
+            multipleDeleteId: '',
             errorMessage: "",
             errorToastrHide: true,
             successMessage: "",
@@ -196,7 +165,8 @@ export default {
             paginate: '',
             searchkeyword: '',
             pageCount: '',
-            deleteFlag:''
+            deleteFlag: '',
+            searchText:''
 
         }
     },
@@ -204,14 +174,14 @@ export default {
         this.tablsList = [];
         var tabs = [{ "Key": "User Roles", 'url': 'role' }, { "Key": "User", 'url': 'user' }];
         this.tablsList = tabs;
-        this.header = ["", 'Sr No.', 'Role Title', 'No of User', 'Created On', 'Action'];
+        this.header = [{ "Key": "", 'column': '' },{ "Key": "Sr No.", 'column': 'id' },{ "Key": "Role Title", 'column': 'title' },{ "Key": "No of User", 'column': 'no_of_user' },{ "Key": "Created On", 'column': 'created_at' },{ "Key": "Action", 'column': 'created_at' }];
         var value = this.$route.query.search;
-         this.successM();
-        this.getRoleList(1, "");
+        this.successM();
+        this.getRoleList(1, "",'id','desc');
 
 
     },
-    
+
     methods: {
         successM() {
             const ISSERVER = typeof window === "undefined";
@@ -226,36 +196,36 @@ export default {
 
 
         },
-        getPaginatesMain: function (currentPage, value) {
-            this.getRoleList(currentPage, value);
+        getPaginatesMain: function (currentPage, value,sortBy,sortOrder) {
+            this.getRoleList(currentPage, this.searchText,sortBy,sortOrder);
         },
 
-        searchText($event) {
-
-            this.getRoleList(1, $event.target.value,)
+        search($event) {
+            this.searchText = $event.target.value;
+            this.getRoleList(1, $event.target.value,'id','desc')
         },
 
-        getRoleList(page = "", value = "") {
+        getRoleList(page = "", value = "",sortBy,sortOrder) {
 
-            roleService.getRoleList(page, value)
+            roleService.getRoleList(page, value,sortBy,sortOrder)
                 .then(async response => {
                     var final = [];
                     this.tableData = [];
-                  
+
                     response.data.data.data.map(function (value, key) {
-                         var temp_array = {};
+                        var temp_array = {};
                         temp_array.key = '';
                         temp_array.id = value.id;
                         temp_array.title = value.title;
                         temp_array.no_of_user = value.no_of_user;
-                       
-                        temp_array.created_at = value.created_at;
-                         temp_array.is_system_role = value.is_system_role;
+
+                        temp_array.created_at =moment(value.created_at).format('MM-DD-YYYY');;
+                        temp_array.is_system_role = value.is_system_role;
                         final.push(temp_array)
                     })
 
-                    
-                    this.tableData =final;
+
+                    this.tableData = final;
                     this.no_record_avalible = response.data.response_msg
                     this.paginate = response.data.data;
                     this.pageCount = response.data.data.data.length;
@@ -283,36 +253,36 @@ export default {
 
             this.$refs.deleteRoleModel.classList.add("slds-fade-in-open");
             this.DeleteId = id;
-            this.deleteFlag='single';
+            this.deleteFlag = 'single';
 
         },
         deleteRole() {
-            if(this.deleteFlag  =='single'){
+            if (this.deleteFlag == 'single') {
                 roleService.deleteRole(this.DeleteId).then((result) => {
-               
-                    localStorage.setItem('sucess_msg',result.data.response_msg);
+
+                    localStorage.setItem('sucess_msg', result.data.response_msg);
                     this.successMessage = result.data.response_msg;
                     this.successToastrShow();
-                    this.getRoleList(1, "");
+                    this.getRoleList(1, "",'id','desc');
                     this.closeDeleteModel();
-                     this.bulk_delete_button = true;
+                    this.bulk_delete_button = true;
                 }).catch((err) => {
-                    this.errorMessage =  err.response.data.response_msg;
+                    this.errorMessage = err.response.data.response_msg;
                     this.dangerToasterShow();
                 });
-            }else{
+            } else {
                 roleService.bulkRoleDelete(this.multipleDeleteId).then((result) => {
-                    this.getRoleList(1, "");
+                    this.getRoleList(1, "",'id','desc');
                     this.successMessage = result.data.response_msg;
                     this.successToastrShow();
-                  this.bulk_delete_button = true;
+                    this.bulk_delete_button = true;
                 }).catch((err) => {
-                     this.errorMessage =  err.response.data.response_msg;
+                    this.errorMessage = err.response.data.response_msg;
                     this.dangerToasterShow();
                 });
-                
+
             }
-              
+
             this.closeDeleteModel();
         },
         closeDeleteModel() {
@@ -331,12 +301,12 @@ export default {
         },
         BulkDelete() {
             this.$refs.deleteRoleModel.classList.add("slds-fade-in-open");
-            this.deleteFlag='multiple'; 
+            this.deleteFlag = 'multiple';
         },
         successToastrShow: function () {
             this.successToastrHide = false;
         },
-       
+
         successClose: function () {
             localStorage.removeItem('sucess_msg');
             this.successToastrHide = true

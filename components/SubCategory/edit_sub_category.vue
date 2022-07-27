@@ -24,6 +24,7 @@
             <div class="modal-category-col1">
                 <p class="mb-0 user-modal-title">Sub Category Name</p>
             </div>
+            
             <div class="modal-record-col2">
                 <div class="slds-form-element__control  ">
                     <FormTextBoxField v-model.trim="subCategoryData.title" fieldId="subCategory_name"
@@ -33,10 +34,12 @@
                 </div>
             </div>
         </div>
+       
         <div class="modal-row">
             <div class="modal-category-col1">
                 <p class="mb-0 user-modal-title">Category Description</p>
             </div>
+           
             <div class="modal-record-col2">
                 <div class="mb-0 user-modal-desc">
                     <div class="slds-form-element__control ">
@@ -53,9 +56,10 @@
             <div class="modal-category-col1">
                 <p class="mb-0 user-modal-title">Upload thumbnail</p>
             </div>
+ 
             <div class="modal-record-col2">
                 <Dropzone v-bind:fileUploadSuccessEvent="fileUploadSuccessEvent" modelname="Dropzone"
-                    v-model="subCategoryData.dropzoneImage" />
+                    v-model="subCategoryData.dropzoneImage" :type="`image`"  :extension="`.png, .jpeg, .jpg, .gif`" :existingImage="`${subCategoryData.image_name}`" />
             </div>
         </div>
     </span>
@@ -84,9 +88,7 @@ export default {
     },
 
     methods: {
-        ChangeCategory() {
-
-        },
+       
         fileUploadSuccessEvent(file, response) {
             this.subCategoryData.image_name = response;
 

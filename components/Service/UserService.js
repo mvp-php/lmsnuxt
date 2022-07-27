@@ -6,8 +6,8 @@ class UserService {
     return http.post(`/user-save/`,data, { headers: authHeader() });
   }
 
-  getUserList(data,currentPage){
-    return http.get(`/user-list?page=`+currentPage+`&search=`+data,{ headers: authHeader() });
+  getUserList(data,currentPage,sortBy,sortOrder){
+    return http.get(`/user-list?page=`+currentPage+`&search=`+data+'&sortBy='+sortBy+'&sortOrder='+sortOrder,{ headers: authHeader() });
   }
   
   getUserDetails(id){

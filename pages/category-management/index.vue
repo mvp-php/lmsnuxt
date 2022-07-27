@@ -9,9 +9,7 @@
                             <div class="slds-form-element__control search-inp-control">
 
                                 <input type="text" id="text-input-id-50" placeHolder="Search category here…"
-                                    class="slds-input search-inp" v-on:keyup="searchText($event)" />
-
-
+                                    class="slds-input search-inp" v-on:keyup="search($event)" />
                             </div>
                         </div>
                         <nuxt-link to="/category-management/create-category"
@@ -97,8 +95,8 @@
                                     <div class="img-section-manage mb-16px">
                                         <div class="img-tag-thumnails">
                                             <span v-if="viewModelData.image_name">
-
-
+                                                <ImageComponent :log='`${viewModelData.image_name}`'  />
+                                                
                                             </span>
                                             <span v-else>
                                                 <ImageComponent :log='require(`~/assets/img/img-manage.png`)' />
@@ -173,17 +171,20 @@ import Category from '../../components/Category/category.vue';
 import CategoryService from '../../components/Service/CategoryService';
 import successToastrVue from '../../components/element/successToastr.vue';
 import errorToastr from '../../components/element/errorToastr.vue';
+
 import SubcategoryService from '../../components/Service/SubcategoryService';
 import ImageComponent from '../../components/element/image.vue';
+
+import buttons from '../../components/element/formButton.vue';
 export default {
     layout: 'frontend',
     name: 'category-list',
-
+   
     components: {
         Category,
         successToastrVue,
         errorToastr,
-        ImageComponent
+        ImageComponent,buttons
     },
     data() {
         return {
@@ -201,18 +202,18 @@ export default {
             successToastrHide: true,
             viewModelData: [],
             categoryData: {},
-            deleteFlag: '',
-            multipleDelete: ''
+            deleteFlag:'',
+            multipleDelete:'',
+            searchText:'',
+            done:true
         }
     },
     created() {
-        this.header = ["", 'Sr No.', 'Category Name', 'Category Description', 'Created On', 'Add Sub Category', 'Action'];
-        this.getAllCatData(1)
+       this.header = [{ "Key": "", 'column': '' },{ "Key": "Sr No.", 'column': 'id' },{ "Key": "Category Name", 'column': 'title' },{ "Key": "Category Description", 'column': 'description' },{ "Key": "Created On", 'column': 'created_at' },{'Key':'Add Sub Category','column': '' },{ "Key": "Action", 'column': 'created_at' }];
+        this.getAllCatData(1,"",'created_at','desc')
         this.successSMG();
     },
-    mounted() {
-
-    },
+   
     methods: {
         successSMG() {
             const ISSERVER = typeof window === "undefined";
@@ -225,9 +226,9 @@ export default {
                 }
             }
         },
-        searchText($event) {
-
-            this.getAllCatData(1, $event.target.value,)
+        search($event) {
+            this.searchText = $event.target.value;
+            this.getAllCatData(1, $event.target.value,'created_at','desc')
         },
         fileUploadSuccessEvent(file, response) {
             console.log(response, "Response");
@@ -256,15 +257,10 @@ export default {
             this.error_hide = false;
             setTimeout(() => this.error_hide = true, 5000);
         },
-        clearModel() {
-            $(this.$ref.newaddcategory).on('hidden.bs.modal', () => {
+        
+        getAllCatData(page = "", value = "",sortBy,sortOrder) {
 
-                this.$ref.category_name.value = null
-            })
-        },
-        getAllCatData(page = "", value = "") {
-
-            CategoryService.getCategoryList(value, page).then(
+            CategoryService.getCategoryList(value, page,sortBy,sortOrder).then(
                 function (response) {
                     var final = [];
                     this.tableData = [];
@@ -275,10 +271,11 @@ export default {
                         temp_array.id = value.id;
                         temp_array.title = value.title;
                         temp_array.description = value.description;
-                        temp_array.created_at = value.created_at;
-                        temp_array.parent_category_id = value.parent_category_id;
+                        temp_array.created_at = moment(value.created_at).format('MM-DD-YYYY');
+                        temp_array.parent_category_id =value.parent_category_id;
                         final.push(temp_array)
                     })
+                    console.log(final)
                     this.tableData = final;
 
 
@@ -292,7 +289,7 @@ export default {
 
         },
         openViewModel: function (id) {
-            console.log(id);
+        
             CategoryService.getEditDetails(id).then((result) => {
                 this.viewModelData = result.data.data;
             }).catch((err) => {
@@ -320,9 +317,9 @@ export default {
             });
 
         },
-
-        getPaginatesMain: function (currentPage, value) {
-            this.getAllCatData(currentPage, value);
+        
+        getPaginatesMain: function (currentPage, value,sortBy,sortOrder) {
+            this.getAllCatData(currentPage, this.searchText,sortBy,sortOrder);
         },
         userDelete(id) {
             this.$refs.deleteCategoryModel.classList.add("slds-fade-in-open");
@@ -334,20 +331,20 @@ export default {
         },
         deleteCategory() {
             if (this.deleteFlag == 'single') {
-                CategoryService.deleteCategory(this.DeleteId).then((result) => {
+                    CategoryService.deleteCategory(this.DeleteId).then((result) => {
 
-                    localStorage.setItem('sucess_msg', result.data.response_msg);
-                    this.successMessage = result.data.response_msg;
-                    this.successToasterShow();
+                        localStorage.setItem('sucess_msg', result.data.response_msg);
+                        this.successMessage = result.data.response_msg;
+                        this.successToasterShow();
 
-                    this.closeDeleteModel();
-                    this.getAllCatData(1, "");
+                        this.closeDeleteModel();
 
-                }).catch((err) => {
+                        this.getAllCatData(1, "");
 
-                    this.errorMessage = err.response.data.response_msg;
-                    this.errorToastrShow();
-                });
+                        this.getAllCatData(1, "",sortBy,sortOrder);
+                        this.errorMessage = err.response.data.response_msg;
+                        this.errorToastrShow();
+                })
             } else {
                 CategoryService.bulkCategoryDelete(this.multipleDelete).then((result) => {
                     localStorage.setItem('sucess_msg', result.data.response_msg);
@@ -355,7 +352,7 @@ export default {
                     this.successToasterShow();
 
                     this.closeDeleteModel();
-                    this.getAllCatData(1, "");
+                    this.getAllCatData(1, "",sortBy,sortOrder);
                 }).catch((err) => {
                     this.errorMessage = err.response.data.response_msg;
                     this.errorToastrShow();
@@ -391,5 +388,5 @@ export default {
         },
 
     }
-}
+};
 </script>

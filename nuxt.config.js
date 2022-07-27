@@ -45,6 +45,7 @@ export default {
   },
   env: {
     baseUrl: process.env.API_BASE_URL + '/' + process.env.API_VERSION,
+    serverUrl:process.env.API_BASE_URL
   },
   vue: {
     config: {

@@ -13,6 +13,7 @@
         <Labels labelName="Description" className="slds-form-element__label custom-label" for="text-input-id-46" required="false"/>
         
         <div class="slds-form-element__control custom-grid-control mb-20">
+            
             <textAreaComponent fieldId="description" placeholder="Description comes here with a character" v-model.trim="theUser.description" class="slds-textarea custom-grid-textarea mb-30" :bindValue="`${theUser.description}`"></textAreaComponent>
            
         </div>
@@ -20,7 +21,7 @@
 
     <div v-for="item in EntitiesList" :key="item.id">
   
-    <div class="slds-form-element check-element-main mb-35" v-for="(value, key) in item" :key="value.id">
+    <div class="slds-form-element check-element-main mb-35" v-for="(value, key,index) in item" :key="value.id">
         <label class="slds-form-element__label custom-label" for="textarea-id-01">{{ key }}
             <span class="require-danger">*</span>
         </label>
@@ -37,6 +38,39 @@
                             <span class="slds-checkbox_faux"></span>
                             <span class="slds-form-element__label">{{operation.title}}</span>
                         </label>
+                    </div>
+                </div>
+            </div>
+            <div  v-if="key !='Instructor Request Approval'"  class="slds-form-element  check-element-inner">
+                <div class="slds-form-element__control">
+                    <div class="slds-checkbox role-check-main">
+                        <input type="checkbox"  :id="`${key}`"  
+                                            tabindex="0"  className="role-check"
+                                            aria-labelledby="check-select-all-label column-group-header"    @click="allChecked(key,index)"/>
+                        
+                
+                            <label class="slds-checkbox__label" :for="`${key}`" >
+                                <span class="slds-checkbox_faux"></span>
+                                <span class="slds-form-element__label">All</span>
+                            </label>
+                    </div>
+                </div>
+                
+                 
+                         
+            </div>
+            <div  v-if="key !='Instructor Request Approval'"   class="slds-form-element  check-element-inner">
+                <div class="slds-form-element__control">
+                    <div class="slds-checkbox role-check-main">
+                        <input type="checkbox"  :id="`${index}${key}`"  
+                                            tabindex="0"  className="role-check"
+                                            aria-labelledby="check-select-all-label column-group-header"    @click="allDis(key,index)"/>
+                        
+                
+                            <label class="slds-checkbox__label" :for="`${index}${key}`" >
+                                <span class="slds-checkbox_faux"></span>
+                                <span class="slds-form-element__label">None</span>
+                            </label>
                     </div>
                 </div>
             </div>
@@ -66,8 +100,8 @@ export default {
     Labels,
     textAreaComponent
   },
-   props: ['theUser'],
-  created() {
+   props: ['theUser','role_id'],
+    beforeMount:function() {
         this.getPermissionList();
      
        
@@ -92,6 +126,76 @@ export default {
                 });
         },
         getChecked(){
+            var selectedChecked = [];
+            if(event.target.checked ==true){
+        
+               this.FinalArray.push(event.target.value);
+            }else{
+                this.FinalArray.filter(function (elm){
+                
+                    if(event.target.value != elm){
+                        selectedChecked.push(elm);
+                    }
+                });
+                this.FinalArray = selectedChecked;
+            }
+            this.$parent.rolePermission(this.FinalArray);
+        },
+        checkInput: function () {
+            if (this.theUser.title) {
+                document.getElementById("role_title_error").textContent = "";
+            }
+            
+
+        },
+        allChecked(value,id){
+            var slides = document.getElementsByClassName(value);
+            
+            for(var i = 0; i < slides.length; i++)
+            {
+                if(event.target.checked ==true){
+                    document.getElementById(id+value).checked=false;
+                    slides[i].checked=  true;
+                    
+                    this.FinalArray.push(slides[i].value);
+
+                }else{
+                    slides[i].checked=  false;
+                    var selectedChecked = [];
+                    this.FinalArray.filter(function (elm){
+                        
+                        if(slides[i].value != elm){
+                            selectedChecked.push(elm);
+                        }
+                    });
+                    this.FinalArray = selectedChecked;
+                }
+                
+            }
+
+            this.$parent.rolePermission(this.FinalArray);
+          
+            this.theUser.permission=this.FinalArray;
+        },
+        allDis(value,id){
+            document.getElementById(value).checked = false;
+            var slides = document.getElementsByClassName(value);
+            for(var i = 0; i < slides.length; i++)
+            {
+                if(event.target.checked ==true){
+                    document.getElementById(value).checked   =false;
+                    slides[i].checked   =false;
+                    var selectedChecked = [];
+                    this.FinalArray.filter(function (elm){
+                        if(slides[i].value != elm){
+                            selectedChecked.push(elm);
+                        }
+                    });
+                    this.FinalArray = selectedChecked;
+                }
+            }
+
+            this.theUser.permission=this.FinalArray;
             
         }
   }

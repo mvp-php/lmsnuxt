@@ -76,7 +76,6 @@ export default {
 
         
         AuthService.callLogin(params).then((result) => {
-
           localStorage.setItem("userData", JSON.stringify(result.data.data));
           localStorage.setItem('sucess_msg',result.data.response_msg);
           this.$router.push({ path: '/user-management/role' });

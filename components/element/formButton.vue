@@ -6,9 +6,17 @@
 <script>
 
     export default{
-        props: ['type','buttonName','className','dataval'],
-        methods:{
-            
-        }
+         props: {
+            type: {required: true, type: String},
+            dones: {default: false, type: Boolean},
+            buttonName: {required: true, type: String},
+            className: {required: true, type: String}
+        },
+      
+        data() {
+            return {
+            isDone : this.done,
+            }
+        },
     };
 </script>
