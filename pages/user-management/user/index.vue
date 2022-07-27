@@ -265,7 +265,8 @@ export default {
             downloadCsv:'',
             existingUserList:[],
            studentSection:false,
-            instructorSection:false
+            instructorSection:false,
+            searchText:""
             
         }
     },
@@ -273,10 +274,10 @@ export default {
         this.tablsList = [];
         var tabs = [{ "Key": "User Roles", 'url': 'role' }, { "Key": "User", 'url': 'user' }];
         this.tablsList = tabs;
-        this.header = [{ "Key": "", 'column': '' },{ "Key": "Sr No.", 'column': 'id' },{ "Key": "User Name", 'column': 'user_name' },{ "Key": "Email Id", 'column': 'email' },{ "Key": "Role", 'column': 'title' },{ "Key": "Created On", 'column': 'created_at' },{ "Key": "Action", 'column': 'created_at' }];
+        this.header = [{ "Key": "", 'column': '' },{ "Key": "Sr No.", 'column': 'id' },{ "Key": "User Name", 'column': 'userName' },{ "Key": "Email Id", 'column': 'email' },{ "Key": "Role", 'column': 'title' },{ "Key": "Created On", 'column': 'created_at' },{ "Key": "Action", 'column': 'created_at' }];
         
        
-        this.getUserList("", 1); 
+        this.getUserList("", 1,'created_at','desc'); 
         this.successM();
     },
     methods: {
@@ -291,14 +292,15 @@ export default {
                 }
             }
         },
-        getPaginatesMain: function (currentPage, value) {
-            this.getUserList(value, currentPage);
+        getPaginatesMain: function (currentPage, value,sortBy="",sortOrder="") {
+            this.getUserList(this.searchText, currentPage,sortBy,sortOrder);
         },
         setCanMessageSubmit($event) {
-            this.getUserList($event.target.value, 1)
+            this.searchText = $event.target.value;
+            this.getUserList($event.target.value, 1,'created_at','desc')
         },
-        getUserList(value = "", currentPage = "") {
-            userService.getUserList(value, currentPage)
+        getUserList(value = "", currentPage = "",sortBy="",sortOrder="") {
+            userService.getUserList(value, currentPage,sortBy,sortOrder)
                 .then(async response => {
                     var final = [];
                     this.tableData = [];
@@ -313,7 +315,7 @@ export default {
                         temp_array.first_name = value.first_name;
                         temp_array.email = value.email;
                         temp_array.title = title;
-                        temp_array.created_at = value.created_at;
+                        temp_array.created_at = moment(value.created_at).format('MM-DD-YYYY');
                         final.push(temp_array)
                     })
                     this.tableData = final;
@@ -369,7 +371,7 @@ export default {
                     localStorage.setItem('sucess_msg', result.data.response_msg);
                     this.successMessage = result.data.response_msg;
                     this.successToastrShow();
-                    this.getUserList("", 1);
+                    this.getUserList("", 1,'created_at','desc');
                     this.closeDeleteModel();
                     this.bulk_delete_button = true;
                 }).catch((err) => {
@@ -380,7 +382,7 @@ export default {
                 userService.bulkUserDelete(this.multipleDeleteId).then((result) => {
                     localStorage.setItem('sucess_msg', result.data.response_msg);
                     this.successMessage = result.data.response_msg;
-                    this.getUserList("", 1);
+                    this.getUserList("", 1,'created_at','desc');
 
                     this.successToastrShow();
                     this.closeDeleteModel();
@@ -458,7 +460,7 @@ export default {
                     }
                 ).then((result) => {
                     this.closeViewImportodel();
-                    this.getUserList("",1);
+                    this.getUserList("",1,'created_at','desc');
                     this.deletedUserList = result.data.data.deleted_array;
 
                     if (result.data.data.deleted_array.length != 0) {
@@ -499,7 +501,7 @@ export default {
 
         reactiveUserModel: function (id) {
             userService.activeUser({ id: id }).then((result) => {
-                this.getUserList("", 1);
+                this.getUserList("", 1,'created_at','desc');
                 this.successMessage = result.data.response_msg;
                 this.successToastrShow();
                 document.getElementById(id).remove();

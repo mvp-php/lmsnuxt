@@ -22,16 +22,11 @@ export default {
         deleteMethod: function(id){
             this.$parent.userDelete(id);
         },
-        editMethod: function(id){
-            this.$parent.userEdit(id);
-        },
+       
         bulkDeleted: function(keyDelete){
             this.$parent.bulkDeleteds(keyDelete);
         },
-        getsOpenSubcategoryModel :function(id){
-            console.log(id);
-            this.$parent.mainOpenMainSubCategory(id);
-        },
+       
         editMethod:function(id){
             this.$parent.viewEditPage(id);
         }

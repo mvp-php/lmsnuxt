@@ -6,8 +6,8 @@ class RoleDataService {
     return http.get(`/entities-list/`, { headers: authHeader() });
   }
 
-  getRoleList(page,data){
-    return http.get(`/role-list?page=`+page+`&search=`+data, { headers: authHeader() });
+  getRoleList(page,data,sortBy,sortOrder){
+    return http.get(`/role-list?page=`+page+`&search=`+data+`&sortBy=`+sortBy+`&sortOrder=`+sortOrder, { headers: authHeader() });
   }
   create(data){
     return http.post(`/call-role/`,data, { headers: authHeader() });

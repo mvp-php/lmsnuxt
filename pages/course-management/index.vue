@@ -46,7 +46,7 @@
                 class="slds-modal " id="add-category" ref="openViewModelNew">
                 <div class="slds-modal__container manage-view-dialog-modal slds-modal-category">
                     <div class="slds-modal__header modal-main-record-title category-title">
-                        <h1 id="modal-heading-01" class="slds-modal__title slds-hyphenate">CATEGORY DETAILS</h1>
+                        <h1 id="modal-heading-01" class="slds-modal__title slds-hyphenate">COURSE DETAILS</h1>
                         <button v-on:click="closeViewModel()"
                             class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse close-modal-record">
                             <svg xmlns="http://www.w3.org/2000/svg" width="11.354" height="11.385"
@@ -61,57 +61,8 @@
                             <span class="slds-assistive-text">Cancel and close</span>
                         </button>
                     </div>
-                    <div class="slds-modal__content slds-p-around_medium modal-content-group-view"
-                        id="modal-content-id-1">
-                        <div class="modal-manage-group-main">
-                            <div class="group-row-main">
-                                <div class="group-col1">
-                                    <div class="course-row-manage">
-                                        <div class="course-col1">
-                                            <div class="course-title-main">
-                                                <p class="mb-0">Category title</p>
-                                            </div>
-                                        </div>
-                                        <div class="course-col2">
-                                            <div class="course-title-desc">
-                                                <p class="mb-0">{{ viewModelData.title }} </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="course-row-manage">
-                                        <div class="course-col1">
-                                            <div class="course-title-main">
-                                                <p class="mb-0">Category description</p>
-                                            </div>
-                                        </div>
-                                        <div class="course-col2">
-                                            <div class="course-title-desc">
-                                                <p class="mb-0">{{ viewModelData.description }}</p>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                </div>
-
-                                <div class="group-col2">
-                                    <div class="img-section-manage mb-16px">
-                                        <div class="img-tag-thumnails">
-                                            <span v-if="viewModelData.image_name">
-                                            
-                                                
-                                            </span>
-                                            <span v-else>
-                                                <ImageComponent :log='require(`~/assets/img/img-manage.png`)'  />
-                                                
-                                            </span>
-
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <courseView :view-course="viewCourseDetail"></courseView>
+                    
                 </div>
             </section>
             <div class="slds-backdrop " role="presentation" id="add-category-backdrop" ref="openViewModelNewbackdrop">
@@ -173,8 +124,10 @@ import courseList from '../../components/Course/courseList.vue';
 import CourseService from '../../components/Service/CourseService';
 import successToastrVue from '../../components/element/successToastr.vue';
 import errorToastr from '../../components/element/errorToastr.vue';
-
+import courseView from '../../components/Course/courseView.vue';
 import  ImageComponent  from    '../../components/element/image.vue';
+import buttonComponent from '../../components/element/formButton.vue';
+
 export default {
     layout: 'frontend',
     name: 'category-list',
@@ -183,7 +136,8 @@ export default {
         courseList,
         successToastrVue,
         errorToastr,
-        ImageComponent
+        ImageComponent,
+        courseView
     },
     data() {
         return {
@@ -202,7 +156,9 @@ export default {
             viewModelData:[],
             categoryData: {},
             deleteFlag:'',
-            multipleDelete:''
+            multipleDelete:'',
+            viewCourseDetail:[],
+            buttonComponent
         }
     },
     created() {
@@ -256,11 +212,14 @@ export default {
                         var mainCategory='';
                         var subCategory='-';
                       
-                        if(value.entity_sub_category_relation.course_sub_categoryrelation[0].category_relation  !=null){
-                            mainCategory =value.entity_sub_category_relation.course_sub_categoryrelation[0].category_relation.title;
-                            subCategory =value.entity_sub_category_relation.course_sub_categoryrelation[0].title;
-                        }else{
-                            mainCategory =value.entity_sub_category_relation.course_sub_categoryrelation[0].title;
+                        if(value.entity_sub_category_relation.course_sub_categoryrelation[0] ){
+                            if(value.entity_sub_category_relation.course_sub_categoryrelation[0].category_relation !=null){
+                                mainCategory =value.entity_sub_category_relation.course_sub_categoryrelation[0].category_relation.title;
+                                subCategory =value.entity_sub_category_relation.course_sub_categoryrelation[0].title;
+                            }else{
+                                mainCategory =value.entity_sub_category_relation.course_sub_categoryrelation[0].title;
+                        
+                            }
                         }
                         temp_array.key = '';
                         temp_array.id = value.id;
@@ -270,8 +229,8 @@ export default {
                         
                      
                         temp_array.created_at = value.created_at;
-                        temp_array.status ="Tetts";
-                        
+                        temp_array.status ='1';
+                    
                         final.push(temp_array)
                     })
                     this.tableData = final;
@@ -287,9 +246,9 @@ export default {
 
         },
         openViewModel: function (id) {
-            console.log(id);
-            CategoryService.getEditDetails(id).then((result) => {
-                this.viewModelData = result.data.data;
+           
+            CourseService.viewCourseDetail(id).then((result) => {
+                this.viewCourseDetail = result.data.data;
             }).catch((err) => {
                 console.error(err);
             });

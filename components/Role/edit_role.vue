@@ -178,6 +178,7 @@ export default {
             this.theUser.permission=this.FinalArray;
         },
         allDis(value,id){
+            document.getElementById(value).checked = false;
             var slides = document.getElementsByClassName(value);
             for(var i = 0; i < slides.length; i++)
             {

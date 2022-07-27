@@ -10,23 +10,17 @@
               <a href="#">MANAGE COURSES</a>
             </li>
             <li class="slds-breadcrumb__item">
-              <a href="#">CREATE A COURSE</a>
+              <a href="#">EDIT A COURSE</a>
             </li>
           </ol>
         </nav>
-        <div class="steps-section mb-30">
-          <ul class="progressbar steps-list-main">
-            <li class="current"><span>Basic Details</span></li>
-            <li><span>Course Details</span></li>
-            <li><span>Course Preview</span></li>
-          </ul>
-        </div>
+        
       </div>
     </div>
     <div class="main-card">
       <div class="create-course">
         <form v-on:submit.prevent="updateCourse">
-          <CreateCource :course-details="courseDetails" :categoryResponseList="categoryResponseList" :subCategoryResponseList="subCategoryResponseList" :instructorList="instructorResponseList"/>
+        <CreateCource :course-details="courseDetails" :categoryResponseList="categoryResponseList" :subCategoryResponseList="subCategoryResponseList" :instructorList="instructorResponseList"/>
           <div class="btn-align-end p-0">
              <FormButton type="submit" buttonName="Update Course"
                                 className="slds-button slds-button_brand btnmain blue-btn ml-10" />
@@ -210,6 +204,7 @@ export default {
 
                 this.subCategoryList(category_id);
             }
+        
             tempObject.category_id=category_id;
             tempObject.sub_category=sub_category;
             

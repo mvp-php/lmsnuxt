@@ -17,7 +17,7 @@
         <div class="steps-section mb-30">
           <ul class="progressbar steps-list-main">
             <li class="current"><span>Basic Details</span></li>
-            <li><span>Course Details</span></li>
+            <li><span>Course Details</span></li> 
             <li><span>Course Preview</span></li>
           </ul>
         </div>
@@ -64,7 +64,8 @@ export default {
 
       courseDetails: {
         intro_video:"",
-        image_name:""
+        image_name:"",
+        instructor_id:""
       },
       categoryResponseList: [],
       subCategoryResponseList:[],
@@ -88,6 +89,9 @@ export default {
       document.getElementById("course_course_requirements_error").textContent = "";
       document.getElementById("course_major_category_error").textContent = "";
       document.getElementById("plan_error").textContent = "";
+      document.getElementById("course_course_thumbnail_error").textContent = "";
+
+      
       var cnt =0;
 
       if(!this.courseDetails.title){
@@ -107,6 +111,10 @@ export default {
         document.getElementById("price_error").textContent = "Enter the course price";
         cnt =1;
       }
+      if(!this.courseDetails.image_name){
+        document.getElementById("course_course_thumbnail_error").textContent = "Select Course Thumbnail";
+        cnt =1;
+      }
       if(!this.courseDetails.payment_plan){
         document.getElementById("plan_error").textContent = "Plan";
       }
@@ -118,8 +126,8 @@ export default {
         CourseService.saveCourse(this.courseDetails)
           .then((result) => {
               localStorage.setItem('sucess_msg',result.data.response_msg);
-          
-              this.$router.push({ path: '/course-management' });
+       
+              this.$router.push({ path: '/course-management/course-details/'+result.data.data[0].id });
           }).catch(error => {
               this.errorMessage = error.response.data.response_msg;
 

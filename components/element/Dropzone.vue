@@ -17,7 +17,7 @@ export default {
         Dropzone
     },
     mounted: function () {
-       setTimeout(() =>this.dropzoeFetch(), 2000);
+       setTimeout(() =>this.dropzoeFetch(), 500);
     },
    
     data() {

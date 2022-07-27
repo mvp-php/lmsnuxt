@@ -69,9 +69,7 @@ export default {
             dangerHide: true,
         };
     },
-    mounted() {
-        console.log(123, 'abc');
-    },
+    
     created() {
         this.getRoleList();
         this.PaymentPlanList();

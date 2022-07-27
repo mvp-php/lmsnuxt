@@ -4,8 +4,8 @@ class CategoryService {
     addCategory(data) {
         return http.post(`/category-save`, data, { headers: authHeader() });
     }
-    getCategoryList(data,currentPage) {
-        return http.get(`/category-list?page=`+currentPage+`&search=`+data, { headers: authHeader() });
+    getCategoryList(data,currentPage,sortBy,sortOrder) {
+        return http.get(`/category-list?page=`+currentPage+`&search=`+data+`&sortBy=`+sortBy+`&sortOrder=`+sortOrder, { headers: authHeader() });
     }
     getEditDetails(id) {
         return http.get(`/get-category/${id}`, { headers: authHeader() });

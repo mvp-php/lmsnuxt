@@ -5,11 +5,11 @@ class CourseService {
         return http.get(`/call-courses-list?page=`+currentPage+`&search=`+data, { headers: authHeader() });
     }
     saveCourse(data) {
-        return http.post(`/add-courses`, data, { headers: authHeader() });
+        return http.post(`/call-add-courses`, data, { headers: authHeader() });
     }
    
     getEditDetails(id) {
-        return http.get(`/call-courses-detail/${id}`, { headers: authHeader() });
+        return http.get(`/call-edit-courses/${id}`, { headers: authHeader() });
     }
     updateCourse(data) {
         return http.post(`/call-update-courses`, data, { headers: authHeader() });
@@ -20,11 +20,8 @@ class CourseService {
     bulkCourseDelete(bulkId){
         return http.post(`/call-bulk-delete-courses/`,{id: bulkId},{ headers: authHeader() });
     }
-
-    getCategoryListNew(){
-        return http.get(`/call-allcategory-list/`,{ headers: authHeader() });
+    viewCourseDetail(id){
+        return http.get(`/call-courses-detail/${id}`, { headers: authHeader() });
     }
-
-    
 }
 export default new CourseService();

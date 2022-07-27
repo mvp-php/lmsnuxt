@@ -9,7 +9,7 @@
                             <div class="slds-form-element__control search-inp-control">
 
                                 <input type="text" id="text-input-id-50" placeHolder="Search category here…"
-                                    class="slds-input search-inp" v-on:keyup="searchText($event)" />
+                                    class="slds-input search-inp" v-on:keyup="search($event)" />
                             </div>
                         </div>
                         <nuxt-link to="/category-management/create-category"
@@ -171,17 +171,22 @@ import Category from '../../components/Category/category.vue';
 import CategoryService from '../../components/Service/CategoryService';
 import successToastrVue from '../../components/element/successToastr.vue';
 import errorToastr from '../../components/element/errorToastr.vue';
-import SubcategoryService from '../../components/Service/SubcategoryService';
+import buttons from '../../components/element/formButton.vue';
 import  ImageComponent  from    '../../components/element/image.vue';
+import moment from 'moment';
 export default {
     layout: 'frontend',
     name: 'category-list',
-
+    props: {
+        final: Array,
+        dones: {default: true, type: Boolean},
+       
+    },
     components: {
         Category,
         successToastrVue,
         errorToastr,
-        ImageComponent
+        ImageComponent,buttons
     },
     data() {
         return {
@@ -200,17 +205,17 @@ export default {
             viewModelData:[],
             categoryData: {},
             deleteFlag:'',
-            multipleDelete:''
+            multipleDelete:'',
+            searchText:'',
+            done:true
         }
     },
     created() {
        this.header = [{ "Key": "", 'column': '' },{ "Key": "Sr No.", 'column': 'id' },{ "Key": "Category Name", 'column': 'title' },{ "Key": "Category Description", 'column': 'description' },{ "Key": "Created On", 'column': 'created_at' },{'Key':'Add Sub Category','column': '' },{ "Key": "Action", 'column': 'created_at' }];
-        this.getAllCatData(1)
+        this.getAllCatData(1,"",'created_at','desc')
         this.successSMG();
     },
-    mounted() {
-
-    },
+   
     methods: {
         successSMG(){
             const ISSERVER = typeof window === "undefined";
@@ -223,9 +228,9 @@ export default {
                 }
             }
         },
-        searchText($event) {
-
-            this.getAllCatData(1, $event.target.value,)
+        search($event) {
+            this.searchText = $event.target.value;
+            this.getAllCatData(1, $event.target.value,'created_at','desc')
         },
         fileUploadSuccessEvent(file, response) {
             console.log(response, "Response");
@@ -254,15 +259,10 @@ export default {
             this.error_hide = false;
             setTimeout(() => this.error_hide = true, 5000);
         },
-        clearModel() {
-            $(this.$ref.newaddcategory).on('hidden.bs.modal', () => {
+        
+        getAllCatData(page = "", value = "",sortBy,sortOrder) {
 
-                this.$ref.category_name.value = null
-            })
-        },
-        getAllCatData(page = "", value = "") {
-
-            CategoryService.getCategoryList(value, page).then(
+            CategoryService.getCategoryList(value, page,sortBy,sortOrder).then(
                 function (response) {
                     var final = [];
                     this.tableData = [];
@@ -273,10 +273,11 @@ export default {
                         temp_array.id = value.id;
                         temp_array.title = value.title;
                         temp_array.description = value.description;
-                        temp_array.created_at = value.created_at;
-                        temp_array.parent_category_id = value.parent_category_id;
+                        temp_array.created_at = moment(value.created_at).format('MM-DD-YYYY');
+                        temp_array.parent_category_id =value.parent_category_id;
                         final.push(temp_array)
                     })
+                    console.log(final)
                     this.tableData = final;
 
                    
@@ -290,7 +291,7 @@ export default {
 
         },
         openViewModel: function (id) {
-            console.log(id);
+        
             CategoryService.getEditDetails(id).then((result) => {
                 this.viewModelData = result.data.data;
             }).catch((err) => {
@@ -319,8 +320,8 @@ export default {
 
         },
         
-        getPaginatesMain: function (currentPage, value) {
-            this.getAllCatData(currentPage, value);
+        getPaginatesMain: function (currentPage, value,sortBy,sortOrder) {
+            this.getAllCatData(currentPage, this.searchText,sortBy,sortOrder);
         },
         userDelete(id) {
             this.$refs.deleteCategoryModel.classList.add("slds-fade-in-open");
@@ -339,7 +340,7 @@ export default {
                     this.successToasterShow();
                    
                     this.closeDeleteModel();
-                    this.getAllCatData(1, "");
+                    this.getAllCatData(1, "",sortBy,sortOrder);
                        
                 }).catch((err) => {
                  
@@ -353,7 +354,7 @@ export default {
                     this.successToasterShow();
                    
                     this.closeDeleteModel();
-                    this.getAllCatData(1, "");
+                    this.getAllCatData(1, "",sortBy,sortOrder);
                 }).catch((err) => {
                    this.errorMessage = err.response.data.response_msg;
                     this.errorToastrShow();
@@ -362,7 +363,7 @@ export default {
            
 
         },
-       
+      
         closeSubCategoryModel() {
             this.$refs.addsubcategory.classList.remove("slds-fade-in-open");
             this.$refs.addsubcategorybackdrop.classList.remove("slds-backdrop_open");

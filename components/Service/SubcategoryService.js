@@ -1,8 +1,8 @@
 import http from "../config/DataService";
 import authHeader from '../config/AuthHeader'
 class SubcategoryService {
-    callSubcategoryList(data,currentPage,parentCategoryId) {
-        return http.get(`/call-subcategory-list?parentCategoryId=`+parentCategoryId+`&page=`+currentPage+`&search=`+data, { headers: authHeader() });
+    callSubcategoryList(data,currentPage,parentCategoryId,sortBy,sortOrder) {
+        return http.get(`/call-subcategory-list?parentCategoryId=`+parentCategoryId+`&page=`+currentPage+`&search=`+data+`&sortBy=`+sortBy+`&sortOrder=`+sortOrder, { headers: authHeader() });
     }
     saveSubCategory(data) {
         return http.post(`/add-sub-category`, data, { headers: authHeader() });

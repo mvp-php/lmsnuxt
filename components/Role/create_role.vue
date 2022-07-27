@@ -19,7 +19,9 @@
     </div>
    
     <div v-for="item in EntitiesList" :key="item.id">
+     
     <div class="slds-form-element check-element-main mb-35" v-for="(value, key,index) in item" :key="value.id">
+        
         <label class="slds-form-element__label custom-label" for="textarea-id-01">{{ key }}
             <span class="require-danger">*</span>
         </label>
@@ -29,7 +31,8 @@
         <div class="check-boxes" >
         
             <div class="slds-form-element  check-element-inner" v-for="operation in value" :key="operation.id">
-                <div class="slds-form-element__control">
+               
+               <div class="slds-form-element__control">
                     <div class="slds-checkbox role-check-main">
                        
                         <input type="checkbox" v-model="theUser.permission"  :id="`${operation.id}`"
@@ -48,13 +51,13 @@
             <div  v-if="key !='Instructor Request Approval'"  class="slds-form-element  check-element-inner">
                 <div class="slds-form-element__control">
                     <div class="slds-checkbox role-check-main">
-                        <input type="checkbox"  :id="`${key}`"  
+                        <input type="checkbox" :id="`${key}`"  
                                             tabindex="0"  className="role-check"
                                             aria-labelledby="check-select-all-label column-group-header"    @click="allChecked(key,index)"/>
                         
                 
                             <label class="slds-checkbox__label" :for="`${key}`" >
-                                <span class="slds-checkbox_faux"></span>
+                                <span class="slds-checkbox_faux" ></span>
                                 <span class="slds-form-element__label">All</span>
                             </label>
                     </div>
@@ -68,7 +71,7 @@
                     <div class="slds-checkbox role-check-main">
                         <input type="checkbox"  :id="`${index}${key}`"  
                                             tabindex="0"  className="role-check"
-                                            aria-labelledby="check-select-all-label column-group-header"    @click="allDis(key,index)"/>
+                                            aria-labelledby="check-select-all-label column-group-header"  @click="allDis(key,index)"/>
                         
                 
                             <label class="slds-checkbox__label" :for="`${index}${key}`" >
@@ -184,7 +187,7 @@ export default {
             this.theUser.permission=this.FinalArray;
         },
         allDis(value,id){
-          
+            document.getElementById(value).checked = false;
             var slides = document.getElementsByClassName(value);
           
             for(var i = 0; i < slides.length; i++)

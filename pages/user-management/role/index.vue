@@ -8,7 +8,7 @@
                         <div class="slds-form-element">
                             <div class="slds-form-element__control search-inp-control">
                                 <input type="text" id="text-input-id-50" placeHolder="Search role here…"
-                                    class="slds-input search-inp" v-on:keyup="searchText($event)" />
+                                    class="slds-input search-inp" v-on:keyup="search($event)" />
 
                             </div>
                         </div>
@@ -131,6 +131,7 @@ import ImageComponent from '../../../components/element/image.vue';
 import ButtonComponent from '../../../components/element/formButton.vue';
 import errorToastr from '../../../components/element/errorToastr.vue';
 import successToastr from '../../../components/element/successToastr.vue';
+import moment from 'moment';
 export default {
     layout: 'frontend',
     name: 'UserList',
@@ -164,7 +165,8 @@ export default {
             paginate: '',
             searchkeyword: '',
             pageCount: '',
-            deleteFlag: ''
+            deleteFlag: '',
+            searchText:''
 
         }
     },
@@ -175,7 +177,7 @@ export default {
         this.header = [{ "Key": "", 'column': '' },{ "Key": "Sr No.", 'column': 'id' },{ "Key": "Role Title", 'column': 'title' },{ "Key": "No of User", 'column': 'no_of_user' },{ "Key": "Created On", 'column': 'created_at' },{ "Key": "Action", 'column': 'created_at' }];
         var value = this.$route.query.search;
         this.successM();
-        this.getRoleList(1, "");
+        this.getRoleList(1, "",'id','desc');
 
 
     },
@@ -194,18 +196,18 @@ export default {
 
 
         },
-        getPaginatesMain: function (currentPage, value) {
-            this.getRoleList(currentPage, value);
+        getPaginatesMain: function (currentPage, value,sortBy,sortOrder) {
+            this.getRoleList(currentPage, this.searchText,sortBy,sortOrder);
         },
 
-        searchText($event) {
-
-            this.getRoleList(1, $event.target.value,)
+        search($event) {
+            this.searchText = $event.target.value;
+            this.getRoleList(1, $event.target.value,'id','desc')
         },
 
-        getRoleList(page = "", value = "") {
+        getRoleList(page = "", value = "",sortBy,sortOrder) {
 
-            roleService.getRoleList(page, value)
+            roleService.getRoleList(page, value,sortBy,sortOrder)
                 .then(async response => {
                     var final = [];
                     this.tableData = [];
@@ -217,7 +219,7 @@ export default {
                         temp_array.title = value.title;
                         temp_array.no_of_user = value.no_of_user;
 
-                        temp_array.created_at = value.created_at;
+                        temp_array.created_at =moment(value.created_at).format('MM-DD-YYYY');;
                         temp_array.is_system_role = value.is_system_role;
                         final.push(temp_array)
                     })
@@ -261,7 +263,7 @@ export default {
                     localStorage.setItem('sucess_msg', result.data.response_msg);
                     this.successMessage = result.data.response_msg;
                     this.successToastrShow();
-                    this.getRoleList(1, "");
+                    this.getRoleList(1, "",'id','desc');
                     this.closeDeleteModel();
                     this.bulk_delete_button = true;
                 }).catch((err) => {
@@ -270,7 +272,7 @@ export default {
                 });
             } else {
                 roleService.bulkRoleDelete(this.multipleDeleteId).then((result) => {
-                    this.getRoleList(1, "");
+                    this.getRoleList(1, "",'id','desc');
                     this.successMessage = result.data.response_msg;
                     this.successToastrShow();
                     this.bulk_delete_button = true;

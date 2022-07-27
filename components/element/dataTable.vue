@@ -7,7 +7,7 @@
             <thead>
                 <tr class="slds-line-height_reset">
 
-                    <th class=" slds-cell_action-mode" scope="col" v-for="(items) in header" :key="items.Key"
+                    <th class=" slds-cell_action-mode" scope="col" v-for="(items,index) in header" :key="index"
                         :style="[items.Key == '' ? { 'width': '3.25rem' } : {}]"
                         v-bind:class="(items.Key == '') ? ' slds-cell_action-mode' : 'slds-is-resizable slds-is-sortable slds-cell_action-mode'">
                         <div v-if="items.Key == ''">
@@ -51,21 +51,21 @@
                 </tr>
             </thead>
             <tbody>
-
+                
                 <tr aria-selected="false" v-if="tableData.length != 0" class="slds-hint-parent"
                     v-for="(item, key) in tableData" :key="item.id">
-       
+                   
                     <td class="slds-cell_action-mode" role="gridcell" v-for="(column, k) in item" 
                         v-bind:class="(column == '') ? 'slds-pl-20 slds-cell_action-mode' : 'slds-cell_action-mode'"
                         v-if="k != 'is_system_role'"    :key="column">
-                         
+                       
                         <div v-if="column === ''">
                             <div class="slds-checkbox cus-check1">
                                 <input type="checkbox" name="options[]" :id="`${item.id}`" :value="`${item.id}`"
                                     tabindex="0" aria-labelledby="check-button-label-01 column-group-header"
                                     class="allselect" @click="Unselect()" />
 
-                                <label class="slds-checkbox__label" :for="`${item.id}`" :id="`${item.mid}`">
+                                <label class="slds-checkbox__label" :for="`${item.id}`" :id="`${item.id}`">
                                     <span class="slds-checkbox_faux"></span>
                                     <span class="slds-form-element__label slds-assistive-text">Select
                                         item 1</span>
@@ -74,17 +74,13 @@
                         </div>
                         <div v-else-if="k == 'id'" class="">
                             {{ ((paginateObjs.current_page - 1) * paginateObjs.per_page) + key + 1 }}
-                        </div>
-
-                        <div v-else-if="k != 'is_system_role' && k != 'created_at' && k != 'parent_category_id'">
-
-                            <div class="slds-truncate" title="4">{{ column }}</div>
-                        </div>
-                        <div v-else-if="k == 'created_at'">
-
-                            <div class="slds-truncate" title="4">{{ convertDate(column) }}</div>
-                        </div>
-
+                    </div>  
+                                     
+                    <div v-else-if="k != 'is_system_role' && k != 'parent_category_id'">
+                        
+                        <div class="slds-truncate" title="4">{{column}}</div>
+                    </div>
+                      
                         <div v-else-if="k == 'parent_category_id'" class="">
                             <a v-on:click="openSubCategoryModel(item.id)" href="javascript:void(0)"
                                 class="btn btn-table-add"> <img src="../../assets/img/svg/plus-add.svg" alt="add-img"
@@ -92,7 +88,7 @@
                         </div>
 
                     </td>
-
+ 
                     <td class="slds-cell_action-mode" role="gridcell">
                         <div class="slds-truncate" v-if="item.is_system_role != '1'">
                             <div class="action-main">
@@ -124,6 +120,10 @@
                             </div>
                         </div>
                     </td>
+                    
+                 
+              
+                    
                 </tr>
 
                 <tr aria-selected="false" v-if="tableData.length == 0" class="slds-hint-parent">
@@ -134,7 +134,7 @@
             </tbody>
         </table>
         
-        <Paginate :paginateObjFinal="paginateObjs" :searchKeyword="searchKeyword" :pageCount="pageCount"  :field="field" :sort="sort"/>
+        <Paginate :paginateObjFinal="paginateObjs" :searchKeyword="searchKeyword" :pageCount="pageCount"  :field="sortBy" :sort="sortOrder"/>
     </div>
 
 </template>
@@ -142,30 +142,39 @@
 <script>
 import Paginate from '../../components/element/Paginate.vue';
 import imageComponent from '../../components/element/image.vue';
-import moment from 'moment';
+import buttonComponent from '../../components/element/formButton.vue';
 export default {
     name: "Data-table",
-    props: ['header', 'tableData', 'no_record_avalible', 'paginateObjs', 'searchKeyword', 'pageCount'],
-
+    
+    props: ['header', 'tableData', 'no_record_avalible', 'paginateObjs','searchKeyword','pageCount'],
+    
     data() {
         return {
             selectedValue: [],
             selectedChecked: [],
-            field:'',
-            sort:'',
+            sortBy:'id',
+            sortOrder:'desc',
             currentPage:'',
-            value:''
+            value:'',
+           
         }
     },
     components: {
         Paginate,
         imageComponent,
-
+        buttonComponent
+    },
+    computed:{
+        htmltest(){
+ return <div></div>;
+}
     },
 
     methods: {
         getPaginates: function (currentPage, value) {
-             this.$parent.getPaginatesNew(currentPage,value);
+            this.currentPage = currentPage;
+            this.value = value;
+             this.$parent.getPaginatesNew(currentPage,value,this.sortBy,this.sortOrder);
         },
         openViewModel(id) {
             this.$parent.viewMethod(id);
@@ -177,9 +186,7 @@ export default {
 
             this.$parent.editMethod(id);
         },
-        convertDate(date) {
-            return moment(date).format('MM-DD-YYYY');
-        },
+        
         checkAll() {
             var slides = document.getElementsByClassName("allselect");
             if (event.target.checked == true) {
@@ -223,10 +230,10 @@ export default {
         openSubCategoryModel(id) {
             this.$parent.getsOpenSubcategoryModel(id);
         },
-        detailViewActive(field,sort){
-            this.field=field;
-            this.sort=sort;
-         console.log(field)
+        detailViewActive(sortBy,sortOrder){
+            this.sortBy=sortBy;
+            this.sortOrder=sortOrder;
+            this.$parent.getPaginatesNew(this.currentPage,this.value,this.sortBy,this.sortOrder);
            
         }
 

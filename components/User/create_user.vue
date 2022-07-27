@@ -227,6 +227,7 @@ export default {
             var valid_from=document.getElementById("valid_from").value;
            var  fDate= moment(valid_from).format('YYYY-MM-DD');
            this.minTil=fDate;
+           this.theUser.valid_from=moment(valid_from).format('MM-DD-YYYY');
 
          },  
         

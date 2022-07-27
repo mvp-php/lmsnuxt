@@ -3,7 +3,7 @@ import authHeader from '../config/AuthHeader';
 class InstructorService {
  
   getInstructorUserList(){
-    return http.get(`/instructor-list`,{ headers: authHeader() });
+    return http.get(`/call-instructor-list`,{ headers: authHeader() });
   }
 }
 export default new InstructorService();
