@@ -76,9 +76,9 @@
                             {{ ((paginateObjs.current_page - 1) * paginateObjs.per_page) + key + 1 }}
                     </div>  
                                      
-                    <div v-else-if="k != 'is_system_role' && k != 'parent_category_id'">
+                    <div v-else-if="k != 'is_system_role'">
                         
-                        <div class="slds-truncate" title="4">{{column}}</div>
+                        <div class="slds-truncate" title="4" v-html="column"></div>
                     </div>
                       
                         <div v-else-if="k == 'parent_category_id'" class="">

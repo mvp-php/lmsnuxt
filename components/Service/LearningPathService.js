@@ -12,5 +12,8 @@ class LearningPathService {
   updateLearningPath(data) {
     return http.post(`/update-learning-path`, data, { headers: authHeader() });
   }
+  getLearningPathList() {
+    return http.get(`/call-learning-path-list`, { headers: authHeader() });
+  }
 }
 export default new LearningPathService();

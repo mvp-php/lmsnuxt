@@ -15,6 +15,7 @@
     "@tinymce/tinymce-vue": "^3.2.8",
     "core-js": "^3.19.3",
     "moment": "^2.29.4",
+ 
     "nuxt": "^2.15.8",
     "nuxt-dropzone": "^1.0.4",
     "vue": "^2.7.7",

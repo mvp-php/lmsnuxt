@@ -39,6 +39,7 @@
         </div>
 
         <div class="user-record-modal">
+            
             <section role="dialog" tabindex="-1" aria-modal="true" aria-labelledby="modal-heading-01"
                 class="slds-modal " id="add-category" ref="addsubcategory">
                 <div class="slds-modal__container addcategory-dialog-modal p-0">

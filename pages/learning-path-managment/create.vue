@@ -14,11 +14,15 @@
                 <form @submit="submitData" method="POST" ref="learning_path_data_submit" enctype="multipart/form-data">
                     <CreateLearningPath :lerning-path-data="lerningPathData" :category-list="categoryList"
                         :sub-category-list="subCategoryList" />
+                   
                     <div class="btn-align-end">
                         <FormButton type="submit" buttonName="Next"
                             className="slds-button slds-button_brand  btnmain blue-btn  ml-10" />
                     </div>
                 </form>
+                 <div id="vishalpatel" v-html="test">
+                       
+                    </div>
             </div>
         </div>
         <span>
@@ -33,6 +37,8 @@ import FormButton from '../../components/element/formButton.vue';
 import LearningPathService from '../../components/Service/LearningPathService.js';
 import ErrorToastr from '../../components/element/errorToastr.vue';
 import CategoryService from '../../components/Service/CategoryService';
+
+
 export default {
     layout: 'frontend',
     components: {
@@ -41,6 +47,7 @@ export default {
         FormButton,
         ErrorToastr
     },
+   
     data() {
         return {
             lerningPathData: {
@@ -62,7 +69,14 @@ export default {
             hidessucces: true,
             successMessage: "",
             dangerHide: true,
+            test:''
         }
+    },
+     mounted(){
+        this.getAllCategoryList();
+     
+      
+        //document.getElementById('vishalpatel').innerHtml=();
     },
     methods: {
         submitData(event) {
@@ -137,8 +151,6 @@ export default {
             });
         },
     },
-    mounted() {
-        this.getAllCategoryList();
-    }
+   
 }
 </script>

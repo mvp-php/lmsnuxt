@@ -95,8 +95,8 @@
                                     <div class="img-section-manage mb-16px">
                                         <div class="img-tag-thumnails">
                                             <span v-if="viewModelData.image_name">
-                                                <ImageComponent :log='`${viewModelData.image_name}`'  />
-                                                
+                                                <ImageComponent :log='`${viewModelData.image_name}`' />
+
                                             </span>
                                             <span v-else>
                                                 <ImageComponent :log='require(`~/assets/img/img-manage.png`)' />
@@ -179,12 +179,12 @@ import buttons from '../../components/element/formButton.vue';
 export default {
     layout: 'frontend',
     name: 'category-list',
-   
+
     components: {
         Category,
         successToastrVue,
         errorToastr,
-        ImageComponent,buttons
+        ImageComponent, buttons
     },
     data() {
         return {
@@ -202,18 +202,18 @@ export default {
             successToastrHide: true,
             viewModelData: [],
             categoryData: {},
-            deleteFlag:'',
-            multipleDelete:'',
-            searchText:'',
-            done:true
+            deleteFlag: '',
+            multipleDelete: '',
+            searchText: '',
+            done: true
         }
     },
     created() {
-       this.header = [{ "Key": "", 'column': '' },{ "Key": "Sr No.", 'column': 'id' },{ "Key": "Category Name", 'column': 'title' },{ "Key": "Category Description", 'column': 'description' },{ "Key": "Created On", 'column': 'created_at' },{'Key':'Add Sub Category','column': '' },{ "Key": "Action", 'column': 'created_at' }];
-        this.getAllCatData(1,"",'created_at','desc')
+        this.header = [{ "Key": "", 'column': '' }, { "Key": "Sr No.", 'column': 'id' }, { "Key": "Category Name", 'column': 'title' }, { "Key": "Category Description", 'column': 'description' }, { "Key": "Created On", 'column': 'created_at' }, { 'Key': 'Add Sub Category', 'column': '' }, { "Key": "Action", 'column': 'created_at' }];
+        this.getAllCatData(1, "", 'created_at', 'desc')
         this.successSMG();
     },
-   
+
     methods: {
         successSMG() {
             const ISSERVER = typeof window === "undefined";
@@ -228,7 +228,7 @@ export default {
         },
         search($event) {
             this.searchText = $event.target.value;
-            this.getAllCatData(1, $event.target.value,'created_at','desc')
+            this.getAllCatData(1, $event.target.value, 'created_at', 'desc')
         },
         fileUploadSuccessEvent(file, response) {
             console.log(response, "Response");
@@ -257,10 +257,10 @@ export default {
             this.error_hide = false;
             setTimeout(() => this.error_hide = true, 5000);
         },
-        
-        getAllCatData(page = "", value = "",sortBy,sortOrder) {
 
-            CategoryService.getCategoryList(value, page,sortBy,sortOrder).then(
+        getAllCatData(page = "", value = "", sortBy, sortOrder) {
+
+            CategoryService.getCategoryList(value, page, sortBy, sortOrder).then(
                 function (response) {
                     var final = [];
                     this.tableData = [];
@@ -272,10 +272,9 @@ export default {
                         temp_array.title = value.title;
                         temp_array.description = value.description;
                         temp_array.created_at = moment(value.created_at).format('MM-DD-YYYY');
-                        temp_array.parent_category_id =value.parent_category_id;
+                        temp_array.parent_category_id = '<a v-on:click="openSubCategoryModel(item.id)" href="javascript:void(0)" class="btn btn-table-add"> <img src="../../assets/img/svg/plus-add.svg" alt="add-img"  class="all-img-add"> add </a>';
                         final.push(temp_array)
                     })
-                    console.log(final)
                     this.tableData = final;
 
 
@@ -289,7 +288,7 @@ export default {
 
         },
         openViewModel: function (id) {
-        
+
             CategoryService.getEditDetails(id).then((result) => {
                 this.viewModelData = result.data.data;
             }).catch((err) => {
@@ -317,9 +316,9 @@ export default {
             });
 
         },
-        
-        getPaginatesMain: function (currentPage, value,sortBy,sortOrder) {
-            this.getAllCatData(currentPage, this.searchText,sortBy,sortOrder);
+
+        getPaginatesMain: function (currentPage, value, sortBy, sortOrder) {
+            this.getAllCatData(currentPage, this.searchText, sortBy, sortOrder);
         },
         userDelete(id) {
             this.$refs.deleteCategoryModel.classList.add("slds-fade-in-open");
@@ -331,19 +330,19 @@ export default {
         },
         deleteCategory() {
             if (this.deleteFlag == 'single') {
-                    CategoryService.deleteCategory(this.DeleteId).then((result) => {
+                CategoryService.deleteCategory(this.DeleteId).then((result) => {
 
-                        localStorage.setItem('sucess_msg', result.data.response_msg);
-                        this.successMessage = result.data.response_msg;
-                        this.successToasterShow();
+                    localStorage.setItem('sucess_msg', result.data.response_msg);
+                    this.successMessage = result.data.response_msg;
+                    this.successToasterShow();
 
-                        this.closeDeleteModel();
+                    this.closeDeleteModel();
 
-                        this.getAllCatData(1, "");
+                    this.getAllCatData(1, "");
 
-                        this.getAllCatData(1, "",sortBy,sortOrder);
-                        this.errorMessage = err.response.data.response_msg;
-                        this.errorToastrShow();
+                    this.getAllCatData(1, "", sortBy, sortOrder);
+                    this.errorMessage = err.response.data.response_msg;
+                    this.errorToastrShow();
                 })
             } else {
                 CategoryService.bulkCategoryDelete(this.multipleDelete).then((result) => {
@@ -352,7 +351,7 @@ export default {
                     this.successToasterShow();
 
                     this.closeDeleteModel();
-                    this.getAllCatData(1, "",sortBy,sortOrder);
+                    this.getAllCatData(1, "", sortBy, sortOrder);
                 }).catch((err) => {
                     this.errorMessage = err.response.data.response_msg;
                     this.errorToastrShow();

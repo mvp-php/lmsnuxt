@@ -229,7 +229,7 @@ export default {
                         
                      
                         temp_array.created_at = value.created_at;
-                        temp_array.status ='1';
+                        temp_array.status ='<button>Test</button>';
                     
                         final.push(temp_array)
                     })
