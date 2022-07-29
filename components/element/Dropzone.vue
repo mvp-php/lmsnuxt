@@ -1,10 +1,11 @@
 <template>
-<dropzone id="foo" ref="el" :options="options" :destroyDropzone="true"  v-if="this.type=='video'"   @vdropzone-success="videoUploadSuccessEvent"></dropzone>
-    <dropzone id="foo" ref="el" :options="options" :destroyDropzone="true" v-else @vdropzone-success="fileUploadSuccessEvent"></dropzone>
-    
+    <dropzone id="foo" ref="el" :options="options" :destroyDropzone="true" v-if="this.type == 'video'"
+        @vdropzone-success="videoUploadSuccessEvent"></dropzone>
+    <dropzone id="foo" ref="el" :options="options" :existingImage="existingImage" :destroyDropzone="true" v-else
+        @vdropzone-success="fileUploadSuccessEvent"></dropzone>
 </template>
 <style>
-.dropzone .dz-preview .dz-image img{
+.dropzone .dz-preview .dz-image img {
     max-width: 200px !important;
 }
 </style>
@@ -12,19 +13,18 @@
 import Dropzone from 'nuxt-dropzone'
 import 'nuxt-dropzone/dropzone.css'
 export default {
-    props: ['fileUploadSuccessEvent','existingImage','type','folder','extension','videoUploadSuccessEvent'],
+    props: ['fileUploadSuccessEvent', 'existingImage', 'type', 'folder', 'extension', 'videoUploadSuccessEvent', 'dropImage'],
     components: {
         Dropzone
     },
     mounted: function () {
-        setTimeout(() => this.dropzoeFetch(), 500);
+        setTimeout(() => this.dropzoeFetch(), 1000);
     },
-   
     data() {
         return {
+            existingImage: '',
             options: {
-                url: process.env.baseUrl + "/dropzone-image-upload?folder="+this.folder,
-
+                url: process.env.baseUrl + "/dropzone-image-upload?folder=" + this.folder,
                 thumbnailWidth: 200,
                 paramName: "image",
                 acceptedFiles: this.extension,
@@ -36,7 +36,6 @@ export default {
                 parallelUploads: 5,
                 headers: { "My-Awesome-Header": "header value" }
             },
-
             loading: {
                 color: 'blue',
                 continuous: true,
@@ -47,23 +46,19 @@ export default {
             },
         }
     },
-   
-   methods:{
-    dropzoeFetch(){
-        if(this.existingImage){
-            console.log(this.existingImage)
-                if(this.existingImage !=null){
+    methods: {
+        dropzoeFetch() {
+            console.log(this.existingImage, "NAYAN")
+            if (this.existingImage) {
+                if (this.existingImage != null) {
                     const instance = this.$refs.el.dropzone;
-            
                     var mockFile = { name: this.existingImage, width: "100" };
                     instance.options.addedfile.call(instance, mockFile);
                     instance.options.thumbnail.call(instance, mockFile, this.existingImage);
                 }
-                
             }
-    }
-     
-   }
+        },
 
+    }
 }
 </script>

@@ -43,7 +43,6 @@
                             'searchreplace visualblocks code fullscreen',
                             'insertdatetime media table paste code help wordcount',
                         ],
-                    
                         toolbar: 'undo redo | formatselect | bold italic backcolor | \alignleft aligncenter alignright alignjustify | \ bullist numlist outdent indent | removeformat | help',
                     }" />
                 <span style="color: red;" id="requirement_error"></span>
@@ -55,10 +54,8 @@
                 Thumbnail" for="textarea-id-01"> </FormLabel>
             <div class="slds-form-element__control custom-grid-control">
                 <div class="position-relative">
-                    <!-- <Dropzone v-bind:fileUploadSuccessEvent="thumbnailUpload" modelname="Dropzone"
-                        v-model="lerningPathData.image_name" /> -->
-
-                    <Dropzone v-bind:fileUploadSuccessEvent="thumbnailUpload" :folder="`learningPathThumbnails`"
+                    <Dropzone v-bind:fileUploadSuccessEvent="thumbnailUpload"
+                        :existingImage="`${lerningPathData.image_name}`" :folder="`learningPathThumbnails`"
                         :type="`image`" :extension="`.png, .jpeg, .jpg, .gif`" modelname="Dropzone"
                         v-model="lerningPathData.image_name" />
                 </div>
@@ -66,13 +63,11 @@
             </div>
         </div>
         <div class="slds-form-element custom-grid  mb-30">
-
             <FormLabel className="slds-form-element__label custom-label" labelName="  Learning
                 Path
                 preview
                 Video" for="textarea-id-01"> </FormLabel>
             <div class="slds-form-element__control custom-grid-control">
-
                 <Dropzone v-bind:fileUploadSuccessEvent="videoUpload" :folder="`learningPathThumbnails`" :type="`video`"
                     :extension="`.MPEG, .AVI, .MKV, .mp4`" modelname="Dropzone" v-model="lerningPathData.intro_video" />
                 <span style="color: red;" id="learning_path_video_error"></span>
@@ -82,10 +77,19 @@
             <FormLabel className="slds-form-element__label custom-label" labelName="  Select
                 major
                 Category" required="true" for="textarea-id-01"> </FormLabel>
+
             <div class="slds-form-element__control custom-grid-control mb-30">
                 <div class="slds-select_container   cus-select-container">
-                    <FormDropdown class="slds-select custom-grid-input" selectName="Category " :options="categoryList"
-                        @onChange="getSubCategory" v-model="lerningPathData.category_id" />
+                    <span v-if="lerningPathData.entity_sub_category_relation">
+                        <FormDropdown class="slds-select custom-grid-input" selectName="Category "
+                            :options="categoryList" @onChange="getSubCategory" v-model="lerningPathData.category_id"
+                            :selected="`${lerningPathData.entity_sub_category_relation.course_sub_categoryrelation[0].category_relation.id}`" />
+                    </span>
+                    <span v-else>
+                        <FormDropdown class="slds-select custom-grid-input" selectName="Category "
+                            :options="categoryList" v-model="lerningPathData.category_id" />
+                    </span>
+
                     <span style="color: red;" id="learning_path_major_category_error"></span>
                 </div>
             </div>
@@ -193,7 +197,6 @@
             </div>
         </div>
     </div>
-
 </template>
 <script>
 import FormTextBoxField from '../element/formTextBoxField.vue';
@@ -203,14 +206,12 @@ import FormCheckboxField from '../element/formCheckbox.vue';
 import FormButton from '../element/formButton.vue';
 import FormLabel from '../element/formLabel.vue';
 import Editor from "@tinymce/tinymce-vue";
-import ErrorToastr from '../element/errorToastr.vue'; 
+import ErrorToastr from '../element/errorToastr.vue';
 import Dropzone from '../element/Dropzone.vue';
 import SubCategoryService from '../Service/SubCategoryService';
-
-
 export default {
     name: 'create-role',
-    props: ['lerningPathData', 'categoryList', 'subCategoryList'],
+    props: ['lerningPathData', 'categoryList', 'subCategoryList', 'dropImage'],
     components: {
         FormTextBoxField,
         FormTextareaField,
@@ -224,7 +225,6 @@ export default {
     },
     data() {
         return {
-
         }
     },
     methods: {
@@ -235,13 +235,10 @@ export default {
             this.lerningPathData.image_name = response;
         },
         getSubCategory(selected) {
-
-
             SubCategoryService.getEditSubCategory(selected.value).then((result) => {
                 this.subCategoryList = result.data.data;
                 this.lerningPathData.category_id = selected.value;
                 console.log(result.data.data, "NAYAN");
-
             }).catch((err) => {
                 console.error(err);
             });
@@ -250,6 +247,5 @@ export default {
             this.lerningPathData.learning_path_sub_category = selected.value;
         },
     }
-
 }
 </script>

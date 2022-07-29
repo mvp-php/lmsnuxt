@@ -4,10 +4,10 @@
             Learning Path</p>
         <div class="main-card">
             <div class="role-main learn-path-uper-gap">
-                <button class="mb-18 back-text">
-                    <ImageComponent :log="require('~/assets/img/svg/arrow-left.svg')" className="classObj" />
+                  <div class="mb-18 back-text">
+                    <ImageComponent :log="require('~/assets/img/svg/arrow-left.svg')" :className="classObj" />
                     <nuxt-link to="/learning-path-managment"><span>BACK </span></nuxt-link>
-                </button>
+                </div>
                 <div class="blue-text mb-20">
                     Create Learning Path
                 </div>
@@ -62,6 +62,7 @@ export default {
                 price: '',
                 learning_path_instructor_name: '',
             },
+             classObj: 'arrow-left',
             categoryList: [],
             subCategoryList: [],
             errorMessage: "",

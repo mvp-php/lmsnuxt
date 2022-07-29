@@ -249,7 +249,6 @@ export default {
             tableData: [],
             no_record_avalible: "",
             viewDetails: [],
-       
             bulk_delete_button: true,
             errorMessage: "",
             errorToastrHide: true,

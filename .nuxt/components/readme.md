@@ -42,6 +42,7 @@ You can directly use them in pages and other components without the need to impo
 - `<IncludeSidebar>` | `<include-sidebar>` (components/Include/Sidebar.vue)
 - `<LearningPathManagmentCreate>` | `<learning-path-managment-create>` (components/LearningPathManagment/create.vue)
 - `<LearningPathList>` | `<learning-path-list>` (components/LearningPathManagment/learningPathList.vue)
+- `<LearningPathManagmentViewLearning>` | `<learning-path-managment-view-learning>` (components/LearningPathManagment/viewLearning.vue)
 - `<Profile>` | `<profile>` (components/Profile/profile.vue)
 - `<ProfileUpdatePassword>` | `<profile-update-password>` (components/Profile/update_password.vue)
 - `<ResetPassword>` | `<reset-password>` (components/ResetPassword/resetPassword.vue)

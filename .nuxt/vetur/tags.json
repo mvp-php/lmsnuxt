@@ -107,6 +107,9 @@
   "LearningPathList": {
     "description": "Auto imported from components/LearningPathManagment/learningPathList.vue"
   },
+  "LearningPathManagmentViewLearning": {
+    "description": "Auto imported from components/LearningPathManagment/viewLearning.vue"
+  },
   "Profile": {
     "description": "Auto imported from components/Profile/profile.vue"
   },

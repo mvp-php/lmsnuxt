@@ -1,19 +1,15 @@
 <template>
-
     <span class="slds-category-table">
-
         <dataTable :header="header" :tableData="tableData" :no_record_avalible="no_record_avalible"
             :paginateObjs="paginateObj" url="/user-management/role" :searchKeyword="searchkeyword"
             :pageCount="pageCount" />
     </span>
-
 </template>
-
 <script>
 import dataTable from '../element/dataTable.vue';
 export default {
     name: 'role-list',
-    props: ['header', 'tableData', 'no_record_avalible', 'openViewModel', 'paginateObj', 'searchkeyword', 'pageCount'],
+    props: ['header', 'tableData', 'no_record_avalible', 'openViewModel', 'openEditPage', 'learnigPathDelete', 'paginateObj', 'searchkeyword', 'pageCount'],
     components: {
         dataTable
     },
@@ -25,10 +21,10 @@ export default {
             this.$parent.openViewModel(id);
         },
         deleteMethod: function (id) {
-            this.$parent.userDelete(id);
+            this.$parent.learnigPathDelete(id);
         },
         editMethod: function (id) {
-            this.$parent.userEdit(id);
+            this.$parent.openEditPage(id);
         },
         bulkDeleted: function (keyDelete) {
             this.$parent.bulkDeleteds(keyDelete);
@@ -36,11 +32,7 @@ export default {
         getsOpenSubcategoryModel: function (id) {
             console.log(id);
             this.$parent.mainOpenMainSubCategory(id);
-        },
-        editMethod: function (id) {
-            this.$parent.viewEditPage(id);
         }
     }
-
 }
 </script>

@@ -15,5 +15,8 @@ class LearningPathService {
   getLearningPathList() {
     return http.get(`/call-learning-path-list`, { headers: authHeader() });
   }
+  deleteLearningPath(id) {
+    return http.post(`/delete-learning-path/`,{id: id,},{ headers: authHeader() });
+  }
 }
 export default new LearningPathService();

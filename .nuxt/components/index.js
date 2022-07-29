@@ -34,6 +34,7 @@ export { default as IncludeHeader } from '../..\\components\\Include\\Header.vue
 export { default as IncludeSidebar } from '../..\\components\\Include\\Sidebar.vue'
 export { default as LearningPathManagmentCreate } from '../..\\components\\LearningPathManagment\\create.vue'
 export { default as LearningPathList } from '../..\\components\\LearningPathManagment\\learningPathList.vue'
+export { default as LearningPathManagmentViewLearning } from '../..\\components\\LearningPathManagment\\viewLearning.vue'
 export { default as Profile } from '../..\\components\\Profile\\profile.vue'
 export { default as ProfileUpdatePassword } from '../..\\components\\Profile\\update_password.vue'
 export { default as ResetPassword } from '../..\\components\\ResetPassword\\resetPassword.vue'

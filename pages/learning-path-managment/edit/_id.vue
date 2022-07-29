@@ -4,10 +4,10 @@
             Learning Path</p>
         <div class="main-card">
             <div class="role-main learn-path-uper-gap">
-                <button class="mb-18 back-text">
-                    <ImageComponent :log="require('~/assets/img/svg/arrow-left.svg')" className="classObj" />
+                <div class="mb-18 back-text">
+                    <ImageComponent :log="require('~/assets/img/svg/arrow-left.svg')" :className="classObj" />
                     <nuxt-link to="/learning-path-managment"><span>BACK </span></nuxt-link>
-                </button>
+                </div>
                 <div class="blue-text mb-20">
                     Edit Learning Path
                 </div>
@@ -59,32 +59,26 @@ export default {
     mounted() {
         this.getLearningPathData();
         this.getAllCategoryList();
+        this.getSubCategoryDatById();
     },
     data() {
         return {
-
             subCategoryList: [],
             categoryList: [],
             lerningPathData: {},
+            classObj: 'arrow-left',
             errorMessage: "",
             hides: true,
             hidessucces: true,
             successMessage: "",
             dangerHide: true,
+            categoryId: '',
         }
     },
 
     methods: {
-        // videoUpload(file, response) {
-        //     this.lerningPathData.intro_video = response;
-        // },
-        // thumbnailUpload(file, response) {
-        //     this.lerningPathData.image_name = response;
-        // },
         updateData(event) {
-            console.log("NAYAN RAVAL", this.lerningPathData);
             var cnt = 0;
-            console.log(this.lerningPathData, "Data");
             document.getElementById("requirement_error").textContent = "";
             if (!this.lerningPathData.requirement) {
                 document.getElementById("requirement_error").textContent = "Enter the learning requirements title";
@@ -108,10 +102,11 @@ export default {
             LearningPathService.getEditDetails(this.$route.params.id)
                 .then((result) => {
                     this.lerningPathData = result.data.data;
-                    console.log(this.lerningPathData, "Learning");
+                    this.categoryId = result.data.data.entity_sub_category_relation.course_sub_categoryrelation[0].category_relation.id;
+                    console.log(this.categoryId, "MainCat_id");
                 }).catch(error => {
-                    // this.errorMessage = error.response.data.data.response_msg;
-                    // this.dangerToasterShow();
+                    this.errorMessage = error.response.data.data.response_msg;
+                    this.dangerToasterShow();
                 })
         },
         dangerToasterShow() {
@@ -131,11 +126,21 @@ export default {
         ChangeCategory(e) {
             SubCategoryService.getEditSubCategory(e.target.value).then((result) => {
                 this.subCategoryList = result.data.data;
-                console.log(result.data.data, "NAYAN");
             }).catch((err) => {
                 console.error(err);
             });
         },
+        getSubCategoryDatById() {
+            console.log(this.categoryId, 'this.categoryId')
+            if (this.categoryId) {
+                SubCategoryService.getEditSubCategory(1).then((result) => {
+                    this.editSubCategoryList = result.data.data;
+                    console.log(result.data.data, "dsadsad");
+                }).catch((err) => {
+                    console.error(err);
+                });
+            }
+        }
     },
 
 }
